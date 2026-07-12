@@ -115,6 +115,6 @@
   background-image:
     linear-gradient(to right, oklch(0.2 0.02 250 / 0.05) 1px, transparent 1px),
     linear-gradient(to bottom, oklch(0.2 0.02 250 / 0.05) 1px, transparent 1px);
-    linear-gradient(to bottom, oklch(1 0 0 / 0.05) 1px, transparent 1px);
+    
   background-size: 48px 48px;
 }
