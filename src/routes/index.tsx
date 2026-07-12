@@ -52,38 +52,39 @@ function Hero() {
   const [tracking, setTracking] = useState("");
 
   return (
-    <section className="relative overflow-hidden">
-      <div className="pointer-events-none absolute inset-0 grid-lines opacity-40" />
+    <section className="relative overflow-hidden bg-brand">
+      <div className="pointer-events-none absolute inset-0 grid-lines opacity-30" />
       <div className="container-x relative grid gap-12 pb-16 pt-16 md:pt-24 lg:grid-cols-[1.15fr_1fr] lg:gap-16 lg:pb-24">
-        <div className="flex flex-col justify-center">
-          <span className="inline-flex w-fit items-center gap-2 rounded-full border border-border bg-surface/60 px-3 py-1 text-xs font-medium text-muted-foreground">
-            <span className="h-1.5 w-1.5 rounded-full bg-brand" />
+        <div className="flex flex-col justify-center text-brand-foreground">
+          <span className="inline-flex w-fit items-center gap-2 rounded-full border border-brand-foreground/20 bg-brand-foreground/5 px-3 py-1 text-xs font-semibold uppercase tracking-wider">
+            <span className="h-1.5 w-1.5 rounded-full bg-accent" />
             Now delivering to 220+ countries
           </span>
-          <h1 className="mt-5 font-display text-5xl font-bold leading-[1.05] tracking-tight md:text-6xl lg:text-7xl">
+          <h1 className="mt-5 font-display text-5xl font-bold leading-[1.02] tracking-tight md:text-6xl lg:text-7xl">
             Logistics that keeps
             <br />
-            <span className="text-brand">your world moving.</span>
+            your world <span className="text-accent">moving.</span>
           </h1>
-          <p className="mt-5 max-w-xl text-lg text-muted-foreground">
+          <p className="mt-5 max-w-xl text-lg text-brand-foreground/80">
             Book a pickup, get a quote, and track every parcel — from a corner store shipment to
             transcontinental freight — in one place.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
               to="/quote"
-              className="inline-flex items-center gap-2 rounded-md bg-brand px-5 py-3 text-sm font-semibold text-brand-foreground transition hover:opacity-90"
+              className="inline-flex items-center gap-2 rounded-md bg-accent px-5 py-3 text-sm font-semibold text-accent-foreground transition hover:opacity-90"
             >
               Get an instant quote <ArrowRight className="h-4 w-4" />
             </Link>
             <Link
               to="/services"
-              className="inline-flex items-center gap-2 rounded-md border border-border bg-surface/60 px-5 py-3 text-sm font-medium hover:bg-surface"
+              className="inline-flex items-center gap-2 rounded-md border border-brand-foreground/30 bg-brand-foreground/5 px-5 py-3 text-sm font-medium hover:bg-brand-foreground/10"
             >
               Explore services
             </Link>
           </div>
         </div>
+
 
         {/* Action card */}
         <div className="relative">
