@@ -17,11 +17,12 @@ export function SiteHeader() {
     <header className="sticky top-0 z-40 border-b border-border/60 bg-background/70 backdrop-blur-xl">
       <div className="container-x flex h-16 items-center justify-between gap-6">
         <Link to="/" className="flex items-center gap-2 font-display text-lg font-bold tracking-tight">
-          <span className="grid h-8 w-8 place-items-center rounded-lg bg-brand text-brand-foreground">
-            <Package className="h-4 w-4" strokeWidth={2.5} />
+          <span className="grid h-8 w-8 place-items-center rounded-sm bg-brand text-accent">
+            <Package className="h-4 w-4" strokeWidth={2.75} />
           </span>
           <span>Voltra</span>
         </Link>
+
 
         <nav className="hidden items-center gap-1 md:flex">
           {nav.map((n) => (
