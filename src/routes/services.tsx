@@ -66,10 +66,10 @@ function ServicesPage() {
             Tell us what you're shipping and where — we'll recommend the right service and price.
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
-            <Link to="/quote" className="rounded-md bg-brand px-5 py-3 text-sm font-semibold text-brand-foreground hover:opacity-90">
+            <Link to="/quote" className="rounded-sm bg-accent px-5 py-3 text-sm font-bold uppercase tracking-wider text-accent-foreground hover:opacity-90">
               Get a quote
             </Link>
-            <Link to="/contact" className="rounded-md border border-border px-5 py-3 text-sm font-medium hover:bg-surface">
+            <Link to="/contact" className="rounded-sm border border-border px-5 py-3 text-sm font-semibold hover:bg-surface">
               Talk to an expert
             </Link>
           </div>

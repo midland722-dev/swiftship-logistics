@@ -28,13 +28,13 @@ function NotFoundComponent() {
           <div className="mt-6 flex justify-center gap-2">
             <Link
               to="/"
-              className="rounded-md bg-brand px-4 py-2 text-sm font-semibold text-brand-foreground hover:opacity-90"
+              className="rounded-sm bg-accent px-4 py-2 text-sm font-bold uppercase tracking-wider text-accent-foreground hover:opacity-90"
             >
               Go home
             </Link>
             <Link
               to="/track"
-              className="rounded-md border border-border px-4 py-2 text-sm font-medium hover:bg-surface"
+              className="rounded-sm border border-border px-4 py-2 text-sm font-semibold hover:bg-surface"
             >
               Track a shipment
             </Link>
@@ -66,11 +66,11 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
               router.invalidate();
               reset();
             }}
-            className="rounded-md bg-brand px-4 py-2 text-sm font-semibold text-brand-foreground hover:opacity-90"
+            className="rounded-sm bg-accent px-4 py-2 text-sm font-bold uppercase tracking-wider text-accent-foreground hover:opacity-90"
           >
             Try again
           </button>
-          <a href="/" className="rounded-md border border-border px-4 py-2 text-sm font-medium hover:bg-surface">
+          <a href="/" className="rounded-sm border border-border px-4 py-2 text-sm font-semibold hover:bg-surface">
             Go home
           </a>
         </div>

@@ -126,10 +126,10 @@ function QuotePage() {
               ))}
             </ul>
 
-            <button className="mt-6 w-full rounded-md bg-brand py-3 text-sm font-semibold text-brand-foreground hover:opacity-90">
+            <button className="mt-6 w-full rounded-sm bg-accent py-3 text-sm font-bold uppercase tracking-wider text-accent-foreground hover:opacity-90">
               Book this shipment
             </button>
-            <button className="mt-2 w-full rounded-md border border-border py-3 text-sm hover:bg-surface">
+            <button className="mt-2 w-full rounded-sm border border-border py-3 text-sm font-semibold hover:bg-surface">
               Save quote
             </button>
           </div>
