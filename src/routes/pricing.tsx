@@ -85,9 +85,9 @@ function PricingPage() {
             </ul>
             <Link
               to={t.to}
-              className={`mt-8 rounded-md py-3 text-center text-sm font-semibold ${
+              className={`mt-8 rounded-sm py-3 text-center text-sm font-bold uppercase tracking-wider ${
                 t.highlight
-                  ? "bg-brand text-brand-foreground hover:opacity-90"
+                  ? "bg-accent text-accent-foreground hover:opacity-90"
                   : "border border-border hover:bg-surface"
               }`}
             >

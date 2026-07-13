@@ -69,7 +69,7 @@ function TrackPage() {
           placeholder="Enter tracking number, e.g. VLT-4820193"
           className="flex-1 rounded-lg border border-border bg-background px-4 py-3 text-sm outline-none placeholder:text-muted-foreground/70 focus:border-brand"
         />
-        <button className="rounded-lg bg-brand px-6 py-3 text-sm font-semibold text-brand-foreground hover:opacity-90">
+        <button className="rounded-sm bg-accent px-6 py-3 text-sm font-bold uppercase tracking-wider text-accent-foreground hover:opacity-90">
           Track
         </button>
       </form>

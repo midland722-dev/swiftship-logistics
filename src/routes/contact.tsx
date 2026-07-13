@@ -54,7 +54,7 @@ function ContactPage() {
               className="mt-2 w-full rounded-lg border border-border bg-background px-3 py-2.5 text-sm outline-none focus:border-brand"
             />
           </label>
-          <button className="mt-6 w-full rounded-md bg-brand py-3 text-sm font-semibold text-brand-foreground hover:opacity-90 md:w-auto md:px-8">
+          <button className="mt-6 w-full rounded-sm bg-accent py-3 text-sm font-bold uppercase tracking-wider text-accent-foreground hover:opacity-90 md:w-auto md:px-8">
             Send message
           </button>
           <p className="mt-3 text-xs text-muted-foreground">We reply within one business hour.</p>
