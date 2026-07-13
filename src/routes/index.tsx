@@ -8,7 +8,7 @@ import {
   Ship,
   Warehouse,
   Package,
-  Package,
+  Warehouse,
   FileText,
   Building2,
   Leaf,
