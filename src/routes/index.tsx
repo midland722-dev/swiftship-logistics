@@ -15,6 +15,12 @@ import {
   Lightbulb,
   Newspaper,
 } from "lucide-react";
+import heroCourier from "@/assets/hero-courier.jpg";
+import expressHandoff from "@/assets/express-handoff.jpg";
+import cargoPort from "@/assets/cargo-port.jpg";
+import sustainabilityVan from "@/assets/sustainability-van.jpg";
+import innovationData from "@/assets/innovation-data.jpg";
+import globalPlanes from "@/assets/global-planes.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
