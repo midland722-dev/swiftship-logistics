@@ -8,13 +8,18 @@ import {
   Ship,
   Warehouse,
   Package,
-  Globe2,
   FileText,
   Building2,
   Leaf,
   Lightbulb,
   Newspaper,
 } from "lucide-react";
+import heroCourier from "@/assets/hero-courier.jpg";
+import expressHandoff from "@/assets/express-handoff.jpg";
+import cargoPort from "@/assets/cargo-port.jpg";
+import sustainabilityVan from "@/assets/sustainability-van.jpg";
+import innovationData from "@/assets/innovation-data.jpg";
+import globalPlanes from "@/assets/global-planes.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -54,10 +59,18 @@ function Hero() {
 
   return (
     <section className="relative overflow-hidden bg-brand">
-      <div className="pointer-events-none absolute inset-0 grid-lines opacity-40" />
+      <img
+        src={heroCourier}
+        alt=""
+        width={1600}
+        height={900}
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-70 mix-blend-multiply"
+      />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-brand via-brand/85 to-brand/30" />
+      <div className="pointer-events-none absolute inset-0 grid-lines opacity-30" />
       <div className="container-x relative grid gap-10 pb-14 pt-14 md:pt-20 lg:grid-cols-[1.2fr_1fr] lg:gap-12 lg:pb-20">
         <div className="flex flex-col justify-center text-brand-foreground">
-          <span className="inline-flex w-fit items-center gap-2 rounded-sm border border-brand-foreground/20 bg-brand-foreground/5 px-3 py-1 text-xs font-bold uppercase tracking-widest">
+          <span className="inline-flex w-fit items-center gap-2 rounded-sm border border-brand-foreground/20 bg-brand-foreground/10 px-3 py-1 text-xs font-bold uppercase tracking-widest backdrop-blur">
             <span className="h-1.5 w-1.5 rounded-full bg-accent" />
             Global network · 220+ countries
           </span>
@@ -188,8 +201,8 @@ function Bulletin() {
             Explore our solutions <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
-        <div className="hidden h-full min-h-[180px] items-center justify-center rounded-sm border border-border bg-brand/30 md:flex">
-          <Globe2 className="h-24 w-24 text-brand-foreground/60" strokeWidth={1.25} />
+        <div className="relative hidden overflow-hidden rounded-sm border border-border md:block">
+          <img src={sustainabilityVan} alt="Voltra delivery driver in a yellow van" width={1000} height={800} loading="lazy" className="h-full w-full object-cover" />
         </div>
       </div>
     </section>
@@ -210,7 +223,11 @@ function Divisions() {
         Learn about Voltra Express — the undisputed global leader in international express shipping.
       </p>
 
-      <div className="mt-10 grid gap-6 md:grid-cols-2">
+      <div className="mt-10 grid gap-6 md:grid-cols-3">
+        <div className="relative overflow-hidden rounded-sm border border-border md:col-span-1">
+          <img src={expressHandoff} alt="Voltra Express package handoff" width={1200} height={900} loading="lazy" className="h-full w-full object-cover" />
+        </div>
+
         <div className="flex flex-col gap-5 rounded-sm border border-border bg-surface p-8">
           <div className="grid h-12 w-12 place-items-center rounded-sm bg-brand text-brand-foreground">
             <Plane className="h-6 w-6" strokeWidth={2.5} />
@@ -271,6 +288,8 @@ function BusinessSplit() {
       tag: "Retailer or Volume Shipping",
       title: "Business only.",
       desc: "Two divisions offering reliable business shipping for e-commerce, supplier and manufacturing.",
+      image: expressHandoff,
+      alt: "Business shipping partners exchanging a parcel",
       items: [
         { icon: Truck, title: "Voltra eCommerce", desc: "Domestic and international residential delivery and returns." },
         { icon: Plane, title: "Voltra Express", desc: "Fast, door-to-door, courier delivered to 220+ countries." },
@@ -280,6 +299,8 @@ function BusinessSplit() {
       tag: "Cargo Shipping",
       title: "Global Forwarding.",
       desc: "Discover shipping and logistics service options from Voltra Global Forwarding.",
+      image: cargoPort,
+      alt: "Freight workers at a cargo shipping port",
       items: [
         { icon: Plane, title: "Air Freight", desc: "Charter, consolidated and time-critical air cargo." },
         { icon: Ship, title: "Ocean Freight", desc: "FCL, LCL, and specialised container services." },
@@ -289,6 +310,8 @@ function BusinessSplit() {
       tag: "Enterprise Logistics Services",
       title: "Voltra Supply Chain.",
       desc: "Find out how Voltra Supply Chain can revolutionize your business as a 3PL provider.",
+      image: heroCourier,
+      alt: "Warehouse operations",
       items: [
         { icon: Warehouse, title: "Warehousing", desc: "Flexible storage, pick, pack, and kitting." },
         { icon: Truck, title: "Transport & Packaging", desc: "Distribution, service logistics and more." },
@@ -302,31 +325,36 @@ function BusinessSplit() {
         {rows.map((row, idx) => (
           <div
             key={row.tag}
-            className={`grid gap-8 rounded-sm border border-border bg-background p-8 md:p-10 lg:grid-cols-[1fr_1.2fr] ${
+            className={`grid overflow-hidden rounded-sm border border-border bg-background lg:grid-cols-2 ${
               idx % 2 === 1 ? "lg:grid-flow-dense" : ""
             }`}
           >
-            <div className={idx % 2 === 1 ? "lg:col-start-2" : ""}>
+            <div className={`relative min-h-[240px] ${idx % 2 === 1 ? "lg:col-start-2" : ""}`}>
+              <img src={row.image} alt={row.alt} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+            </div>
+            <div className="p-8 md:p-10">
               <p className="font-mono text-xs font-bold uppercase tracking-widest text-accent">
                 {row.tag}
               </p>
               <h3 className="mt-2 font-display text-2xl font-bold md:text-3xl">{row.title}</h3>
               <p className="mt-3 max-w-md text-muted-foreground">{row.desc}</p>
+
+              <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                {row.items.map(({ icon: Icon, title, desc }) => (
+                  <div key={title} className="rounded-sm border-l-4 border-brand bg-surface p-4">
+                    <Icon className="h-5 w-5 text-accent" strokeWidth={2} />
+                    <div className="mt-2 font-display text-base font-bold">{title}</div>
+                    <p className="mt-1 text-xs text-muted-foreground">{desc}</p>
+                  </div>
+                ))}
+              </div>
+
               <Link
                 to="/services"
                 className="mt-6 inline-flex items-center gap-2 rounded-sm bg-accent px-5 py-3 text-sm font-bold uppercase tracking-wider text-accent-foreground hover:opacity-90"
               >
                 Explore <ArrowRight className="h-4 w-4" />
               </Link>
-            </div>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {row.items.map(({ icon: Icon, title, desc }) => (
-                <div key={title} className="rounded-sm border-l-4 border-brand bg-surface p-5">
-                  <Icon className="h-6 w-6 text-accent" strokeWidth={2} />
-                  <div className="mt-3 font-display text-lg font-bold">{title}</div>
-                  <p className="mt-1 text-sm text-muted-foreground">{desc}</p>
-                </div>
-              ))}
             </div>
           </div>
         ))}
@@ -377,35 +405,46 @@ function Highlights() {
       icon: Leaf,
       title: "Sustainability",
       desc: "Low-carbon supply chains, GoGreen Plus, and net-zero operations by 2050.",
+      image: sustainabilityVan,
+      alt: "Voltra electric delivery van driver",
     },
     {
       icon: Lightbulb,
       title: "Innovation",
       desc: "Customer-centric innovation, trend research and next-generation solutions.",
+      image: innovationData,
+      alt: "Global data connectivity visualization",
     },
     {
       icon: Newspaper,
       title: "Global Connectedness",
       desc: "The Voltra 2026 report — the most comprehensive view of globalization available.",
+      image: globalPlanes,
+      alt: "Cargo planes at sunrise",
     },
   ];
   return (
     <section className="container-x pb-24">
       <div className="grid gap-6 md:grid-cols-3">
-        {tiles.map(({ icon: Icon, title, desc }) => (
+        {tiles.map(({ icon: Icon, title, desc, image, alt }) => (
           <a
             key={title}
             href="#"
-            className="group flex flex-col rounded-sm border border-border bg-background p-8 transition hover:border-accent"
+            className="group flex flex-col overflow-hidden rounded-sm border border-border bg-background transition hover:border-accent"
           >
-            <div className="grid h-12 w-12 place-items-center rounded-sm bg-brand text-brand-foreground">
-              <Icon className="h-5 w-5" strokeWidth={2.5} />
+            <div className="relative aspect-[4/3] overflow-hidden">
+              <img src={image} alt={alt} loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+              <div className="absolute left-4 top-4 grid h-10 w-10 place-items-center rounded-sm bg-brand text-brand-foreground shadow-md">
+                <Icon className="h-4 w-4" strokeWidth={2.5} />
+              </div>
             </div>
-            <h3 className="mt-6 font-display text-xl font-bold">{title}</h3>
-            <p className="mt-2 flex-1 text-sm text-muted-foreground">{desc}</p>
-            <span className="mt-6 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-accent">
-              Learn more <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
-            </span>
+            <div className="flex flex-1 flex-col p-6">
+              <h3 className="font-display text-xl font-bold">{title}</h3>
+              <p className="mt-2 flex-1 text-sm text-muted-foreground">{desc}</p>
+              <span className="mt-6 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-accent">
+                Learn more <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+              </span>
+            </div>
           </a>
         ))}
       </div>
