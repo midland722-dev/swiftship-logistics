@@ -202,8 +202,8 @@ function Bulletin() {
             Explore our solutions <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
-        <div className="hidden h-full min-h-[180px] items-center justify-center rounded-sm border border-border bg-brand/30 md:flex">
-          <Globe2 className="h-24 w-24 text-brand-foreground/60" strokeWidth={1.25} />
+        <div className="relative hidden overflow-hidden rounded-sm border border-border md:block">
+          <img src={sustainabilityVan} alt="Voltra delivery driver in a yellow van" width={1000} height={800} loading="lazy" className="h-full w-full object-cover" />
         </div>
       </div>
     </section>
