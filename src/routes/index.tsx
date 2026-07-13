@@ -406,35 +406,46 @@ function Highlights() {
       icon: Leaf,
       title: "Sustainability",
       desc: "Low-carbon supply chains, GoGreen Plus, and net-zero operations by 2050.",
+      image: sustainabilityVan,
+      alt: "Voltra electric delivery van driver",
     },
     {
       icon: Lightbulb,
       title: "Innovation",
       desc: "Customer-centric innovation, trend research and next-generation solutions.",
+      image: innovationData,
+      alt: "Global data connectivity visualization",
     },
     {
       icon: Newspaper,
       title: "Global Connectedness",
       desc: "The Voltra 2026 report — the most comprehensive view of globalization available.",
+      image: globalPlanes,
+      alt: "Cargo planes at sunrise",
     },
   ];
   return (
     <section className="container-x pb-24">
       <div className="grid gap-6 md:grid-cols-3">
-        {tiles.map(({ icon: Icon, title, desc }) => (
+        {tiles.map(({ icon: Icon, title, desc, image, alt }) => (
           <a
             key={title}
             href="#"
-            className="group flex flex-col rounded-sm border border-border bg-background p-8 transition hover:border-accent"
+            className="group flex flex-col overflow-hidden rounded-sm border border-border bg-background transition hover:border-accent"
           >
-            <div className="grid h-12 w-12 place-items-center rounded-sm bg-brand text-brand-foreground">
-              <Icon className="h-5 w-5" strokeWidth={2.5} />
+            <div className="relative aspect-[4/3] overflow-hidden">
+              <img src={image} alt={alt} loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+              <div className="absolute left-4 top-4 grid h-10 w-10 place-items-center rounded-sm bg-brand text-brand-foreground shadow-md">
+                <Icon className="h-4 w-4" strokeWidth={2.5} />
+              </div>
             </div>
-            <h3 className="mt-6 font-display text-xl font-bold">{title}</h3>
-            <p className="mt-2 flex-1 text-sm text-muted-foreground">{desc}</p>
-            <span className="mt-6 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-accent">
-              Learn more <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
-            </span>
+            <div className="flex flex-1 flex-col p-6">
+              <h3 className="font-display text-xl font-bold">{title}</h3>
+              <p className="mt-2 flex-1 text-sm text-muted-foreground">{desc}</p>
+              <span className="mt-6 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-accent">
+                Learn more <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+              </span>
+            </div>
           </a>
         ))}
       </div>
