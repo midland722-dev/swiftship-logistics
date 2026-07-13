@@ -289,6 +289,8 @@ function BusinessSplit() {
       tag: "Retailer or Volume Shipping",
       title: "Business only.",
       desc: "Two divisions offering reliable business shipping for e-commerce, supplier and manufacturing.",
+      image: expressHandoff,
+      alt: "Business shipping partners exchanging a parcel",
       items: [
         { icon: Truck, title: "Voltra eCommerce", desc: "Domestic and international residential delivery and returns." },
         { icon: Plane, title: "Voltra Express", desc: "Fast, door-to-door, courier delivered to 220+ countries." },
@@ -298,6 +300,8 @@ function BusinessSplit() {
       tag: "Cargo Shipping",
       title: "Global Forwarding.",
       desc: "Discover shipping and logistics service options from Voltra Global Forwarding.",
+      image: cargoPort,
+      alt: "Freight workers at a cargo shipping port",
       items: [
         { icon: Plane, title: "Air Freight", desc: "Charter, consolidated and time-critical air cargo." },
         { icon: Ship, title: "Ocean Freight", desc: "FCL, LCL, and specialised container services." },
@@ -307,6 +311,8 @@ function BusinessSplit() {
       tag: "Enterprise Logistics Services",
       title: "Voltra Supply Chain.",
       desc: "Find out how Voltra Supply Chain can revolutionize your business as a 3PL provider.",
+      image: heroCourier,
+      alt: "Warehouse operations",
       items: [
         { icon: Warehouse, title: "Warehousing", desc: "Flexible storage, pick, pack, and kitting." },
         { icon: Truck, title: "Transport & Packaging", desc: "Distribution, service logistics and more." },
@@ -320,31 +326,36 @@ function BusinessSplit() {
         {rows.map((row, idx) => (
           <div
             key={row.tag}
-            className={`grid gap-8 rounded-sm border border-border bg-background p-8 md:p-10 lg:grid-cols-[1fr_1.2fr] ${
+            className={`grid overflow-hidden rounded-sm border border-border bg-background lg:grid-cols-2 ${
               idx % 2 === 1 ? "lg:grid-flow-dense" : ""
             }`}
           >
-            <div className={idx % 2 === 1 ? "lg:col-start-2" : ""}>
+            <div className={`relative min-h-[240px] ${idx % 2 === 1 ? "lg:col-start-2" : ""}`}>
+              <img src={row.image} alt={row.alt} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+            </div>
+            <div className="p-8 md:p-10">
               <p className="font-mono text-xs font-bold uppercase tracking-widest text-accent">
                 {row.tag}
               </p>
               <h3 className="mt-2 font-display text-2xl font-bold md:text-3xl">{row.title}</h3>
               <p className="mt-3 max-w-md text-muted-foreground">{row.desc}</p>
+
+              <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                {row.items.map(({ icon: Icon, title, desc }) => (
+                  <div key={title} className="rounded-sm border-l-4 border-brand bg-surface p-4">
+                    <Icon className="h-5 w-5 text-accent" strokeWidth={2} />
+                    <div className="mt-2 font-display text-base font-bold">{title}</div>
+                    <p className="mt-1 text-xs text-muted-foreground">{desc}</p>
+                  </div>
+                ))}
+              </div>
+
               <Link
                 to="/services"
                 className="mt-6 inline-flex items-center gap-2 rounded-sm bg-accent px-5 py-3 text-sm font-bold uppercase tracking-wider text-accent-foreground hover:opacity-90"
               >
                 Explore <ArrowRight className="h-4 w-4" />
               </Link>
-            </div>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {row.items.map(({ icon: Icon, title, desc }) => (
-                <div key={title} className="rounded-sm border-l-4 border-brand bg-surface p-5">
-                  <Icon className="h-6 w-6 text-accent" strokeWidth={2} />
-                  <div className="mt-3 font-display text-lg font-bold">{title}</div>
-                  <p className="mt-1 text-sm text-muted-foreground">{desc}</p>
-                </div>
-              ))}
             </div>
           </div>
         ))}
