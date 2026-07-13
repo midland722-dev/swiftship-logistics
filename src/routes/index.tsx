@@ -60,10 +60,18 @@ function Hero() {
 
   return (
     <section className="relative overflow-hidden bg-brand">
-      <div className="pointer-events-none absolute inset-0 grid-lines opacity-40" />
+      <img
+        src={heroCourier}
+        alt=""
+        width={1600}
+        height={900}
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-70 mix-blend-multiply"
+      />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-brand via-brand/85 to-brand/30" />
+      <div className="pointer-events-none absolute inset-0 grid-lines opacity-30" />
       <div className="container-x relative grid gap-10 pb-14 pt-14 md:pt-20 lg:grid-cols-[1.2fr_1fr] lg:gap-12 lg:pb-20">
         <div className="flex flex-col justify-center text-brand-foreground">
-          <span className="inline-flex w-fit items-center gap-2 rounded-sm border border-brand-foreground/20 bg-brand-foreground/5 px-3 py-1 text-xs font-bold uppercase tracking-widest">
+          <span className="inline-flex w-fit items-center gap-2 rounded-sm border border-brand-foreground/20 bg-brand-foreground/10 px-3 py-1 text-xs font-bold uppercase tracking-widest backdrop-blur">
             <span className="h-1.5 w-1.5 rounded-full bg-accent" />
             Global network · 220+ countries
           </span>
