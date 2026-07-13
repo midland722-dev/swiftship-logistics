@@ -224,7 +224,11 @@ function Divisions() {
         Learn about Voltra Express — the undisputed global leader in international express shipping.
       </p>
 
-      <div className="mt-10 grid gap-6 md:grid-cols-2">
+      <div className="mt-10 grid gap-6 md:grid-cols-3">
+        <div className="relative overflow-hidden rounded-sm border border-border md:col-span-1">
+          <img src={expressHandoff} alt="Voltra Express package handoff" width={1200} height={900} loading="lazy" className="h-full w-full object-cover" />
+        </div>
+
         <div className="flex flex-col gap-5 rounded-sm border border-border bg-surface p-8">
           <div className="grid h-12 w-12 place-items-center rounded-sm bg-brand text-brand-foreground">
             <Plane className="h-6 w-6" strokeWidth={2.5} />
