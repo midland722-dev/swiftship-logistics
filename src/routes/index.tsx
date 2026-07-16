@@ -229,7 +229,7 @@ function Divisions() {
 
       <div className="mt-10 grid gap-6 md:grid-cols-3">
         <div className="relative overflow-hidden rounded-sm border border-border md:col-span-1">
-          <img src={expressHandoff} alt="Voltra Express package handoff" width={1200} height={900} loading="lazy" className="h-full w-full object-cover" />
+          <img src={expressHandoff} alt="Voltra Express package handoff" width={1200} height={900} loading="lazy" decoding="async" sizes="(min-width: 768px) 33vw, 100vw" className="h-full w-full object-cover" />
         </div>
 
         <div className="flex flex-col gap-5 rounded-sm border border-border bg-surface p-8">
