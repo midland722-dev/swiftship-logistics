@@ -64,6 +64,10 @@ function Hero() {
         alt=""
         width={1600}
         height={900}
+        loading="eager"
+        decoding="async"
+        fetchPriority="high"
+        sizes="100vw"
         className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-70 mix-blend-multiply"
       />
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-brand via-brand/85 to-brand/30" />
@@ -202,7 +206,7 @@ function Bulletin() {
           </Link>
         </div>
         <div className="relative hidden overflow-hidden rounded-sm border border-border md:block">
-          <img src={sustainabilityVan} alt="Voltra delivery driver in a yellow van" width={1000} height={800} loading="lazy" className="h-full w-full object-cover" />
+          <img src={sustainabilityVan} alt="Voltra delivery driver in a yellow van" width={1000} height={800} loading="lazy" decoding="async" sizes="(min-width: 768px) 40vw, 100vw" className="h-full w-full object-cover" />
         </div>
       </div>
     </section>
@@ -225,7 +229,7 @@ function Divisions() {
 
       <div className="mt-10 grid gap-6 md:grid-cols-3">
         <div className="relative overflow-hidden rounded-sm border border-border md:col-span-1">
-          <img src={expressHandoff} alt="Voltra Express package handoff" width={1200} height={900} loading="lazy" className="h-full w-full object-cover" />
+          <img src={expressHandoff} alt="Voltra Express package handoff" width={1200} height={900} loading="lazy" decoding="async" sizes="(min-width: 768px) 33vw, 100vw" className="h-full w-full object-cover" />
         </div>
 
         <div className="flex flex-col gap-5 rounded-sm border border-border bg-surface p-8">
@@ -330,7 +334,7 @@ function BusinessSplit() {
             }`}
           >
             <div className={`relative min-h-[240px] ${idx % 2 === 1 ? "lg:col-start-2" : ""}`}>
-              <img src={row.image} alt={row.alt} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+              <img src={row.image} alt={row.alt} width={1200} height={900} loading="lazy" decoding="async" sizes="(min-width: 1024px) 50vw, 100vw" className="absolute inset-0 h-full w-full object-cover" />
             </div>
             <div className="p-8 md:p-10">
               <p className="font-mono text-xs font-bold uppercase tracking-widest text-accent">
@@ -433,7 +437,7 @@ function Highlights() {
             className="group flex flex-col overflow-hidden rounded-sm border border-border bg-background transition hover:border-accent"
           >
             <div className="relative aspect-[4/3] overflow-hidden">
-              <img src={image} alt={alt} loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+              <img src={image} alt={alt} width={800} height={600} loading="lazy" decoding="async" sizes="(min-width: 768px) 33vw, 100vw" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
               <div className="absolute left-4 top-4 grid h-10 w-10 place-items-center rounded-sm bg-brand text-brand-foreground shadow-md">
                 <Icon className="h-4 w-4" strokeWidth={2.5} />
               </div>
