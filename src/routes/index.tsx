@@ -64,6 +64,10 @@ function Hero() {
         alt=""
         width={1600}
         height={900}
+        loading="eager"
+        decoding="async"
+        fetchPriority="high"
+        sizes="100vw"
         className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-70 mix-blend-multiply"
       />
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-brand via-brand/85 to-brand/30" />
