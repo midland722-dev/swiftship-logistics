@@ -334,7 +334,7 @@ function BusinessSplit() {
             }`}
           >
             <div className={`relative min-h-[240px] ${idx % 2 === 1 ? "lg:col-start-2" : ""}`}>
-              <img src={row.image} alt={row.alt} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+              <img src={row.image} alt={row.alt} width={1200} height={900} loading="lazy" decoding="async" sizes="(min-width: 1024px) 50vw, 100vw" className="absolute inset-0 h-full w-full object-cover" />
             </div>
             <div className="p-8 md:p-10">
               <p className="font-mono text-xs font-bold uppercase tracking-widest text-accent">
