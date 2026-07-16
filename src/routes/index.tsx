@@ -206,7 +206,7 @@ function Bulletin() {
           </Link>
         </div>
         <div className="relative hidden overflow-hidden rounded-sm border border-border md:block">
-          <img src={sustainabilityVan} alt="Voltra delivery driver in a yellow van" width={1000} height={800} loading="lazy" className="h-full w-full object-cover" />
+          <img src={sustainabilityVan} alt="Voltra delivery driver in a yellow van" width={1000} height={800} loading="lazy" decoding="async" sizes="(min-width: 768px) 40vw, 100vw" className="h-full w-full object-cover" />
         </div>
       </div>
     </section>
