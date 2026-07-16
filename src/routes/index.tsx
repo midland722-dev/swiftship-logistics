@@ -437,7 +437,7 @@ function Highlights() {
             className="group flex flex-col overflow-hidden rounded-sm border border-border bg-background transition hover:border-accent"
           >
             <div className="relative aspect-[4/3] overflow-hidden">
-              <img src={image} alt={alt} loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+              <img src={image} alt={alt} width={800} height={600} loading="lazy" decoding="async" sizes="(min-width: 768px) 33vw, 100vw" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
               <div className="absolute left-4 top-4 grid h-10 w-10 place-items-center rounded-sm bg-brand text-brand-foreground shadow-md">
                 <Icon className="h-4 w-4" strokeWidth={2.5} />
               </div>
