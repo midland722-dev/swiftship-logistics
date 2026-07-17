@@ -44,11 +44,11 @@ export function SiteFooter() {
           <FooterCol
             title="About Voltra"
             links={[
-              ["Company portrait", "/services"],
-              ["Press", "/contact"],
-              ["Investors", "/contact"],
-              ["Sustainability", "/services"],
-              ["Innovation", "/services"],
+              ["Company", "/about"],
+              ["Newsroom", "/news"],
+              ["Careers", "/careers"],
+              ["Sustainability", "/sustainability"],
+              ["Investors", "/about"],
             ]}
           />
           <FooterCol
@@ -66,21 +66,22 @@ export function SiteFooter() {
             links={[
               ["Track a shipment", "/track"],
               ["Get a quote", "/quote"],
-              ["Ship now", "/quote"],
-              ["Delivery preferences", "/track"],
-              ["Help center", "/contact"],
+              ["Pricing", "/pricing"],
+              ["Help center", "/help"],
+              ["Contact us", "/contact"],
             ]}
           />
           <FooterCol
             title="Careers & More"
             links={[
-              ["Careers", "/contact"],
-              ["Newsroom", "/contact"],
-              ["API & Developers", "/services"],
-              ["Fair & responsible logistics", "/services"],
+              ["Careers", "/careers"],
+              ["Newsroom", "/news"],
+              ["Sustainability", "/sustainability"],
+              ["Help center", "/help"],
               ["Contact & locations", "/contact"],
             ]}
           />
+
         </div>
 
         {/* Legal bar */}
@@ -89,16 +90,17 @@ export function SiteFooter() {
             <p>© {new Date().getFullYear()} Voltra Logistics. All rights reserved.</p>
             <ul className="flex flex-wrap gap-x-5 gap-y-2">
               {[
-                "Legal Notice",
-                "Terms of Use",
-                "Privacy Notice",
-                "Cookie Settings",
-                "Fair & Responsible Logistics",
-              ].map((label) => (
+                ["Legal Notice", "/legal"],
+                ["Terms of Use", "/terms"],
+                ["Privacy Notice", "/privacy"],
+                ["Cookie Settings", "/privacy"],
+                ["Sustainability", "/sustainability"],
+              ].map(([label, href]) => (
                 <li key={label}>
-                  <a href="#" className="hover:text-brand">{label}</a>
+                  <Link to={href} className="hover:text-brand">{label}</Link>
                 </li>
               ))}
+
             </ul>
           </div>
         </div>
