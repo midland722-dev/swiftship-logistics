@@ -109,6 +109,29 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500&display=swap",
       },
     ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "Voltra Logistics",
+          url: "/",
+          logo: "/favicon.ico",
+          sameAs: [],
+          contactPoint: [
+            {
+              "@type": "ContactPoint",
+              telephone: "+1-415-555-0198",
+              contactType: "customer service",
+              areaServed: "Worldwide",
+              availableLanguage: ["English"],
+            },
+          ],
+        }),
+      },
+    ],
+
   }),
   shellComponent: RootShell,
   component: RootComponent,
