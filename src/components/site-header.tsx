@@ -7,8 +7,11 @@ const nav = [
   { to: "/track", label: "Track" },
   { to: "/quote", label: "Get a quote" },
   { to: "/pricing", label: "Pricing" },
+  { to: "/about", label: "About" },
+  { to: "/help", label: "Help" },
   { to: "/contact", label: "Contact" },
 ] as const;
+
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
