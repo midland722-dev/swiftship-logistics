@@ -68,17 +68,14 @@ function Hero() {
         decoding="async"
         fetchPriority="high"
         sizes="100vw"
+        srcSet={`${heroCourier} 1600w`}
         className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-70 mix-blend-multiply"
       />
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-brand via-brand/85 to-brand/30" />
       <div className="pointer-events-none absolute inset-0 grid-lines opacity-30" />
       <div className="container-x relative grid gap-10 pb-14 pt-14 md:pt-20 lg:grid-cols-[1.2fr_1fr] lg:gap-12 lg:pb-20">
         <div className="flex flex-col justify-center text-brand-foreground">
-          <span className="inline-flex w-fit items-center gap-2 rounded-sm border border-brand-foreground/20 bg-brand-foreground/10 px-3 py-1 text-xs font-bold uppercase tracking-widest backdrop-blur">
-            <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-            Global network · 220+ countries
-          </span>
-          <h1 className="mt-5 font-display text-5xl font-bold leading-[1.02] tracking-tight md:text-6xl lg:text-7xl">
+          <h1 className="font-display text-5xl font-bold leading-[1.02] tracking-tight md:text-6xl lg:text-7xl">
             Excellence.
             <br />
             Simply <span className="text-accent">delivered.</span>
@@ -206,7 +203,7 @@ function Bulletin() {
           </Link>
         </div>
         <div className="relative hidden overflow-hidden rounded-sm border border-border md:block">
-          <img src={sustainabilityVan} alt="Voltra delivery driver in a yellow van" width={1000} height={800} loading="lazy" decoding="async" sizes="(min-width: 768px) 40vw, 100vw" className="h-full w-full object-cover" />
+          <img src={sustainabilityVan} alt="Voltra delivery driver in a yellow van" width={1000} height={800} loading="lazy" decoding="async" sizes="(min-width: 768px) 40vw, 100vw" srcSet={`${sustainabilityVan} 1000w`} className="h-full w-full object-cover" />
         </div>
       </div>
     </section>
@@ -229,7 +226,7 @@ function Divisions() {
 
       <div className="mt-10 grid gap-6 md:grid-cols-3">
         <div className="relative overflow-hidden rounded-sm border border-border md:col-span-1">
-          <img src={expressHandoff} alt="Voltra Express package handoff" width={1200} height={900} loading="lazy" decoding="async" sizes="(min-width: 768px) 33vw, 100vw" className="h-full w-full object-cover" />
+          <img src={expressHandoff} alt="Voltra Express package handoff" width={1200} height={900} loading="lazy" decoding="async" sizes="(min-width: 768px) 33vw, 100vw" srcSet={`${expressHandoff} 1200w`} className="h-full w-full object-cover" />
         </div>
 
         <div className="flex flex-col gap-5 rounded-sm border border-border bg-surface p-8">
@@ -334,7 +331,7 @@ function BusinessSplit() {
             }`}
           >
             <div className={`relative min-h-[240px] ${idx % 2 === 1 ? "lg:col-start-2" : ""}`}>
-              <img src={row.image} alt={row.alt} width={1200} height={900} loading="lazy" decoding="async" sizes="(min-width: 1024px) 50vw, 100vw" className="absolute inset-0 h-full w-full object-cover" />
+              <img src={row.image} alt={row.alt} width={1200} height={900} loading="lazy" decoding="async" sizes="(min-width: 1024px) 50vw, 100vw" srcSet={`${row.image} 1200w`} className="absolute inset-0 h-full w-full object-cover" />
             </div>
             <div className="p-8 md:p-10">
               <p className="font-mono text-xs font-bold uppercase tracking-widest text-accent">
@@ -437,7 +434,7 @@ function Highlights() {
             className="group flex flex-col overflow-hidden rounded-sm border border-border bg-background transition hover:border-accent"
           >
             <div className="relative aspect-[4/3] overflow-hidden">
-              <img src={image} alt={alt} width={800} height={600} loading="lazy" decoding="async" sizes="(min-width: 768px) 33vw, 100vw" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+              <img src={image} alt={alt} width={800} height={600} loading="lazy" decoding="async" sizes="(min-width: 768px) 33vw, 100vw" srcSet={`${image} 800w`} className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
               <div className="absolute left-4 top-4 grid h-10 w-10 place-items-center rounded-sm bg-brand text-brand-foreground shadow-md">
                 <Icon className="h-4 w-4" strokeWidth={2.5} />
               </div>
