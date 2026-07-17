@@ -70,16 +70,10 @@ export function SiteHeader() {
                 {n.label}
               </Link>
             ))}
-            <Link
-              to="/quote"
-              onClick={() => setOpen(false)}
-              className="mt-2 rounded-sm bg-accent px-4 py-2 text-center text-sm font-bold uppercase tracking-wider text-accent-foreground"
-            >
-              Ship now
-            </Link>
           </nav>
         </div>
       )}
+
     </header>
   );
 }
