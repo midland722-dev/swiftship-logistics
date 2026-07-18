@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { Menu, X, Package } from "lucide-react";
+import { Menu, X, Package, LogOut, LayoutDashboard, Shield } from "lucide-react";
+import { useAuth } from "@/hooks/use-auth";
 
 const nav = [
   { to: "/services", label: "Services" },
@@ -12,9 +13,9 @@ const nav = [
   { to: "/contact", label: "Contact" },
 ] as const;
 
-
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const { session, isAdmin, signOut } = useAuth();
 
   return (
     <header className="sticky top-0 z-40 border-b border-border/60 bg-background/70 backdrop-blur-xl">
@@ -25,7 +26,6 @@ export function SiteHeader() {
           </span>
           <span>Voltra</span>
         </Link>
-
 
         <nav className="hidden items-center gap-1 md:flex">
           {nav.map((n) => (
@@ -41,14 +41,47 @@ export function SiteHeader() {
         </nav>
 
         <div className="hidden items-center gap-2 md:flex">
-          <Link
-            to="/track"
-            className="rounded-sm bg-accent px-4 py-2 text-sm font-bold uppercase tracking-wider text-accent-foreground transition hover:opacity-90"
-          >
-            Track
-          </Link>
+          {session ? (
+            <>
+              {isAdmin && (
+                <Link
+                  to="/admin"
+                  className="inline-flex items-center gap-1 rounded-md px-3 py-2 text-sm text-muted-foreground hover:bg-surface hover:text-foreground"
+                >
+                  <Shield className="h-4 w-4" /> Admin
+                </Link>
+              )}
+              <Link
+                to="/dashboard"
+                className="inline-flex items-center gap-1 rounded-sm border border-border px-3 py-2 text-sm font-semibold hover:bg-surface"
+              >
+                <LayoutDashboard className="h-4 w-4" /> Dashboard
+              </Link>
+              <button
+                onClick={() => signOut()}
+                aria-label="Sign out"
+                className="grid h-9 w-9 place-items-center rounded-sm border border-border hover:bg-surface"
+              >
+                <LogOut className="h-4 w-4" />
+              </button>
+            </>
+          ) : (
+            <>
+              <Link
+                to="/auth"
+                className="rounded-sm border border-border px-4 py-2 text-sm font-semibold hover:bg-surface"
+              >
+                Sign in
+              </Link>
+              <Link
+                to="/quote"
+                className="rounded-sm bg-accent px-4 py-2 text-sm font-bold uppercase tracking-wider text-accent-foreground transition hover:opacity-90"
+              >
+                Get a quote
+              </Link>
+            </>
+          )}
         </div>
-
 
         <button
           onClick={() => setOpen((v) => !v)}
@@ -73,10 +106,20 @@ export function SiteHeader() {
                 {n.label}
               </Link>
             ))}
+            <div className="mt-2 border-t border-border/60 pt-2">
+              {session ? (
+                <>
+                  <Link to="/dashboard" onClick={() => setOpen(false)} className="block rounded-md px-3 py-2 text-sm">Dashboard</Link>
+                  {isAdmin && <Link to="/admin" onClick={() => setOpen(false)} className="block rounded-md px-3 py-2 text-sm">Admin</Link>}
+                  <button onClick={() => { signOut(); setOpen(false); }} className="block w-full rounded-md px-3 py-2 text-left text-sm">Sign out</button>
+                </>
+              ) : (
+                <Link to="/auth" onClick={() => setOpen(false)} className="block rounded-md px-3 py-2 text-sm">Sign in</Link>
+              )}
+            </div>
           </nav>
         </div>
       )}
-
     </header>
   );
 }
