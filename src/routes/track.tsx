@@ -1,7 +1,7 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { z } from "zod";
-import { Package, MapPin, CheckCircle2, Circle, Truck } from "lucide-react";
+import { Package, MapPin, CheckCircle2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
 const searchSchema = z.object({ id: z.string().optional() });

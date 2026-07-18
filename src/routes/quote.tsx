@@ -111,18 +111,18 @@ function QuotePage() {
         currency: breakdown.currency,
         eta: eta.toISOString(),
       })
-      .select("tracking_code")
+      .select("id, tracking_code")
       .single();
     setBooking(false);
-    if (error) {
-      toast.error(error.message);
+    if (error || !data) {
+      toast.error(error?.message ?? "Failed to book");
       return;
     }
     await supabase.from("shipment_events").insert({
-      shipment_id: (data as any).id ?? undefined,
+      shipment_id: data.id,
       label: "Shipment booked",
       location: from,
-    }).select();
+    });
     toast.success(`Booked ${data.tracking_code}`);
     navigate({ to: "/track", search: { id: data.tracking_code } });
   };
