@@ -217,8 +217,9 @@ function Dashboard() {
               <ToggleRow
                 label="Web push"
                 checked={prefs.push_enabled}
-                onChange={(v) => setPrefs({ ...prefs, push_enabled: v })}
+                onChange={handlePushToggle}
               />
+
             </div>
             <button
               onClick={savePrefs}
