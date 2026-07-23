@@ -2,8 +2,10 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
+import { enablePushForCurrentUser, disablePushForCurrentUser, pushSupported } from "@/lib/push-client";
 import { Package, Plus, Bell, Settings, Shield } from "lucide-react";
 import { toast } from "sonner";
+
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({ meta: [{ title: "Dashboard — Voltra" }] }),
@@ -89,6 +91,25 @@ function Dashboard() {
     })();
   }, [user, navigate, onboardingRedirected]);
 
+  const handlePushToggle = async (v: boolean) => {
+    if (v) {
+      if (!pushSupported()) {
+        toast.error("Web push isn't supported in this browser.");
+        return;
+      }
+      const res = await enablePushForCurrentUser();
+      if (!res.ok) {
+        toast.error(res.reason ?? "Couldn't enable push");
+        return;
+      }
+      toast.success("Web push enabled on this device");
+      setPrefs((p) => ({ ...p, push_enabled: true }));
+    } else {
+      await disablePushForCurrentUser();
+      setPrefs((p) => ({ ...p, push_enabled: false }));
+    }
+  };
+
   const savePrefs = async () => {
     if (!user) return;
     setSavingPrefs(true);
@@ -100,6 +121,7 @@ function Dashboard() {
     if (error) toast.error(error.message);
     else toast.success("Alert preferences saved");
   };
+
 
   return (
     <section className="container-x py-12">
