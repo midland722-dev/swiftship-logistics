@@ -2,8 +2,11 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
+import { useServerFn } from "@tanstack/react-start";
+import { updateShipmentStatus } from "@/lib/alerts.functions";
 import { toast } from "sonner";
 import { Users, Package, DollarSign, Newspaper, ShieldOff } from "lucide-react";
+
 
 export const Route = createFileRoute("/_authenticated/admin")({
   head: () => ({ meta: [{ title: "Admin — Voltra" }] }),
@@ -70,6 +73,7 @@ function AdminPage() {
 function ShipmentsAdmin() {
   const [items, setItems] = useState<any[]>([]);
   const [busy, setBusy] = useState(false);
+  const updateStatusFn = useServerFn(updateShipmentStatus);
 
   const load = async () => {
     const { data } = await supabase
@@ -83,26 +87,21 @@ function ShipmentsAdmin() {
     load();
   }, []);
 
-  const updateStatus = async (id: string, tracking_code: string, from: string, to: string, status: string) => {
+  const updateStatus = async (id: string, tracking_code: string, _from: string, _to: string, status: string) => {
     setBusy(true);
-    const { error } = await supabase.from("shipments").update({ status }).eq("id", id);
-    if (!error) {
-      await supabase.from("shipment_events").insert({
-        shipment_id: id,
-        label: status.replace(/_/g, " "),
-        location: to,
-      });
-      toast.success(`${tracking_code} → ${status}`);
-      // In production, a DB trigger + pg_net webhook fires alerts here.
-      // For now, we surface a client toast for visibility.
+    try {
+      const res = await updateStatusFn({ data: { shipment_id: id, status: status as any } });
+      const pushMsg = res.channels.push.sent > 0 ? ` · ${res.channels.push.sent} push sent` : "";
+      toast.success(`${tracking_code} → ${status}${pushMsg}`);
       await load();
-    } else {
-      toast.error(error.message);
+    } catch (e: any) {
+      toast.error(e?.message ?? "Update failed");
     }
     setBusy(false);
   };
 
   const STATUSES = ["booked", "picked_up", "in_transit", "out_for_delivery", "delivered", "exception", "cancelled"];
+
 
   return (
     <div className="rounded-2xl border border-border bg-surface/60 p-6">
