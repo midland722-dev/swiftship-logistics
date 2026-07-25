@@ -54,8 +54,12 @@ function HomePage() {
       <Bulletin />
       <Divisions />
       <BusinessSplit />
+      <NetworkStrip />
+      <Testimonials />
+      <CaseStudies />
       <Updates />
       <Highlights />
+      <FinalCTA />
     </>
   );
 }
