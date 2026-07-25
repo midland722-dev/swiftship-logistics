@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { Menu, X, LogOut, LayoutDashboard, Shield } from "lucide-react";
+import { Menu, X, LogOut, LayoutDashboard, Shield, Mail, Phone } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 
 const nav = [
@@ -19,6 +19,24 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-border/60 bg-background/70 backdrop-blur-xl">
+      <div className="hidden border-b border-border/60 bg-surface/60 md:block">
+        <div className="container-x flex h-9 items-center justify-end gap-6 text-xs text-muted-foreground">
+          <a
+            href="mailto:info@ascl-logistics.com"
+            className="inline-flex items-center gap-1.5 transition hover:text-foreground"
+          >
+            <Mail className="h-3.5 w-3.5" />
+            info@ascl-logistics.com
+          </a>
+          <a
+            href="tel:+12025947566"
+            className="inline-flex items-center gap-1.5 transition hover:text-foreground"
+          >
+            <Phone className="h-3.5 w-3.5" />
+            +1 (202) 594-7566
+          </a>
+        </div>
+      </div>
       <div className="container-x flex h-16 items-center justify-between gap-6">
         <Link to="/" className="flex items-center gap-2 font-display text-lg font-bold tracking-tight" aria-label="Americans Shipping & Courier Logistics — Home">
           <img

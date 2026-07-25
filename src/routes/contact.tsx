@@ -27,8 +27,8 @@ function ContactPage() {
           </p>
 
           <ul className="mt-10 space-y-5">
-            <ContactRow icon={Mail} label="Email" value="hello@voltra.example" />
-            <ContactRow icon={Phone} label="Phone" value="+1 (415) 555-0198" />
+            <ContactRow icon={Mail} label="Email" value="info@ascl-logistics.com" />
+            <ContactRow icon={Phone} label="Phone" value="+1 (202) 594-7566" />
             <ContactRow icon={MessageSquare} label="Live chat" value="Weekdays, 07:00 – 22:00 UTC" />
             <ContactRow icon={MapPin} label="HQ" value="Hamburg · Singapore · New York" />
           </ul>

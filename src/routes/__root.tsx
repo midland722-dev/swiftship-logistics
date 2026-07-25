@@ -14,6 +14,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader } from "../components/site-header";
 import { SiteFooter } from "../components/site-footer";
+import { WhatsAppFloat } from "../components/whatsapp-float";
 import { AuthProvider } from "@/hooks/use-auth";
 
 function NotFoundComponent() {
@@ -124,7 +125,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           contactPoint: [
             {
               "@type": "ContactPoint",
-              telephone: "+1-415-555-0198",
+              telephone: "+1-202-594-7566",
               contactType: "customer service",
               areaServed: "Worldwide",
               availableLanguage: ["English"],
@@ -168,6 +169,7 @@ function RootComponent() {
           </main>
           <SiteFooter />
         </div>
+        <WhatsAppFloat />
         <Toaster position="top-right" richColors />
       </AuthProvider>
     </QueryClientProvider>
