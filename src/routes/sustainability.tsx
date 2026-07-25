@@ -26,15 +26,44 @@ const pillars = [
 function SustainabilityPage() {
   return (
     <>
-      <section className="container-x pt-16 pb-14 md:pt-24">
-        <p className="font-mono text-xs uppercase tracking-widest text-brand">Sustainability</p>
-        <h1 className="mt-2 max-w-3xl font-display text-5xl font-bold md:text-6xl">
-          Net-zero logistics by <span className="text-brand">2050.</span>
-        </h1>
-        <p className="mt-5 max-w-2xl text-lg text-muted-foreground">
-          We're investing €7 billion by 2030 in clean fuels, electrified fleets, and
-          climate-neutral buildings. Here's how we get there.
-        </p>
+      <section className="relative overflow-hidden">
+        <img
+          src={sustainabilityHero}
+          alt=""
+          width={1600}
+          height={700}
+          loading="eager"
+          fetchPriority="high"
+          decoding="async"
+          sizes="100vw"
+          srcSet={`${sustainabilityHero} 1600w`}
+          className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+        />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-background via-background/90 to-background/40" />
+        <div className="container-x relative pt-16 pb-16 md:pt-24 md:pb-24">
+          <p className="font-mono text-xs uppercase tracking-widest text-brand">Sustainability</p>
+          <h1 className="mt-2 max-w-3xl font-display text-5xl font-bold md:text-6xl">
+            Net-zero logistics by <span className="text-brand">2050.</span>
+          </h1>
+          <p className="mt-5 max-w-2xl text-lg text-muted-foreground">
+            We're investing €7 billion by 2030 in clean fuels, electrified fleets, and
+            climate-neutral buildings. Every Voltra shipment is measured, reported, and
+            reducible — because you can't decarbonise what you don't count.
+          </p>
+        </div>
+      </section>
+
+      <section className="container-x grid gap-6 py-16 md:grid-cols-3">
+        {[
+          { n: "27,000", label: "Electric vehicles deployed" },
+          { n: "€7B", label: "Green investment by 2030" },
+          { n: "38%", label: "Scope 1&2 emissions reduced since 2020" },
+        ].map((s) => (
+          <div key={s.label} className="rounded-2xl border border-border bg-background p-8">
+            <div className="font-display text-4xl font-bold text-brand md:text-5xl">{s.n}</div>
+            <div className="mt-2 text-sm text-muted-foreground">{s.label}</div>
+          </div>
+        ))}
       </section>
 
       <section className="container-x grid gap-4 pb-16 md:grid-cols-2">
