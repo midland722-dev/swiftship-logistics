@@ -1,0 +1,5 @@
+[16-Feb-2019 07:04:23 America/New_York] PHP Warning:  mysql_query() expects parameter 1 to be string, resource given in /home/qcaprddm/signatureparcel.com/track/deprixa/database.php on line 34
+[18-Mar-2019 07:08:13 America/New_York] PHP Warning:  mysql_query() expects parameter 1 to be string, resource given in /home/qcaprddm/signatureparcel.com/track/deprixa/database.php on line 34
+[08-Apr-2019 18:21:41 America/New_York] PHP Warning:  mysql_query() expects parameter 1 to be string, resource given in /home/qcaprddm/orliclogisticintl.com/trackshipment/deprixa/database.php on line 34
+[06-Jun-2019 00:50:44 America/New_York] PHP Warning:  mysql_query() expects parameter 1 to be string, resource given in /home/finavknb/skyflex-logistics.com/e/user/deprixa/database.php on line 34
+[09-Aug-2019 04:36:54 America/New_York] PHP Warning:  mysql_query() expects parameter 1 to be string, resource given in /home/finavknb/skyflex-logistics.com/e/user/deprixa/database.php on line 34

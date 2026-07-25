@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Receipt - LX-2024-003</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        @page { size: A4; margin: 15mm; }
+        body { font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif; padding: 2rem; background: #f5f7fa; color: #1F2937; }
+        .receipt { max-width: 850px; margin: 0 auto; background: white; padding: 3rem; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); }
+        .header { text-align: center; border-bottom: 4px solid #0F4C81; padding-bottom: 1.5rem; margin-bottom: 2rem; }
+        .logo { font-size: 2.2rem; font-weight: 800; color: #0F4C81; letter-spacing: -0.5px; }
+        .subtitle { color: #6B7280; font-size: 0.95rem; margin-top: 0.25rem; }
+        .section { margin-bottom: 1.75rem; padding: 1.25rem; background: #F8FAFC; border-radius: 10px; border: 1px solid #E5E7EB; }
+        .section-title { font-weight: 700; color: #0F4C81; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 2px solid #0F4C81; display: inline-block; }
+        .info-row { display: flex; margin-bottom: 0.5rem; align-items: baseline; }
+        .info-label { width: 160px; font-weight: 600; color: #4B5563; font-size: 0.9rem; flex-shrink: 0; }
+        .info-value { flex: 1; color: #1F2937; font-size: 0.95rem; }
+        .total-box { background: linear-gradient(135deg, #0F4C81 0%, #3FA9F5 100%); color: white; padding: 1.25rem; border-radius: 10px; text-align: right; margin-top: 1rem; }
+        .total-label { font-size: 0.85rem; opacity: 0.9; text-transform: uppercase; letter-spacing: 0.05em; }
+        .total-amount { font-size: 2rem; font-weight: 800; margin-top: 0.25rem; }
+        .footer { margin-top: 2.5rem; text-align: center; color: #6B7280; font-size: 0.85rem; border-top: 1px solid #E5E7EB; padding-top: 1.25rem; }
+        .barcode { text-align: center; margin: 1rem 0; font-family: "Courier New", monospace; font-size: 1.3rem; letter-spacing: 3px; font-weight: 700; color: #0F4C81; padding: 0.75rem; background: #F8FAFC; border-radius: 8px; border: 1px dashed #0F4C81; }
+        .qr-section { text-align: center; margin: 1rem 0; padding: 1rem; background: #F8FAFC; border-radius: 8px; border: 1px solid #E5E7EB; }
+        .qr-section code { display: block; margin-top: 0.5rem; font-size: 0.8rem; color: #6B7280; word-break: break-all; }
+        .no-print { text-align: center; margin-top: 2rem; }
+        .no-print .btn { margin: 0 0.25rem; }
+        @media print { body { padding: 0; background: white; } .receipt { box-shadow: none; max-width: 100%; } .no-print { display: none; } }
+    </style>
+</head>
+<body>
+    <div class="receipt">
+        <div class="header">
+            <div class="logo">Americans Shipping &amp; Courier Logistics</div>
+            <div class="subtitle">Global Courier & Shipping Solutions</div>
+            <div class="subtitle">4500 Harbor Boulevard, Long Beach, CA 90802, USA</div>
+            <div class="subtitle">Tel: +12158159791 | Email: info@ascl-logistics.com</div>
+        </div>
+        
+        <div class="section">
+            <div class="section-title">Receipt Information</div>
+            <div class="info-row">
+                <div class="info-label">Receipt Number:</div>
+                <div class="info-value"><strong>REC-13</strong></div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Tracking Number:</div>
+                <div class="info-value"><code>LX-2024-003</code></div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Shipment Date:</div>
+                <div class="info-value">July 23, 2026 00:00</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Status:</div>
+                <div class="info-value"><span class="badge bg-warning">Pending</span></div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Service Type:</div>
+                <div class="info-value">Standard</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Priority:</div>
+                <div class="info-value">Standard</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Estimated Delivery:</div>
+                <div class="info-value">July 30, 2026</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Payment Status:</div>
+                <div class="info-value">Pending</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Payment Method:</div>
+                <div class="info-value">Cash</div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <div class="section-title">Sender Information</div>
+            <div class="info-row">
+                <div class="info-label">Full Name:</div>
+                <div class="info-value">John Sender</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Company:</div>
+                <div class="info-value">ASCL Logistics</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Address:</div>
+                <div class="info-value">4500 Harbor Boulevard, , CA 90802 US</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Phone:</div>
+                <div class="info-value">+12158159791</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Email:</div>
+                <div class="info-value">sender@test.com</div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <div class="section-title">Receiver Information</div>
+            <div class="info-row">
+                <div class="info-label">Full Name:</div>
+                <div class="info-value">Jane Receiver</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Company:</div>
+                <div class="info-value">UK Imports Ltd</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Address:</div>
+                <div class="info-value">123 Oxford Street, , England W1D 1LU GB</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Phone:</div>
+                <div class="info-value">+442012345678</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Email:</div>
+                <div class="info-value">receiver@test.com</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Delivery Instructions:</div>
+                <div class="info-value">Handle with care</div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <div class="section-title">Package Information</div>
+            <div class="info-row">
+                <div class="info-label">Package Name:</div>
+                <div class="info-value">Test Package</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Description:</div>
+                <div class="info-value">Electronics and Documents</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Weight:</div>
+                <div class="info-value">2.5 kg</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Dimensions (LxWxH):</div>
+                <div class="info-value">30 x 20 x 15 cm</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Volumetric Weight:</div>
+                <div class="info-value">1.8 kg</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Pieces / Qty:</div>
+                <div class="info-value">1</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Shipment Type:</div>
+                <div class="info-value">Parcel</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Contents:</div>
+                <div class="info-value">Electronic Device, Documents</div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <div class="section-title">Delivery & Route</div>
+            <div class="info-row">
+                <div class="info-label">Origin:</div>
+                <div class="info-value">Miami, US</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Destination:</div>
+                <div class="info-value">London, GB</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Mode:</div>
+                <div class="info-value">N/A</div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <div class="section-title">Insurance & Declared Value</div>
+            <div class="info-row">
+                <div class="info-label">Declared Value:</div>
+                <div class="info-value">$500.00</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Insurance Amount:</div>
+                <div class="info-value">$25.00</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Coverage:</div>
+                <div class="info-value">Yes</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Fragile:</div>
+                <div class="info-value">No</div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <div class="section-title">Cost Breakdown</div>
+            <div class="info-row">
+                <div class="info-label">Base Cost:</div>
+                <div class="info-value">$0.00</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Weight Charge:</div>
+                <div class="info-value">$0.00</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Insurance Cost:</div>
+                <div class="info-value">$0.00</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Tax:</div>
+                <div class="info-value">$0.00</div>
+            </div>
+        </div>
+        
+        <div class="total-box">
+            <div class="total-label">Total Amount</div>
+            <div class="total-amount">$75.00</div>
+            <div style="font-size: 0.85rem; opacity: 0.9;">USD | Cash | Pending</div>
+        </div>
+        
+        
+        <div class="section">
+            <div class="section-title">Internal Notes</div>
+            <p class="mb-0" style="white-space: pre-wrap;">Test shipment for receipt generation</p>
+        </div>
+        
+        <div class="barcode">
+            || | | || | | | || || | || || | || || || | | | || || || | || ||
+        </div>
+        <div class="barcode" style="font-size: 1.1rem; letter-spacing: 2px; border: none; background: transparent;">
+            LX-2024-003
+        </div>
+        
+        <div class="qr-section">
+            <strong>QR Code - Scan to Track</strong><br>
+            <small class="text-muted">Track URL: localhost/track.php?tracking=LX-2024-003</small>
+            <code>localhost/track.php?cons_no=LX-2024-003</code>
+        </div>
+        
+        <div class="footer">
+            <p><strong>Americans Shipping &amp; Courier Logistics</strong> | 4500 Harbor Boulevard, Long Beach, CA 90802, USA</p>
+            <p>Tel: +12158159791 | Email: info@ascl-logistics.com</p>
+            <p class="no-print"><button onclick="window.print()" class="btn btn-primary btn-sm"><i class="bi bi-printer"></i> Print Receipt</button>
+            <button onclick="window.close()" class="btn btn-outline-secondary btn-sm"><i class="bi bi-x-circle"></i> Close</button></p>
+        </div>
+    </div>
+    
+    <script>
+        // Auto-trigger print dialog when opened in new tab (optional)
+        if (window.opener) {
+            setTimeout(function() { window.print(); }, 500);
+        }
+    </script>
+</body>
+</html>

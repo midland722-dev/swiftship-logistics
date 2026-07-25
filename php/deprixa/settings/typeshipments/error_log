@@ -1,0 +1,3 @@
+[09-Aug-2019 04:17:55 America/New_York] PHP Fatal error:  Call to undefined function error_db_connect() in /home/finavknb/skyflex-logistics.com/e/user/deprixa/database-settings.php on line 38
+[19-Sep-2022 14:24:25 America/New_York] PHP Fatal error:  Call to undefined function error_db_connect() in /home/topprjse/public_html/deprixa/database-settings.php on line 38
+[02-Oct-2022 02:51:30 America/New_York] PHP Fatal error:  Call to undefined function error_db_connect() in /home/topprjse/smartelitecargo.us/deprixa/database-settings.php on line 38
