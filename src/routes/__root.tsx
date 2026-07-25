@@ -8,12 +8,21 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
+<<<<<<< HEAD
+=======
+import { Toaster } from "sonner";
+>>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader } from "../components/site-header";
 import { SiteFooter } from "../components/site-footer";
+<<<<<<< HEAD
 import { WhatsAppButton } from "../components/whatsapp-button";
+=======
+import { WhatsAppFloat } from "../components/whatsapp-float";
+import { AuthProvider } from "@/hooks/use-auth";
+>>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
 
 function NotFoundComponent() {
   return (
@@ -43,7 +52,10 @@ function NotFoundComponent() {
         </div>
       </main>
       <SiteFooter />
+<<<<<<< HEAD
       <WhatsAppButton />
+=======
+>>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
     </div>
   );
 }
@@ -86,6 +98,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
+<<<<<<< HEAD
       { title: "American Shipping & Logistics — Global Courier & Freight Services" },
       {
         name: "description",
@@ -99,6 +112,21 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "American Shipping & Logistics" },
+=======
+      { title: "Voltra — Global Logistics & Courier Services" },
+      {
+        name: "description",
+        content:
+          "Voltra moves parcels and freight to 220+ countries. Track shipments, get instant quotes, and book pickups in seconds.",
+      },
+      { property: "og:title", content: "Voltra — Global Logistics & Courier Services" },
+      {
+        property: "og:description",
+        content: "Track, quote, and ship worldwide with Voltra's modern logistics network.",
+      },
+      { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "Voltra" },
+>>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
@@ -117,14 +145,22 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Organization",
+<<<<<<< HEAD
           name: "American Shipping & Logistics",
+=======
+          name: "Voltra Logistics",
+>>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
           url: "/",
           logo: "/favicon.ico",
           sameAs: [],
           contactPoint: [
             {
               "@type": "ContactPoint",
+<<<<<<< HEAD
               telephone: "+1-415-555-0198",
+=======
+              telephone: "+1-202-594-7566",
+>>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
               contactType: "customer service",
               areaServed: "Worldwide",
               availableLanguage: ["English"],
@@ -160,6 +196,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+<<<<<<< HEAD
       <div className="flex min-h-screen flex-col">
         <SiteHeader />
         <main className="flex-1">
@@ -168,6 +205,19 @@ function RootComponent() {
         <SiteFooter />
         <WhatsAppButton />
       </div>
+=======
+      <AuthProvider>
+        <div className="flex min-h-screen flex-col">
+          <SiteHeader />
+          <main className="flex-1">
+            <Outlet />
+          </main>
+          <SiteFooter />
+        </div>
+        <WhatsAppFloat />
+        <Toaster position="top-right" richColors />
+      </AuthProvider>
+>>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
     </QueryClientProvider>
   );
 }

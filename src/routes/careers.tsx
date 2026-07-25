@@ -1,12 +1,23 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+<<<<<<< HEAD
 import { MapPin, Briefcase } from "lucide-react";
+=======
+import { MapPin, Briefcase, Heart, GraduationCap, Globe } from "lucide-react";
+import careersHero from "@/assets/careers-hero.jpg";
+>>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
 
 export const Route = createFileRoute("/careers")({
   head: () => ({
     meta: [
+<<<<<<< HEAD
       { title: "Careers — American Shipping & Logistics" },
       { name: "description", content: "Join 128,000 American Shipping & Logistics colleagues in 220+ countries. Explore open roles in operations, engineering, and corporate teams." },
       { property: "og:title", content: "Careers at American Shipping & Logistics" },
+=======
+      { title: "Careers — Voltra Logistics" },
+      { name: "description", content: "Join 128,000 Voltra colleagues in 220+ countries. Explore open roles in operations, engineering, and corporate teams." },
+      { property: "og:title", content: "Careers at Voltra" },
+>>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
       { property: "og:description", content: "Open roles across engineering, operations, and corporate teams worldwide." },
       { property: "og:url", content: "/careers" },
     ],
@@ -16,28 +27,81 @@ export const Route = createFileRoute("/careers")({
 });
 
 const roles = [
+<<<<<<< HEAD
   { title: "Senior Backend Engineer, Tracking Platform", team: "Engineering", location: "United States" },
   { title: "Operations Manager, Air Freight", team: "Operations", location: "United States" },
   { title: "Product Designer, Shipper Experience", team: "Design", location: "Remote" },
   { title: "Data Scientist, Route Optimization", team: "Data", location: "United States" },
   { title: "Warehouse Team Lead", team: "Operations", location: "Dallas, TX" },
   { title: "Sustainability Program Manager", team: "Corporate", location: "Remote" },
+=======
+  { title: "Senior Backend Engineer, Tracking Platform", team: "Engineering", location: "Berlin, DE" },
+  { title: "Operations Manager, Air Freight", team: "Operations", location: "Singapore, SG" },
+  { title: "Product Designer, Shipper Experience", team: "Design", location: "Remote (EMEA)" },
+  { title: "Data Scientist, Route Optimization", team: "Data", location: "Hamburg, DE" },
+  { title: "Warehouse Team Lead", team: "Operations", location: "Dallas, TX" },
+  { title: "Sustainability Program Manager", team: "Corporate", location: "London, UK" },
+>>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
 ];
 
 function CareersPage() {
   return (
     <>
+<<<<<<< HEAD
       <section className="container-x pt-16 pb-14 md:pt-24">
+=======
+      <section className="container-x pt-16 pb-10 md:pt-24">
+>>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
         <p className="font-mono text-xs uppercase tracking-widest text-brand">Careers</p>
         <h1 className="mt-2 max-w-3xl font-display text-5xl font-bold md:text-6xl">
           Move the world with us.
         </h1>
         <p className="mt-5 max-w-2xl text-lg text-muted-foreground">
+<<<<<<< HEAD
           From couriers to coders, 128,000 American Shipping &amp; Logistics colleagues keep global trade moving. Find
           your role — and grow a career that spans continents.
         </p>
       </section>
 
+=======
+          From couriers to coders, 128,000 Voltra colleagues keep global trade moving. Find
+          your role — and grow a career that spans continents, disciplines, and decades.
+        </p>
+      </section>
+
+      <section className="container-x pb-16">
+        <div className="overflow-hidden rounded-2xl border border-border">
+          <img
+            src={careersHero}
+            alt="Voltra colleagues collaborating in a modern office"
+            width={1600}
+            height={700}
+            loading="lazy"
+            decoding="async"
+            sizes="100vw"
+            srcSet={`${careersHero} 1600w`}
+            className="h-full w-full object-cover"
+          />
+        </div>
+      </section>
+
+      <section className="container-x grid gap-4 pb-16 md:grid-cols-3">
+        {[
+          { icon: Heart, title: "Purpose-driven work", desc: "Every colleague contributes to keeping global trade — and the businesses that rely on it — moving." },
+          { icon: GraduationCap, title: "Grow with us", desc: "Certified learning paths, tuition support, and internal mobility across 220+ countries." },
+          { icon: Globe, title: "Truly global", desc: "Relocate, rotate, or work remotely with teams that span every continent and timezone." },
+        ].map(({ icon: Icon, title, desc }) => (
+          <div key={title} className="rounded-2xl border border-border bg-surface/60 p-6">
+            <div className="grid h-11 w-11 place-items-center rounded-xl bg-background text-brand">
+              <Icon className="h-5 w-5" />
+            </div>
+            <h2 className="mt-5 text-lg font-semibold">{title}</h2>
+            <p className="mt-2 text-sm text-muted-foreground">{desc}</p>
+          </div>
+        ))}
+      </section>
+
+>>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
       <section className="container-x pb-24">
         <h2 className="font-display text-2xl font-bold">Open roles</h2>
         <div className="mt-6 divide-y divide-border rounded-2xl border border-border bg-surface/60">

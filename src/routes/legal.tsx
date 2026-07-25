@@ -3,9 +3,15 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 export const Route = createFileRoute("/legal")({
   head: () => ({
     meta: [
+<<<<<<< HEAD
       { title: "Legal notice — American Shipping & Logistics" },
       { name: "description", content: "Corporate information, registration details, and legal notices for American Shipping & Logistics." },
       { property: "og:title", content: "Legal notice — American Shipping & Logistics" },
+=======
+      { title: "Legal notice — Voltra" },
+      { name: "description", content: "Corporate information, registration details, and legal notices for Voltra Logistics." },
+      { property: "og:title", content: "Legal notice — Voltra" },
+>>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
       { property: "og:url", content: "/legal" },
     ],
     links: [{ rel: "canonical", href: "/legal" }],
@@ -21,6 +27,7 @@ function LegalPage() {
 
       <div className="prose prose-neutral mt-8 max-w-3xl text-muted-foreground">
         <h2 className="mt-8 font-display text-xl font-semibold text-foreground">Company information</h2>
+<<<<<<< HEAD
                  <p>
                      American Shipping &amp; Logistics Inc.<br />
                      United States of America<br />
@@ -31,17 +38,36 @@ function LegalPage() {
         <h2 className="mt-8 font-display text-xl font-semibold text-foreground">Board & representation</h2>
         <p>
           Represented by the Board of Directors.
+=======
+        <p>
+          Voltra Logistics AG · Heidenkampsweg 100 · 20097 Hamburg, Germany.
+          Registered at the Hamburg local court, HRB 000000.
+        </p>
+
+        <h2 className="mt-8 font-display text-xl font-semibold text-foreground">Board & representation</h2>
+        <p>
+          Represented by the Board of Management. Chair of the Supervisory Board:
+          Dr. A. Meier.
+>>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
         </p>
 
         <h2 className="mt-8 font-display text-xl font-semibold text-foreground">Contact</h2>
         <p>
+<<<<<<< HEAD
           Email: <a href="mailto:info@ascl-logistics.com" className="text-brand hover:underline">info@ascl-logistics.com</a>
+=======
+          Email: <a href="mailto:legal@voltra.example" className="text-brand hover:underline">legal@voltra.example</a>
+>>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
         </p>
 
         <h2 className="mt-8 font-display text-xl font-semibold text-foreground">Disclaimer</h2>
         <p>
           Information on this website is provided for general purposes. While we take care to
+<<<<<<< HEAD
           keep content accurate and current, American Shipping &amp; Logistics makes no warranty as to completeness or
+=======
+          keep content accurate and current, Voltra makes no warranty as to completeness or
+>>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
           fitness for a particular purpose.
         </p>
 

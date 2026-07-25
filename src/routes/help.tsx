@@ -4,9 +4,15 @@ import { Package, CreditCard, Truck, Shield } from "lucide-react";
 export const Route = createFileRoute("/help")({
   head: () => ({
     meta: [
+<<<<<<< HEAD
       { title: "Help center — American Shipping & Logistics" },
       { name: "description", content: "Answers to common questions about tracking, shipping, billing, and claims." },
       { property: "og:title", content: "American Shipping & Logistics Help Center" },
+=======
+      { title: "Help center — Voltra" },
+      { name: "description", content: "Answers to common questions about tracking, shipping, billing, and claims." },
+      { property: "og:title", content: "Voltra Help Center" },
+>>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
       { property: "og:description", content: "Support for tracking, shipping, billing, and claims." },
       { property: "og:url", content: "/help" },
     ],
