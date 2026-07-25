@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Calendar } from "lucide-react";
+import newsHero from "@/assets/news-hero.jpg";
 
 export const Route = createFileRoute("/news")({
   head: () => ({

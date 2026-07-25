@@ -1,5 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Globe, Users, Award, Rocket } from "lucide-react";
+import teamPortrait from "@/assets/team-portrait.jpg";
+import aboutHeritage from "@/assets/about-heritage.jpg";
 
 export const Route = createFileRoute("/about")({
   head: () => ({

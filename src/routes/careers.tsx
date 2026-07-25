@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { MapPin, Briefcase } from "lucide-react";
+import { MapPin, Briefcase, Heart, GraduationCap, Globe } from "lucide-react";
+import careersHero from "@/assets/careers-hero.jpg";
 
 export const Route = createFileRoute("/careers")({
   head: () => ({

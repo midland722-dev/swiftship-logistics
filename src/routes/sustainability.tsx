@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Leaf, Zap, Recycle, Wind } from "lucide-react";
+import sustainabilityHero from "@/assets/sustainability-hero.jpg";
 
 export const Route = createFileRoute("/sustainability")({
   head: () => ({
