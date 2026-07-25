@@ -1,5 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Plane, Truck, Ship, Warehouse, Package, Boxes, Factory, ShoppingBag } from "lucide-react";
+import { Plane, Truck, Ship, Warehouse, Package, Boxes, Factory, ShoppingBag, CheckCircle2 } from "lucide-react";
+import servicesHero from "@/assets/services-hero.jpg";
+import warehouseOps from "@/assets/warehouse-ops.jpg";
 
 export const Route = createFileRoute("/services")({
   head: () => ({
@@ -28,15 +30,73 @@ const services = [
 function ServicesPage() {
   return (
     <>
-      <section className="container-x pb-14 pt-16 md:pt-24">
-        <p className="font-mono text-xs uppercase tracking-widest text-brand">Services</p>
-        <h1 className="mt-2 max-w-3xl font-display text-5xl font-bold md:text-6xl">
-          Whatever you're shipping, we route it.
-        </h1>
-        <p className="mt-5 max-w-2xl text-lg text-muted-foreground">
-          Eight service lines built on one global network — from same-day metro drops to
-          transcontinental ocean freight.
-        </p>
+      <section className="relative overflow-hidden bg-brand">
+        <img
+          src={servicesHero}
+          alt=""
+          width={1600}
+          height={700}
+          loading="eager"
+          fetchPriority="high"
+          decoding="async"
+          sizes="100vw"
+          srcSet={`${servicesHero} 1600w`}
+          className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-40 mix-blend-multiply"
+        />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-brand via-brand/85 to-brand/40" />
+        <div className="container-x relative pb-16 pt-16 text-brand-foreground md:pt-24">
+          <p className="font-mono text-xs uppercase tracking-widest">Services</p>
+          <h1 className="mt-2 max-w-3xl font-display text-5xl font-bold md:text-6xl">
+            Whatever you're shipping, we route it.
+          </h1>
+          <p className="mt-5 max-w-2xl text-lg text-brand-foreground/85">
+            Eight service lines built on one global network — from same-day metro drops to
+            transcontinental ocean freight. Every service is backed by end-to-end tracking,
+            proactive alerts, and a 24/7 operations desk in your local language.
+          </p>
+        </div>
+      </section>
+
+      <section className="container-x grid gap-8 py-16 md:grid-cols-2 md:items-center">
+        <div>
+          <p className="font-mono text-xs font-bold uppercase tracking-widest text-accent">
+            One network. Every mode.
+          </p>
+          <h2 className="mt-2 font-display text-3xl font-bold md:text-4xl">
+            Built for shippers who can't afford to guess.
+          </h2>
+          <p className="mt-4 text-muted-foreground">
+            Voltra operates its own aircraft, its own trucks, its own sortation hubs and its own
+            last-mile fleets. That's why we can guarantee times other carriers can only estimate —
+            and why our on-time performance leads the industry across every mode we offer.
+          </p>
+          <ul className="mt-6 space-y-3 text-sm">
+            {[
+              "Real-time visibility from pickup to proof-of-delivery",
+              "Dedicated account manager on business accounts",
+              "API and pre-built integrations for every major platform",
+              "Sustainable-fuel options on every international shipment",
+            ].map((f) => (
+              <li key={f} className="flex items-start gap-3">
+                <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-accent" />
+                <span>{f}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="relative overflow-hidden rounded-sm border border-border">
+          <img
+            src={warehouseOps}
+            alt="Voltra sortation hub with automated forklifts"
+            width={1600}
+            height={900}
+            loading="lazy"
+            decoding="async"
+            sizes="(min-width: 768px) 50vw, 100vw"
+            srcSet={`${warehouseOps} 1600w`}
+            className="h-full w-full object-cover"
+          />
+        </div>
       </section>
 
       <section className="container-x grid gap-4 pb-24 md:grid-cols-2 lg:grid-cols-4">
