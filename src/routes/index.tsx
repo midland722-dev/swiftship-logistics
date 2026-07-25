@@ -13,6 +13,11 @@ import {
   Leaf,
   Lightbulb,
   Newspaper,
+  Quote,
+  Star,
+  TrendingUp,
+  Clock,
+  Globe2,
 } from "lucide-react";
 import heroCourier from "@/assets/hero-courier.jpg";
 import expressHandoff from "@/assets/express-handoff.jpg";
@@ -20,6 +25,9 @@ import cargoPort from "@/assets/cargo-port.jpg";
 import sustainabilityVan from "@/assets/sustainability-van.jpg";
 import innovationData from "@/assets/innovation-data.jpg";
 import globalPlanes from "@/assets/global-planes.jpg";
+import warehouseOps from "@/assets/warehouse-ops.jpg";
+import teamPortrait from "@/assets/team-portrait.jpg";
+import testimonialCustomer from "@/assets/testimonial-customer.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
