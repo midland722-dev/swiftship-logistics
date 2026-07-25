@@ -1,5 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Globe, Users, Award, Rocket } from "lucide-react";
+import teamPortrait from "@/assets/team-portrait.jpg";
+import aboutHeritage from "@/assets/about-heritage.jpg";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -37,6 +39,22 @@ function AboutPage() {
         </p>
       </section>
 
+      <section className="container-x pb-16">
+        <div className="overflow-hidden rounded-2xl border border-border">
+          <img
+            src={teamPortrait}
+            alt="Voltra colleagues from across our global network"
+            width={1600}
+            height={900}
+            loading="lazy"
+            decoding="async"
+            sizes="100vw"
+            srcSet={`${teamPortrait} 1600w`}
+            className="h-full w-full object-cover"
+          />
+        </div>
+      </section>
+
       <section className="container-x grid gap-4 pb-16 sm:grid-cols-2 lg:grid-cols-4">
         {stats.map(({ icon: Icon, value, label }) => (
           <div key={label} className="rounded-2xl border border-border bg-surface/60 p-6">
@@ -47,19 +65,56 @@ function AboutPage() {
         ))}
       </section>
 
+      <section className="container-x grid gap-10 pb-16 md:grid-cols-2 md:items-center">
+        <div className="overflow-hidden rounded-2xl border border-border">
+          <img
+            src={aboutHeritage}
+            alt="Vintage Voltra van beside a modern yellow delivery van"
+            width={1200}
+            height={900}
+            loading="lazy"
+            decoding="async"
+            sizes="(min-width: 768px) 50vw, 100vw"
+            srcSet={`${aboutHeritage} 1200w`}
+            className="h-full w-full object-cover"
+          />
+        </div>
+        <div>
+          <p className="font-mono text-xs font-bold uppercase tracking-widest text-accent">
+            Since 1969
+          </p>
+          <h2 className="mt-2 font-display text-3xl font-bold">Five decades of firsts.</h2>
+          <p className="mt-4 text-muted-foreground">
+            Voltra pioneered international door-to-door courier in 1969 with three employees and a
+            single flight. Today, 128,000 colleagues move 1.9 billion shipments a year across every
+            country on earth — and we're still guided by the same idea: the world works better
+            when logistics just works.
+          </p>
+          <ul className="mt-6 space-y-3 text-sm text-muted-foreground">
+            <li><span className="font-bold text-foreground">1969</span> — First international courier flight departs.</li>
+            <li><span className="font-bold text-foreground">1983</span> — Voltra opens its first automated sortation hub.</li>
+            <li><span className="font-bold text-foreground">2002</span> — Global aviation network reaches 220 countries.</li>
+            <li><span className="font-bold text-foreground">2019</span> — First fully-electric last-mile city network launched.</li>
+            <li><span className="font-bold text-foreground">2026</span> — On track to net-zero operations by 2050.</li>
+          </ul>
+        </div>
+      </section>
+
       <section className="container-x grid gap-10 pb-24 md:grid-cols-2">
         <div>
           <h2 className="font-display text-3xl font-bold">Our purpose</h2>
           <p className="mt-4 text-muted-foreground">
             Connecting people. Improving lives. We believe global trade is a force for good —
             and that logistics done well makes the world smaller, fairer, and more resilient.
+            Every parcel we carry represents a livelihood, a customer, a promise kept.
           </p>
         </div>
         <div>
           <h2 className="font-display text-3xl font-bold">Our promise</h2>
           <p className="mt-4 text-muted-foreground">
             On time. In full. Every time. We measure ourselves against the highest standard in
-            the industry, and publish our on-time performance every quarter.
+            the industry, and publish our on-time performance every quarter — because trust is
+            earned in numbers, not adjectives.
           </p>
         </div>
       </section>

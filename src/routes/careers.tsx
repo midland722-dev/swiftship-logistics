@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { MapPin, Briefcase } from "lucide-react";
+import { MapPin, Briefcase, Heart, GraduationCap, Globe } from "lucide-react";
+import careersHero from "@/assets/careers-hero.jpg";
 
 export const Route = createFileRoute("/careers")({
   head: () => ({
@@ -27,15 +28,47 @@ const roles = [
 function CareersPage() {
   return (
     <>
-      <section className="container-x pt-16 pb-14 md:pt-24">
+      <section className="container-x pt-16 pb-10 md:pt-24">
         <p className="font-mono text-xs uppercase tracking-widest text-brand">Careers</p>
         <h1 className="mt-2 max-w-3xl font-display text-5xl font-bold md:text-6xl">
           Move the world with us.
         </h1>
         <p className="mt-5 max-w-2xl text-lg text-muted-foreground">
           From couriers to coders, 128,000 Voltra colleagues keep global trade moving. Find
-          your role — and grow a career that spans continents.
+          your role — and grow a career that spans continents, disciplines, and decades.
         </p>
+      </section>
+
+      <section className="container-x pb-16">
+        <div className="overflow-hidden rounded-2xl border border-border">
+          <img
+            src={careersHero}
+            alt="Voltra colleagues collaborating in a modern office"
+            width={1600}
+            height={700}
+            loading="lazy"
+            decoding="async"
+            sizes="100vw"
+            srcSet={`${careersHero} 1600w`}
+            className="h-full w-full object-cover"
+          />
+        </div>
+      </section>
+
+      <section className="container-x grid gap-4 pb-16 md:grid-cols-3">
+        {[
+          { icon: Heart, title: "Purpose-driven work", desc: "Every colleague contributes to keeping global trade — and the businesses that rely on it — moving." },
+          { icon: GraduationCap, title: "Grow with us", desc: "Certified learning paths, tuition support, and internal mobility across 220+ countries." },
+          { icon: Globe, title: "Truly global", desc: "Relocate, rotate, or work remotely with teams that span every continent and timezone." },
+        ].map(({ icon: Icon, title, desc }) => (
+          <div key={title} className="rounded-2xl border border-border bg-surface/60 p-6">
+            <div className="grid h-11 w-11 place-items-center rounded-xl bg-background text-brand">
+              <Icon className="h-5 w-5" />
+            </div>
+            <h2 className="mt-5 text-lg font-semibold">{title}</h2>
+            <p className="mt-2 text-sm text-muted-foreground">{desc}</p>
+          </div>
+        ))}
       </section>
 
       <section className="container-x pb-24">

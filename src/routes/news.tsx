@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Calendar } from "lucide-react";
+import newsHero from "@/assets/news-hero.jpg";
 
 export const Route = createFileRoute("/news")({
   head: () => ({
@@ -26,11 +27,31 @@ const posts = [
 function NewsPage() {
   return (
     <>
-      <section className="container-x pt-16 pb-14 md:pt-24">
+      <section className="container-x pt-16 pb-10 md:pt-24">
         <p className="font-mono text-xs uppercase tracking-widest text-brand">Newsroom</p>
         <h1 className="mt-2 max-w-3xl font-display text-5xl font-bold md:text-6xl">
           The latest from Voltra.
         </h1>
+        <p className="mt-5 max-w-2xl text-lg text-muted-foreground">
+          Press releases, service bulletins, and behind-the-scenes stories from the world's
+          largest logistics network.
+        </p>
+      </section>
+
+      <section className="container-x pb-14">
+        <div className="overflow-hidden rounded-2xl border border-border">
+          <img
+            src={newsHero}
+            alt="Voltra cargo plane being loaded at dawn"
+            width={1600}
+            height={700}
+            loading="lazy"
+            decoding="async"
+            sizes="100vw"
+            srcSet={`${newsHero} 1600w`}
+            className="h-full w-full object-cover"
+          />
+        </div>
       </section>
 
       <section className="container-x pb-24">
