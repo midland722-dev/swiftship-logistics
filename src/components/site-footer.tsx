@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Package, Facebook, Twitter, Linkedin, Youtube, Instagram, Globe } from "lucide-react";
+import { Facebook, Twitter, Linkedin, Youtube, Instagram, Globe } from "lucide-react";
 
 export function SiteFooter() {
   return (
@@ -30,11 +30,12 @@ export function SiteFooter() {
       <div className="bg-[oklch(0.2_0.02_250)] text-white">
         <div className="container-x grid gap-10 py-14 md:grid-cols-5">
           <div className="md:col-span-1">
-            <div className="flex items-center gap-2 font-display text-lg font-bold">
-              <span className="grid h-8 w-8 place-items-center rounded-sm bg-brand text-accent">
-                <Package className="h-4 w-4" strokeWidth={2.75} />
-              </span>
-              Voltra
+            <div className="inline-flex items-center rounded-md bg-white p-3">
+              <img
+                src="/logo.png"
+                alt="Americans Shipping & Courier Logistics"
+                className="h-16 w-auto"
+              />
             </div>
             <p className="mt-4 text-sm text-white/60">
               Excellence. Simply delivered. Global logistics and courier services in 220+ countries.
