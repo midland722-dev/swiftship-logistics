@@ -162,7 +162,7 @@ $page_title = 'Admin Login - ' . SITE_NAME;
                     <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrf_token); ?>">
                     
                     <div class="form-floating">
-                        <input type="text" class="form-control" id="username" name="username" placeholder="Username or Email" required autofocus value="<?php echo htmlspecialchars($_POST['username'] ?? ''); ?>" autocomplete="username">
+                        <input type="text" class="form-control" id="username" name="username" placeholder="Username or Email" required autofocus value="<?php echo htmlspecialchars($_POST['username'] ?? ''); ?>">
                         <label for="username"><i class="bi bi-person"></i> Username or Email</label>
                     </div>
                     
@@ -172,13 +172,22 @@ $page_title = 'Admin Login - ' . SITE_NAME;
                         <div id="passwordStrength" class="mt-1" style="font-size: 0.8rem;"></div>
                     </div>
                     
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="remember" name="remember">
+                            <label class="form-check-label" for="remember">
+                                Remember me
+                            </label>
+                        </div>
+                    </div>
+                    
                     <button type="submit" class="btn btn-login" id="submitBtn">
                         <i class="bi bi-box-arrow-in-right"></i> Sign In
                     </button>
                 </form>
                 
                 <div class="back-link">
-                    <a href="../php/index.php"><i class="bi bi-arrow-left"></i> Back to Website</a>
+                    <a href="../index.php"><i class="bi bi-arrow-left"></i> Back to Website</a>
                 </div>
                 
                 <div class="mt-3 p-3 bg-light rounded d-none" id="defaultCredsBox">
