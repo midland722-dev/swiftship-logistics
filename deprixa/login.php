@@ -125,6 +125,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+// If already logged in, redirect to dashboard
+if (isset($_SESSION['admin_id'])) {
+    header('Location: index.php');
+    exit;
+}
+
 $csrf_token = $security->generateCsrfToken();
 
 $page_title = 'Admin Login - ' . SITE_NAME;
