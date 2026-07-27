@@ -1,0 +1,47 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Exclude real files, directories, and symbolic links from rewriting
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-l
+
+    # Exclude /deprixa/ admin panel (PHP files)
+    RewriteCond %{REQUEST_URI} !^/deprixa/
+    
+    # Exclude /php/ directory
+    RewriteCond %{REQUEST_URI} !^/php/
+    
+    # Exclude /api/ directory
+    RewriteCond %{REQUEST_URI} !^/api/
+    
+    # Exclude direct PHP file access
+    RewriteCond %{REQUEST_FILENAME} !\.php$
+    
+    # Exclude .well-known (for SSL cert validation)
+    RewriteCond %{REQUEST_URI} !^/\.well-known/
+
+    # Route everything else to React (index.html)
+    RewriteRule ^(.*)$ /index.html [QSA,L]
+</IfModule>
+
+# PHP-specific headers
+<FilesMatch "\.(php|phtml|php3|php4|php5|phtml)$">
+    <IfModule mod_headers.c>
+        Header set Cache-Control "no-cache, no-store, must-revalidate"
+    </IfModule>
+</FilesMatch>
+
+# Security headers
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "DENY"
+    Header set X-XSS-Protection "1; mode=block"
+</IfModule>
+
+# Allow direct access to admin panel
+<Directory "/deprixa">
+    <IfModule mod_rewrite.c>
+        RewriteEngine Off
+    </IfModule>
+</Directory>
