@@ -1,4 +1,4 @@
-import brandLogo from "@/assets/ascl-logo.jpg.asset.json";
+import brandLogo from "@/assets/ascl-logo.png";
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Menu, X, LogOut, LayoutDashboard, Shield, Mail, Phone, Plane, Ship, Truck, PackageCheck, Globe2, Zap } from "lucide-react";
@@ -74,7 +74,7 @@ export function SiteHeader() {
       <div className="container-x flex h-16 items-center justify-between gap-6">
         <Link to="/" className="flex items-center gap-2 font-display text-lg font-bold tracking-tight" aria-label="Americans Shipping & Courier Logistics — Home">
           <img
-            src={brandLogo.url}
+            src={brandLogo}
             alt="Americans Shipping & Courier Logistics"
             className="h-10 w-auto"
           />
