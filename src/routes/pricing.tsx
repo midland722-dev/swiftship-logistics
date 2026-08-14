@@ -4,15 +4,9 @@ import { Check } from "lucide-react";
 export const Route = createFileRoute("/pricing")({
   head: () => ({
     meta: [
-<<<<<<< HEAD
-      { title: "Pricing — American Shipping & Logistics" },
-      { name: "description", content: "Transparent shipping plans for individuals, small businesses, and global enterprises." },
-      { property: "og:title", content: "Pricing — American Shipping & Logistics" },
-=======
       { title: "Pricing — Voltra Logistics" },
       { name: "description", content: "Transparent shipping plans for individuals, small businesses, and global enterprises." },
       { property: "og:title", content: "Pricing — Voltra" },
->>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
       { property: "og:description", content: "Simple, transparent logistics pricing." },
     ],
     links: [{ rel: "canonical", href: "/pricing" }],

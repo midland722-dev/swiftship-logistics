@@ -1,9 +1,5 @@
 import { Link } from "@tanstack/react-router";
-<<<<<<< HEAD
-import { Package, Facebook, Twitter, Linkedin, Youtube, Instagram, Globe } from "lucide-react";
-=======
 import { Facebook, Twitter, Linkedin, Youtube, Instagram, Globe } from "lucide-react";
->>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
 
 export function SiteFooter() {
   return (
@@ -34,20 +30,12 @@ export function SiteFooter() {
       <div className="bg-[oklch(0.2_0.02_250)] text-white">
         <div className="container-x grid gap-10 py-14 md:grid-cols-5">
           <div className="md:col-span-1">
-<<<<<<< HEAD
-            <div className="flex items-center gap-2 font-display text-lg font-bold">
-              <span className="grid h-8 w-8 place-items-center rounded-sm bg-brand text-accent">
-                <Package className="h-4 w-4" strokeWidth={2.75} />
-              </span>
-              American Shipping &amp; Logistics
-=======
             <div className="inline-flex items-center rounded-md bg-white p-3">
               <img
                 src="/logo.png"
                 alt="Americans Shipping & Courier Logistics"
                 className="h-16 w-auto"
               />
->>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
             </div>
             <p className="mt-4 text-sm text-white/60">
               Excellence. Simply delivered. Global logistics and courier services in 220+ countries.
@@ -55,11 +43,7 @@ export function SiteFooter() {
           </div>
 
           <FooterCol
-<<<<<<< HEAD
-            title="About Us"
-=======
             title="About Voltra"
->>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
             links={[
               ["Company", "/about"],
               ["Newsroom", "/news"],
@@ -71,13 +55,8 @@ export function SiteFooter() {
           <FooterCol
             title="Business Divisions"
             links={[
-<<<<<<< HEAD
-              ["American Shipping Express", "/services"],
-              ["American Shipping eCommerce", "/services"],
-=======
               ["Voltra Express", "/services"],
               ["Voltra eCommerce", "/services"],
->>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
               ["Global Forwarding", "/services"],
               ["Supply Chain", "/services"],
               ["Parcel & Same-day", "/services"],
@@ -109,11 +88,7 @@ export function SiteFooter() {
         {/* Legal bar */}
         <div className="border-t border-white/10">
           <div className="container-x flex flex-col gap-3 py-5 text-xs text-white/60 md:flex-row md:items-center md:justify-between">
-<<<<<<< HEAD
-            <p>© {new Date().getFullYear()} American Shipping &amp; Logistics. All rights reserved.</p>
-=======
             <p>© {new Date().getFullYear()} Voltra Logistics. All rights reserved.</p>
->>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
             <ul className="flex flex-wrap gap-x-5 gap-y-2">
               {[
                 ["Legal Notice", "/legal"],

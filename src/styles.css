@@ -118,8 +118,6 @@
     
   background-size: 48px 48px;
 }
-<<<<<<< HEAD
-=======
 
 @keyframes marquee-x {
   from {
@@ -154,4 +152,3 @@
 .marquee-track:hover .animate-marquee {
   animation-play-state: paused;
 }
->>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432

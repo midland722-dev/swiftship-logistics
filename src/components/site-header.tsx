@@ -1,8 +1,5 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
-<<<<<<< HEAD
-import { Menu, X, Package } from "lucide-react";
-=======
 import { Menu, X, LogOut, LayoutDashboard, Shield, Mail, Phone, Plane, Ship, Truck, PackageCheck, Globe2, Zap } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 
@@ -14,7 +11,6 @@ const news = [
   { icon: Globe2, text: "Expanded customs pre-clearance now live for EU & UK parcels" },
   { icon: Zap, text: "Real-time GPS tracking now available on all express services" },
 ] as const;
->>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
 
 const nav = [
   { to: "/services", label: "Services" },
@@ -26,22 +22,6 @@ const nav = [
   { to: "/contact", label: "Contact" },
 ] as const;
 
-<<<<<<< HEAD
-
-export function SiteHeader() {
-  const [open, setOpen] = useState(false);
-
-  return (
-    <header className="sticky top-0 z-40 border-b border-border/60 bg-background/70 backdrop-blur-xl">
-      <div className="container-x flex h-16 items-center justify-between gap-6">
-        <Link to="/" className="flex items-center gap-2 font-display text-lg font-bold tracking-tight">
-          <span className="grid h-8 w-8 place-items-center rounded-sm bg-brand text-accent">
-            <Package className="h-4 w-4" strokeWidth={2.75} />
-          </span>
-          <span>American Shipping & Logistics</span>
-        </Link>
-
-=======
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const { session, isAdmin, signOut } = useAuth();
@@ -98,7 +78,6 @@ export function SiteHeader() {
             className="h-10 w-auto"
           />
         </Link>
->>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
 
         <nav className="hidden items-center gap-1 md:flex">
           {nav.map((n) => (
@@ -114,17 +93,6 @@ export function SiteHeader() {
         </nav>
 
         <div className="hidden items-center gap-2 md:flex">
-<<<<<<< HEAD
-          <Link
-            to="/track"
-            className="rounded-sm bg-accent px-4 py-2 text-sm font-bold uppercase tracking-wider text-accent-foreground transition hover:opacity-90"
-          >
-            Track
-          </Link>
-        </div>
-
-
-=======
           {session ? (
             <>
               {isAdmin && (
@@ -167,7 +135,6 @@ export function SiteHeader() {
           )}
         </div>
 
->>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
         <button
           onClick={() => setOpen((v) => !v)}
           className="grid h-10 w-10 place-items-center rounded-md md:hidden"
@@ -191,12 +158,6 @@ export function SiteHeader() {
                 {n.label}
               </Link>
             ))}
-<<<<<<< HEAD
-          </nav>
-        </div>
-      )}
-
-=======
             <div className="mt-2 border-t border-border/60 pt-2">
               {session ? (
                 <>
@@ -211,7 +172,6 @@ export function SiteHeader() {
           </nav>
         </div>
       )}
->>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
     </header>
   );
 }
