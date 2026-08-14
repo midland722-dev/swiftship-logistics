@@ -12,7 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AboutRouteImport } from './routes/about'
-import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as CareersRouteImport } from './routes/careers'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as HelpRouteImport } from './routes/help'
@@ -26,7 +26,6 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SustainabilityRouteImport } from './routes/sustainability'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as TrackRouteImport } from './routes/track'
-import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedOnboardingRouteImport } from './routes/_authenticated/onboarding'
 
@@ -44,9 +43,9 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthRoute = AuthRouteImport.update({
-  id: '/auth',
-  path: '/auth',
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CareersRoute = CareersRouteImport.update({
@@ -114,11 +113,6 @@ const TrackRoute = TrackRouteImport.update({
   path: '/track',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
-  id: '/admin',
-  path: '/admin',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
 const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -133,7 +127,7 @@ const AuthenticatedOnboardingRoute = AuthenticatedOnboardingRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/auth': typeof AuthRoute
+  '/admin': typeof AdminRoute
   '/careers': typeof CareersRoute
   '/contact': typeof ContactRoute
   '/help': typeof HelpRoute
@@ -147,14 +141,13 @@ export interface FileRoutesByFullPath {
   '/sustainability': typeof SustainabilityRoute
   '/terms': typeof TermsRoute
   '/track': typeof TrackRoute
-  '/admin': typeof AuthenticatedAdminRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/onboarding': typeof AuthenticatedOnboardingRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/auth': typeof AuthRoute
+  '/admin': typeof AdminRoute
   '/careers': typeof CareersRoute
   '/contact': typeof ContactRoute
   '/help': typeof HelpRoute
@@ -168,7 +161,6 @@ export interface FileRoutesByTo {
   '/sustainability': typeof SustainabilityRoute
   '/terms': typeof TermsRoute
   '/track': typeof TrackRoute
-  '/admin': typeof AuthenticatedAdminRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/onboarding': typeof AuthenticatedOnboardingRoute
 }
@@ -177,7 +169,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/about': typeof AboutRoute
-  '/auth': typeof AuthRoute
+  '/admin': typeof AdminRoute
   '/careers': typeof CareersRoute
   '/contact': typeof ContactRoute
   '/help': typeof HelpRoute
@@ -191,7 +183,6 @@ export interface FileRoutesById {
   '/sustainability': typeof SustainabilityRoute
   '/terms': typeof TermsRoute
   '/track': typeof TrackRoute
-  '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/onboarding': typeof AuthenticatedOnboardingRoute
 }
@@ -200,7 +191,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
-    | '/auth'
+    | '/admin'
     | '/careers'
     | '/contact'
     | '/help'
@@ -214,14 +205,13 @@ export interface FileRouteTypes {
     | '/sustainability'
     | '/terms'
     | '/track'
-    | '/admin'
     | '/dashboard'
     | '/onboarding'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
-    | '/auth'
+    | '/admin'
     | '/careers'
     | '/contact'
     | '/help'
@@ -235,7 +225,6 @@ export interface FileRouteTypes {
     | '/sustainability'
     | '/terms'
     | '/track'
-    | '/admin'
     | '/dashboard'
     | '/onboarding'
   id:
@@ -243,7 +232,7 @@ export interface FileRouteTypes {
     | '/'
     | '/_authenticated'
     | '/about'
-    | '/auth'
+    | '/admin'
     | '/careers'
     | '/contact'
     | '/help'
@@ -257,7 +246,6 @@ export interface FileRouteTypes {
     | '/sustainability'
     | '/terms'
     | '/track'
-    | '/_authenticated/admin'
     | '/_authenticated/dashboard'
     | '/_authenticated/onboarding'
   fileRoutesById: FileRoutesById
@@ -266,7 +254,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
-  AuthRoute: typeof AuthRoute
+  AdminRoute: typeof AdminRoute
   CareersRoute: typeof CareersRoute
   ContactRoute: typeof ContactRoute
   HelpRoute: typeof HelpRoute
@@ -305,11 +293,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthRouteImport
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/careers': {
@@ -403,13 +391,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TrackRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/admin': {
-      id: '/_authenticated/admin'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AuthenticatedAdminRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
     '/_authenticated/dashboard': {
       id: '/_authenticated/dashboard'
       path: '/dashboard'
@@ -428,13 +409,11 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteRouteChildren {
-  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedOnboardingRoute: typeof AuthenticatedOnboardingRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
-  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedOnboardingRoute: AuthenticatedOnboardingRoute,
 }
@@ -446,7 +425,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AboutRoute: AboutRoute,
-  AuthRoute: AuthRoute,
+  AdminRoute: AdminRoute,
   CareersRoute: CareersRoute,
   ContactRoute: ContactRoute,
   HelpRoute: HelpRoute,

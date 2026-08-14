@@ -121,12 +121,6 @@ export function SiteHeader() {
           ) : (
             <>
               <Link
-                to="/auth"
-                className="rounded-sm border border-border px-4 py-2 text-sm font-semibold hover:bg-surface"
-              >
-                Sign in
-              </Link>
-              <Link
                 to="/quote"
                 className="rounded-sm bg-accent px-4 py-2 text-sm font-bold uppercase tracking-wider text-accent-foreground transition hover:opacity-90"
               >
@@ -167,7 +161,7 @@ export function SiteHeader() {
                   <button onClick={() => { signOut(); setOpen(false); }} className="block w-full rounded-md px-3 py-2 text-left text-sm">Sign out</button>
                 </>
               ) : (
-                <Link to="/auth" onClick={() => setOpen(false)} className="block rounded-md px-3 py-2 text-sm">Sign in</Link>
+                <Link to="/quote" onClick={() => setOpen(false)} className="block rounded-md px-3 py-2 text-sm">Get a quote</Link>
               )}
             </div>
           </nav>
