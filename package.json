@@ -3,7 +3,7 @@
   "private": true,
   "sideEffects": false,
   "type": "module",
-  "packageManager": "pnpm@11.21.0",
+  "packageManager": "pnpm@latest",
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
