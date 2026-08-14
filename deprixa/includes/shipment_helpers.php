@@ -312,17 +312,6 @@ if (!function_exists('ensureShipmentColumns')) {
     }
 }
 
-if (!function_exists('isSuperAdmin')) {
-    /**
-     * True only for Super Admins. Tracking Number and destructive timeline
-     * operations are restricted to this role. Promote a manager_admin / users
-     * row to role 'super_admin' to grant access.
-     */
-    function isSuperAdmin() {
-        return ($_SESSION['admin_role'] ?? '') === 'super_admin';
-    }
-}
-
 if (!function_exists('ensureAdvancedShipmentColumns')) {
     /**
      * Idempotently add the advanced courier columns required by the full

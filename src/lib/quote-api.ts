@@ -22,6 +22,17 @@ export interface QuoteResponse {
 }
 
 const API_BASE = (import.meta.env?.VITE_API_BASE ?? '') || 'http://localhost/ships';
+const REQUEST_TIMEOUT = 15000;
+
+async function withTimeout<T>(promise: Promise<T>): Promise<T> {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT);
+  try {
+    return await promise;
+  } finally {
+    clearTimeout(timeoutId);
+  }
+}
 
 export async function fetchQuote(params: {
   from: string;
@@ -40,12 +51,15 @@ export async function fetchQuote(params: {
     ? `${API_BASE}/php/process/quote_calc.php?${qs.toString()}`
     : `/php/process/quote_calc.php?${qs.toString()}`;
 
-  const response = await fetch(url, {
-    method: 'GET',
-    headers: {
-      Accept: 'application/json',
-    },
-  });
+  const response = await withTimeout(
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+      },
+      signal: AbortSignal.timeout(REQUEST_TIMEOUT),
+    }),
+  );
 
   if (!response.ok) {
     throw new Error(`Quote request failed: ${response.status}`);

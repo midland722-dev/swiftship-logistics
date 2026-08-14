@@ -105,7 +105,8 @@ try {
     $ok = true;
 } catch (Exception $e) {
     if ($db->inTransaction()) { $db->rollBack(); }
-    $_SESSION['flash'] = ['type' => 'danger', 'msg' => 'Error: ' . $e->getMessage()];
+    error_log('Shipment action failed: ' . $e->getMessage());
+    $_SESSION['flash'] = ['type' => 'danger', 'msg' => 'An error occurred. Please try again later.'];
     header('Location: ' . $redirect); exit;
 }
 

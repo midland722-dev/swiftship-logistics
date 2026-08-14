@@ -57,7 +57,8 @@ try {
     $stmt->execute([':id' => $customerId]);
     $stats = array_merge($stats, $stmt->fetch(PDO::FETCH_ASSOC) ?: []);
 } catch (Exception $e) {
-    $message = 'Stats query failed: ' . $e->getMessage();
+    error_log('Exception: ' . $e->getMessage());
+                    $message = 'An error occurred. Please try again later.';
     $message_type = 'danger';
 }
 
@@ -74,7 +75,8 @@ try {
     $stmt->execute([':id' => $customerId]);
     $shipments = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (Exception $e) {
-    $message = 'Shipments query failed: ' . $e->getMessage();
+    error_log('Exception: ' . $e->getMessage());
+                    $message = 'An error occurred. Please try again later.';
     $message_type = 'danger';
 }
 

@@ -66,7 +66,8 @@ try {
     $stmt->execute($params);
     $shipments = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (Exception $e) {
-    $message = 'Query failed: ' . $e->getMessage();
+    error_log('Panel customer query failed: ' . $e->getMessage());
+    $message = 'An error occurred while loading your data. Please try again later.';
     $message_type = 'danger';
 }
 

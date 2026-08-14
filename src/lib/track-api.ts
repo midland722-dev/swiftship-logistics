@@ -36,18 +36,32 @@ export interface TrackingResponse {
 }
 
 const API_BASE = (import.meta.env?.VITE_API_BASE ?? "") || "http://localhost/ships";
+const REQUEST_TIMEOUT = 15000;
+
+async function withTimeout<T>(promise: Promise<T>): Promise<T> {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT);
+  try {
+    return await promise;
+  } finally {
+    clearTimeout(timeoutId);
+  }
+}
 
 export async function fetchTracking(id: string): Promise<TrackingResponse> {
   const url = API_BASE
     ? `${API_BASE}/php/process/track_ajax.php?id=${encodeURIComponent(id)}`
     : `/php/process/track_ajax.php?id=${encodeURIComponent(id)}`;
 
-  const response = await fetch(url, {
-    method: "GET",
-    headers: {
-      Accept: "application/json",
-    },
-  });
+  const response = await withTimeout(
+    fetch(url, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+      },
+      signal: AbortSignal.timeout(REQUEST_TIMEOUT),
+    }),
+  );
 
   if (!response.ok) {
     const text = await response.text();

@@ -92,7 +92,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $message = 'Shipment created successfully. Tracking: ' . htmlspecialchars($trackingNumber);
                 $message_type = 'success';
             } catch (Exception $e) {
-                $message = 'Error creating shipment: ' . $e->getMessage();
+                error_log('Exception: ' . $e->getMessage());
+                    $message = 'An error occurred. Please try again later.';
                 $message_type = 'danger';
             }
         }

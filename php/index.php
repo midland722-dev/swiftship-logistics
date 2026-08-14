@@ -1,8 +1,4 @@
 <?php
-if (!headers_sent() && (getenv('APP_ENV') === 'development' || getenv('APP_ENV') === 'local')) {
-    header('Location: http://localhost:8080/');
-    exit;
-}
 $page_description = 'Ship, track, and quote parcels and freight to 220+ countries. American Shipping & Logistics — global logistics, simply delivered.';
 $canonical        = '/index.php';
 $active_nav       = '';

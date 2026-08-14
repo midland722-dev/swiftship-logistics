@@ -111,7 +111,12 @@ class LoginSecurity {
             unset($_SESSION['csrf_token_time']);
             return false;
         }
-        return hash_equals($_SESSION['csrf_token'], $token);
+        $valid = hash_equals($_SESSION['csrf_token'], $token);
+        if ($valid) {
+            $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+            $_SESSION['csrf_token_time'] = time();
+        }
+        return $valid;
     }
     
     public function regenerateSession() {

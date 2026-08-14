@@ -69,7 +69,8 @@ try {
     $stmt->execute($params);
     $customers = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (Exception $e) {
-    $message = 'Query failed: ' . $e->getMessage();
+    error_log('Exception: ' . $e->getMessage());
+                    $message = 'An error occurred. Please try again later.';
     $message_type = 'danger';
 }
 ?>

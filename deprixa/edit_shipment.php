@@ -21,6 +21,7 @@ require_once __DIR__ . '/../includes/validation.php';
 
 $page_title = 'Edit Shipment - ' . SITE_NAME;
 $db = getDB();
+requirePermission('edit_shipment');
 ensureShipmentColumns($db);
 ensureAdvancedShipmentColumns($db);
 ensureCourierTables($db);
@@ -362,10 +363,10 @@ $package = $stmt->fetch(PDO::FETCH_ASSOC) ?: [];
                 // 'continue' / 'notify' => stay on page.
             } catch (Exception $e) {
                 $db->rollBack();
-                $message = 'Error: ' . $e->getMessage();
+                error_log('Edit shipment failed: ' . $e->getMessage());
+                $message = 'An error occurred while updating the shipment. Please try again.';
                 $message_type = 'danger';
                 $shipment = array_merge($shipment, $fields);
-                log_error('Edit shipment failed', ['shipment_id' => $id ?? null, 'error' => $e->getMessage()]);
             }
         }
     }

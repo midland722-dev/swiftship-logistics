@@ -14,6 +14,7 @@ require_once __DIR__ . '/../includes/tracking.php';
 
 $page_title = 'Update Tracking - ' . SITE_NAME;
 $db = getDB();
+requirePermission('update_tracking');
 ensureShipmentColumns($db);
 ensureCourierTables($db);
 ensureShipmentStatusEnum($db);
@@ -159,7 +160,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $shipment = $stmt->fetch(PDO::FETCH_ASSOC);
                 } catch (Exception $e) {
                     $db->rollBack();
-                    $message = 'Error: ' . $e->getMessage();
+                    error_log('Exception: ' . $e->getMessage());
+                    $message = 'An error occurred. Please try again later.';
                     $message_type = 'danger';
                 }
             }
