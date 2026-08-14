@@ -1,22 +1,20 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Calendar } from "lucide-react";
-<<<<<<< HEAD
-=======
 import newsHero from "@/assets/news-hero.jpg";
->>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
+import { ImageGallery } from "@/components/image-gallery";
+import gNews2 from "@/assets/news-hero.jpg";
+import gVan from "@/assets/sustainability-van.jpg";
+import gPort from "@/assets/cargo-port.jpg";
+import gWarehouse from "@/assets/warehouse-ops.jpg";
+import gData from "@/assets/innovation-data.jpg";
+import gCustomer from "@/assets/testimonial-customer.jpg";
 
 export const Route = createFileRoute("/news")({
   head: () => ({
     meta: [
-<<<<<<< HEAD
       { title: "Newsroom — American Shipping & Logistics" },
       { name: "description", content: "Latest press releases, network updates, and service bulletins from American Shipping & Logistics." },
       { property: "og:title", content: "Newsroom — American Shipping & Logistics" },
-=======
-      { title: "Newsroom — Voltra" },
-      { name: "description", content: "Latest press releases, network updates, and service bulletins from Voltra." },
-      { property: "og:title", content: "Newsroom — Voltra" },
->>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
       { property: "og:description", content: "Press releases and service bulletins." },
       { property: "og:url", content: "/news" },
     ],
@@ -26,15 +24,9 @@ export const Route = createFileRoute("/news")({
 });
 
 const posts = [
-<<<<<<< HEAD
-  { date: "Jan 12, 2026", title: "American Shipping & Logistics opens new automated hub in the USA", tag: "Network" },
-  { date: "Dec 04, 2025", title: "1,200 additional electric vans deployed across US cities", tag: "Sustainability" },
-  { date: "Nov 18, 2025", title: "American Shipping & Logistics Q3 results: 8.7% year-over-year revenue growth", tag: "Investors" },
-=======
-  { date: "Jan 12, 2026", title: "Voltra opens new automated hub in Leipzig", tag: "Network" },
+  { date: "Jan 12, 2026", title: "American Shipping & Logistics opens new automated hub in Leipzig", tag: "Network" },
   { date: "Dec 04, 2025", title: "1,200 additional electric vans deployed across EU cities", tag: "Sustainability" },
-  { date: "Nov 18, 2025", title: "Voltra Q3 results: 8.7% year-over-year revenue growth", tag: "Investors" },
->>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
+  { date: "Nov 18, 2025", title: "American Shipping & Logistics Q3 results: 8.7% year-over-year revenue growth", tag: "Investors" },
   { date: "Oct 02, 2025", title: "New Trans-Pacific express route: LAX ↔ HKG in 18 hours", tag: "Service" },
   { date: "Sep 15, 2025", title: "GoGreen Plus expanded to all international parcels", tag: "Sustainability" },
 ];
@@ -42,17 +34,10 @@ const posts = [
 function NewsPage() {
   return (
     <>
-<<<<<<< HEAD
-      <section className="container-x pt-16 pb-14 md:pt-24">
-        <p className="font-mono text-xs uppercase tracking-widest text-brand">Newsroom</p>
-        <h1 className="mt-2 max-w-3xl font-display text-5xl font-bold md:text-6xl">
-          The latest from American Shipping &amp; Logistics.
-        </h1>
-=======
       <section className="container-x pt-16 pb-10 md:pt-24">
         <p className="font-mono text-xs uppercase tracking-widest text-brand">Newsroom</p>
         <h1 className="mt-2 max-w-3xl font-display text-5xl font-bold md:text-6xl">
-          The latest from Voltra.
+          The latest from American Shipping & Logistics.
         </h1>
         <p className="mt-5 max-w-2xl text-lg text-muted-foreground">
           Press releases, service bulletins, and behind-the-scenes stories from the world's
@@ -64,7 +49,7 @@ function NewsPage() {
         <div className="overflow-hidden rounded-2xl border border-border">
           <img
             src={newsHero}
-            alt="Voltra cargo plane being loaded at dawn"
+            alt="American Shipping & Logistics cargo plane being loaded at dawn"
             width={1600}
             height={700}
             loading="lazy"
@@ -74,7 +59,6 @@ function NewsPage() {
             className="h-full w-full object-cover"
           />
         </div>
->>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
       </section>
 
       <section className="container-x pb-24">
@@ -95,6 +79,19 @@ function NewsPage() {
           ))}
         </div>
       </section>
+      <ImageGallery
+        eyebrow="Media library"
+        title="Press images."
+        description="Downloadable-quality imagery from across our network — click any photo to view it full size."
+        images={[
+          { src: gNews2, alt: "Cargo plane being loaded at dawn", caption: "Air hub at dawn" },
+          { src: gVan, alt: "Electric delivery van charging", caption: "Electric fleet" },
+          { src: gPort, alt: "Container terminal", caption: "Ocean terminal" },
+          { src: gWarehouse, alt: "Automated sortation hub", caption: "Automated sortation" },
+          { src: gData, alt: "Network control room", caption: "Control tower" },
+          { src: gCustomer, alt: "Customer receiving a parcel", caption: "Delivered" },
+        ]}
+      />
     </>
   );
 }

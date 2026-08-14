@@ -1,25 +1,21 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Globe, Users, Award, Rocket } from "lucide-react";
-<<<<<<< HEAD
-import expressHandoff from "@/assets/express-handoff.jpg";
-import cargoPort from "@/assets/cargo-port.jpg";
-=======
 import teamPortrait from "@/assets/team-portrait.jpg";
 import aboutHeritage from "@/assets/about-heritage.jpg";
->>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
+import { ImageGallery } from "@/components/image-gallery";
+import gHeritage from "@/assets/about-heritage.jpg";
+import gTeam from "@/assets/team-portrait.jpg";
+import gWarehouse from "@/assets/warehouse-ops.jpg";
+import gPort from "@/assets/cargo-port.jpg";
+import gPlanes from "@/assets/global-planes.jpg";
+import gVan from "@/assets/sustainability-van.jpg";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-<<<<<<< HEAD
       { title: "About — American Shipping & Logistics" },
       { name: "description", content: "American Shipping & Logistics connects people and businesses across 220+ countries with reliable logistics, courier, and freight services." },
       { property: "og:title", content: "About American Shipping & Logistics" },
-=======
-      { title: "About — Voltra Logistics" },
-      { name: "description", content: "Voltra connects people and businesses across 220+ countries with reliable logistics, courier, and freight services." },
-      { property: "og:title", content: "About Voltra Logistics" },
->>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
       { property: "og:description", content: "Our story, our network, and the people moving your world." },
       { property: "og:url", content: "/about" },
     ],
@@ -39,32 +35,22 @@ function AboutPage() {
   return (
     <>
       <section className="container-x pt-16 pb-14 md:pt-24">
-<<<<<<< HEAD
-        <p className="font-mono text-xs uppercase tracking-widest text-brand">About Us</p>
-=======
-        <p className="font-mono text-xs uppercase tracking-widest text-brand">About Voltra</p>
->>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
+        <p className="font-mono text-xs uppercase tracking-widest text-brand">About American Shipping & Logistics</p>
         <h1 className="mt-2 max-w-3xl font-display text-5xl font-bold md:text-6xl">
           Excellence. Simply delivered.
         </h1>
         <p className="mt-5 max-w-2xl text-lg text-muted-foreground">
-<<<<<<< HEAD
-          For over five decades American Shipping &amp; Logistics has connected people, businesses and communities. From
-=======
-          For over five decades Voltra has connected people, businesses and communities. From
->>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
+          For over five decades American Shipping & Logistics has connected people, businesses and communities. From
           the first international courier flight to today's AI-optimized global routing, we
           keep supply chains moving — reliably, sustainably, everywhere.
         </p>
       </section>
 
-<<<<<<< HEAD
-=======
       <section className="container-x pb-16">
         <div className="overflow-hidden rounded-2xl border border-border">
           <img
             src={teamPortrait}
-            alt="Voltra colleagues from across our global network"
+            alt="American Shipping & Logistics colleagues from across our global network"
             width={1600}
             height={900}
             loading="lazy"
@@ -76,7 +62,6 @@ function AboutPage() {
         </div>
       </section>
 
->>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
       <section className="container-x grid gap-4 pb-16 sm:grid-cols-2 lg:grid-cols-4">
         {stats.map(({ icon: Icon, value, label }) => (
           <div key={label} className="rounded-2xl border border-border bg-surface/60 p-6">
@@ -87,29 +72,11 @@ function AboutPage() {
         ))}
       </section>
 
-<<<<<<< HEAD
-      <section className="container-x grid gap-10 pb-24 md:grid-cols-2">
-        <div>
-          <h2 className="font-display text-3xl font-bold">Our story</h2>
-          <p className="mt-4 text-muted-foreground">
-            Founded in 1969 with a single cargo flight, American Shipping &amp; Logistics has grown into one of the world's most trusted logistics networks. Today we operate across 220+ countries with 128,000 team members, 4,500+ service points, and 60+ major hubs.
-          </p>
-          <p className="mt-4 text-muted-foreground">
-            Our heritage is built on reliability, innovation, and sustainability — the same values that guide every shipment we handle.
-          </p>
-          <p className="mt-4 text-muted-foreground">
-            From the first international courier flight to today's AI-optimized global routing, we keep supply chains moving — reliably, sustainably, everywhere.
-          </p>
-        </div>
-        <div className="grid grid-cols-2 gap-4">
-          <img src={expressHandoff} alt="Courier handoff" className="h-full w-full rounded-2xl object-cover" loading="lazy" decoding="async" />
-          <img src={cargoPort} alt="Ocean freight" className="h-full w-full rounded-2xl object-cover" loading="lazy" decoding="async" />
-=======
       <section className="container-x grid gap-10 pb-16 md:grid-cols-2 md:items-center">
         <div className="overflow-hidden rounded-2xl border border-border">
           <img
             src={aboutHeritage}
-            alt="Vintage Voltra van beside a modern yellow delivery van"
+            alt="Vintage American Shipping & Logistics van beside a modern yellow delivery van"
             width={1200}
             height={900}
             loading="lazy"
@@ -125,14 +92,14 @@ function AboutPage() {
           </p>
           <h2 className="mt-2 font-display text-3xl font-bold">Five decades of firsts.</h2>
           <p className="mt-4 text-muted-foreground">
-            Voltra pioneered international door-to-door courier in 1969 with three employees and a
+            American Shipping & Logistics pioneered international door-to-door courier in 1969 with three employees and a
             single flight. Today, 128,000 colleagues move 1.9 billion shipments a year across every
             country on earth — and we're still guided by the same idea: the world works better
             when logistics just works.
           </p>
           <ul className="mt-6 space-y-3 text-sm text-muted-foreground">
             <li><span className="font-bold text-foreground">1969</span> — First international courier flight departs.</li>
-            <li><span className="font-bold text-foreground">1983</span> — Voltra opens its first automated sortation hub.</li>
+            <li><span className="font-bold text-foreground">1983</span> — American Shipping & Logistics opens its first automated sortation hub.</li>
             <li><span className="font-bold text-foreground">2002</span> — Global aviation network reaches 220 countries.</li>
             <li><span className="font-bold text-foreground">2019</span> — First fully-electric last-mile city network launched.</li>
             <li><span className="font-bold text-foreground">2026</span> — On track to net-zero operations by 2050.</li>
@@ -156,7 +123,6 @@ function AboutPage() {
             the industry, and publish our on-time performance every quarter — because trust is
             earned in numbers, not adjectives.
           </p>
->>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
         </div>
       </section>
 
@@ -168,11 +134,7 @@ function AboutPage() {
             solution for your business.
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
-<<<<<<< HEAD
-            <Link to="/contact" className="rounded-sm bg-accent px-5 py-3 text-sm font-bold uppercase tracking-wider text-white hover:opacity-90">
-=======
             <Link to="/contact" className="rounded-sm bg-accent px-5 py-3 text-sm font-bold uppercase tracking-wider text-accent-foreground hover:opacity-90">
->>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
               Contact sales
             </Link>
             <Link to="/careers" className="rounded-sm border border-border px-5 py-3 text-sm font-semibold hover:bg-surface">
@@ -181,6 +143,19 @@ function AboutPage() {
           </div>
         </div>
       </section>
+      <ImageGallery
+        eyebrow="Gallery"
+        title="Five decades in pictures."
+        description="A look at the people, places and vehicles that make up American Shipping & Logistics."
+        images={[
+          { src: gHeritage, alt: "Vintage delivery van beside a modern one", caption: "Then and now" },
+          { src: gTeam, alt: "Colleagues from across our network", caption: "Our people" },
+          { src: gWarehouse, alt: "Warehouse operations", caption: "Inside the hub" },
+          { src: gPort, alt: "Container port at sunrise", caption: "Global gateways" },
+          { src: gPlanes, alt: "Cargo aircraft at an airport", caption: "Air network" },
+          { src: gVan, alt: "Electric delivery van", caption: "Last mile" },
+        ]}
+      />
     </>
   );
 }

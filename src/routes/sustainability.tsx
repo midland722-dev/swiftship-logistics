@@ -1,22 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Leaf, Zap, Recycle, Wind } from "lucide-react";
-<<<<<<< HEAD
-=======
 import sustainabilityHero from "@/assets/sustainability-hero.jpg";
->>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
 
 export const Route = createFileRoute("/sustainability")({
   head: () => ({
     meta: [
-<<<<<<< HEAD
       { title: "Sustainability — American Shipping & Logistics" },
-      { name: "description", content: "Net-zero by 2050. American Shipping & Logistics roadmap to greener logistics — electric fleets, sustainable fuels, and carbon-neutral shipping." },
+      { name: "description", content: "Net-zero by 2050. American Shipping & Logistics's roadmap to greener logistics — electric fleets, sustainable fuels, and carbon-neutral shipping." },
       { property: "og:title", content: "Sustainability at American Shipping & Logistics" },
-=======
-      { title: "Sustainability — Voltra Logistics" },
-      { name: "description", content: "Net-zero by 2050. Voltra's roadmap to greener logistics — electric fleets, sustainable fuels, and carbon-neutral shipping." },
-      { property: "og:title", content: "Sustainability at Voltra" },
->>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
       { property: "og:description", content: "Our path to net-zero logistics by 2050." },
       { property: "og:url", content: "/sustainability" },
     ],
@@ -35,17 +26,6 @@ const pillars = [
 function SustainabilityPage() {
   return (
     <>
-<<<<<<< HEAD
-      <section className="container-x pt-16 pb-14 md:pt-24">
-        <p className="font-mono text-xs uppercase tracking-widest text-brand">Sustainability</p>
-        <h1 className="mt-2 max-w-3xl font-display text-5xl font-bold md:text-6xl">
-          Net-zero logistics by <span className="text-brand">2050.</span>
-        </h1>
-        <p className="mt-5 max-w-2xl text-lg text-muted-foreground">
-          We're investing $7 billion by 2030 in clean fuels, electrified fleets, and
-          climate-neutral buildings. Here's how we get there.
-        </p>
-=======
       <section className="relative overflow-hidden">
         <img
           src={sustainabilityHero}
@@ -67,7 +47,7 @@ function SustainabilityPage() {
           </h1>
           <p className="mt-5 max-w-2xl text-lg text-muted-foreground">
             We're investing €7 billion by 2030 in clean fuels, electrified fleets, and
-            climate-neutral buildings. Every Voltra shipment is measured, reported, and
+            climate-neutral buildings. Every American Shipping & Logistics shipment is measured, reported, and
             reducible — because you can't decarbonise what you don't count.
           </p>
         </div>
@@ -84,7 +64,6 @@ function SustainabilityPage() {
             <div className="mt-2 text-sm text-muted-foreground">{s.label}</div>
           </div>
         ))}
->>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
       </section>
 
       <section className="container-x grid gap-4 pb-16 md:grid-cols-2">
@@ -103,11 +82,7 @@ function SustainabilityPage() {
         <div className="rounded-3xl border border-brand/30 bg-gradient-to-b from-brand/10 to-surface p-10 md:p-16">
           <h2 className="font-display text-3xl font-bold md:text-4xl">Ship greener today</h2>
           <p className="mt-3 max-w-2xl text-muted-foreground">
-<<<<<<< HEAD
-            Add GoGreen Plus to any American Shipping &amp; Logistics shipment and reduce your Scope 3 emissions with
-=======
-            Add GoGreen Plus to any Voltra shipment and reduce your Scope 3 emissions with
->>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
+            Add GoGreen Plus to any American Shipping & Logistics shipment and reduce your Scope 3 emissions with
             certified sustainable fuel — auditable, additional, and reported.
           </p>
           <Link to="/quote" className="mt-6 inline-block rounded-sm bg-accent px-5 py-3 text-sm font-bold uppercase tracking-wider text-accent-foreground hover:opacity-90">

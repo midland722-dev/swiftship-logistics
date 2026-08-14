@@ -9,7 +9,7 @@ import { Users, Package, DollarSign, Newspaper, ShieldOff } from "lucide-react";
 
 
 export const Route = createFileRoute("/_authenticated/admin")({
-  head: () => ({ meta: [{ title: "Admin — Voltra" }] }),
+  head: () => ({ meta: [{ title: "Admin — American Shipping & Logistics" }] }),
   component: AdminPage,
 });
 

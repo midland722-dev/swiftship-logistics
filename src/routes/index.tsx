@@ -13,10 +13,6 @@ import {
   Leaf,
   Lightbulb,
   Newspaper,
-<<<<<<< HEAD
-} from "lucide-react";
-import heroCourier from "@/assets/american-shipping-hero.jpg";
-=======
   Quote,
   Star,
   TrendingUp,
@@ -24,41 +20,26 @@ import heroCourier from "@/assets/american-shipping-hero.jpg";
   Globe2,
 } from "lucide-react";
 import heroCourier from "@/assets/hero-courier.jpg";
->>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
 import expressHandoff from "@/assets/express-handoff.jpg";
 import cargoPort from "@/assets/cargo-port.jpg";
 import sustainabilityVan from "@/assets/sustainability-van.jpg";
 import innovationData from "@/assets/innovation-data.jpg";
 import globalPlanes from "@/assets/global-planes.jpg";
-<<<<<<< HEAD
-=======
 import warehouseOps from "@/assets/warehouse-ops.jpg";
 import teamPortrait from "@/assets/team-portrait.jpg";
 import testimonialCustomer from "@/assets/testimonial-customer.jpg";
->>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-<<<<<<< HEAD
-      { title: "American Shipping & Logistics — Global Courier & Freight Services" },
+      { title: "American Shipping & Logistics — Excellence. Simply delivered." },
       {
         name: "description",
         content:
-          "Ship, track, and quote parcels and freight to 220+ countries with American Shipping & Logistics. Trusted global logistics, simply delivered.",
+          "Ship, track, and quote parcels and freight to 220+ countries. American Shipping & Logistics — global logistics, simply delivered.",
       },
-      { property: "og:title", content: "American Shipping & Logistics — Excellence, Simply Delivered" },
-      { property: "og:description", content: "Global logistics and courier services to 220+ countries. Track, quote, and ship with American Shipping & Logistics." },
-=======
-      { title: "Voltra — Excellence. Simply delivered." },
-      {
-        name: "description",
-        content:
-          "Ship, track, and quote parcels and freight to 220+ countries. Voltra — global logistics, simply delivered.",
-      },
-      { property: "og:title", content: "Voltra — Excellence. Simply delivered." },
+      { property: "og:title", content: "American Shipping & Logistics — Excellence. Simply delivered." },
       { property: "og:description", content: "Global logistics, simply delivered." },
->>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
     ],
     links: [{ rel: "canonical", href: "/" }],
   }),
@@ -73,17 +54,12 @@ function HomePage() {
       <Bulletin />
       <Divisions />
       <BusinessSplit />
-<<<<<<< HEAD
-      <Updates />
-      <Highlights />
-=======
       <NetworkStrip />
       <Testimonials />
       <CaseStudies />
       <Updates />
       <Highlights />
       <FinalCTA />
->>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
     </>
   );
 }
@@ -112,24 +88,12 @@ function Hero() {
       <div className="container-x relative grid gap-10 pb-14 pt-14 md:pt-20 lg:grid-cols-[1.2fr_1fr] lg:gap-12 lg:pb-20">
         <div className="flex flex-col justify-center text-brand-foreground">
           <h1 className="font-display text-5xl font-bold leading-[1.02] tracking-tight md:text-6xl lg:text-7xl">
-<<<<<<< HEAD
-            American Shipping
-            <br />
-            &amp; Logistics.
-            <br />
-            <span className="text-accent">Excellence, delivered.</span>
-          </h1>
-          <p className="mt-5 max-w-xl text-lg text-brand-foreground/80">
-            Track a shipment, get an instant quote, or book a pickup — all in one place.
-            American Shipping & Logistics connects 220+ countries with one simple experience.
-=======
             Excellence.
             <br />
             Simply <span className="text-accent">delivered.</span>
           </h1>
           <p className="mt-5 max-w-xl text-lg text-brand-foreground/80">
             Track a shipment, get an instant quote, or book a pickup — all in one place.
->>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
           </p>
         </div>
 
@@ -185,31 +149,19 @@ function QuickActions() {
     {
       icon: Package,
       title: "Ship Now",
-<<<<<<< HEAD
-      desc: "Find the right service for your parcel in seconds.",
-=======
       desc: "Find the right service for your parcel.",
->>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
       to: "/quote",
     },
     {
       icon: FileText,
       title: "Get a Quote",
-<<<<<<< HEAD
-      desc: "Estimate cost, share and compare pricing before you book.",
-=======
       desc: "Estimate cost, share and compare.",
->>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
       to: "/quote",
     },
     {
       icon: Building2,
       title: "Request a Business Account",
-<<<<<<< HEAD
-      desc: "Shipping regularly? Unlock volume discounts and priority support.",
-=======
       desc: "Shipping regularly? Unlock volume discounts.",
->>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
       to: "/contact",
     },
   ];
@@ -253,11 +205,7 @@ function Bulletin() {
           </h2>
           <p className="mt-3 max-w-xl text-muted-foreground">
             Global trade is becoming increasingly complex as new tariffs and reciprocal measures
-<<<<<<< HEAD
             emerge across countries and industries. American Shipping & Logistics is committed to helping you navigate.
-=======
-            emerge across countries and industries. Voltra is committed to helping you navigate.
->>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
           </p>
           <Link
             to="/services"
@@ -267,11 +215,7 @@ function Bulletin() {
           </Link>
         </div>
         <div className="relative hidden overflow-hidden rounded-sm border border-border md:block">
-<<<<<<< HEAD
-          <img src={sustainabilityVan} alt="American Shipping & Logistics delivery driver" width={1000} height={800} loading="lazy" decoding="async" sizes="(min-width: 768px) 40vw, 100vw" srcSet={`${sustainabilityVan} 1000w`} className="h-full w-full object-cover" />
-=======
-          <img src={sustainabilityVan} alt="Voltra delivery driver in a yellow van" width={1000} height={800} loading="lazy" decoding="async" sizes="(min-width: 768px) 40vw, 100vw" srcSet={`${sustainabilityVan} 1000w`} className="h-full w-full object-cover" />
->>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
+          <img src={sustainabilityVan} alt="American Shipping & Logistics delivery driver in a yellow van" width={1000} height={800} loading="lazy" decoding="async" sizes="(min-width: 768px) 40vw, 100vw" srcSet={`${sustainabilityVan} 1000w`} className="h-full w-full object-cover" />
         </div>
       </div>
     </section>
@@ -281,31 +225,6 @@ function Bulletin() {
 /* ---------- Document & Parcel Shipping — divisions ---------- */
 function Divisions() {
   return (
-<<<<<<< HEAD
-      <section className="container-x py-16 md:py-20">
-        <p className="font-mono text-xs font-bold uppercase tracking-widest text-accent">
-          Document and Parcel Shipping
-        </p>
-        <h2 className="mt-2 max-w-2xl font-display text-3xl font-bold md:text-4xl">
-          For all shippers.
-        </h2>
-          <p className="mt-3 max-w-2xl text-muted-foreground">
-            American Shipping & Logistics Express is the undisputed global leader in international express shipping.
-            We deliver time-definite service to 220+ countries with real-time tracking, customs
-            clearance, and full insurance coverage.
-          </p>
-
-      <div className="mt-10 grid gap-6 md:grid-cols-3">
-        <div className="relative overflow-hidden rounded-sm border border-border md:col-span-1">
-           <img src={expressHandoff} alt="American Shipping & Logistics package handoff" width={1200} height={900} loading="lazy" decoding="async" sizes="(min-width: 768px) 33vw, 100vw" srcSet={`${expressHandoff} 1200w`} className="h-full w-full object-cover" />
-         </div>
-
-         <div className="flex flex-col gap-5 rounded-sm border border-border bg-surface p-8">
-           <div className="grid h-12 w-12 place-items-center rounded-sm bg-brand text-brand-foreground">
-             <Plane className="h-6 w-6" strokeWidth={2.5} />
-           </div>
-           <h3 className="font-display text-2xl font-bold">American Shipping Express</h3>
-=======
     <section className="container-x py-16 md:py-20">
       <p className="font-mono text-xs font-bold uppercase tracking-widest text-accent">
         Document and Parcel Shipping
@@ -314,20 +233,19 @@ function Divisions() {
         For all shippers.
       </h2>
       <p className="mt-3 max-w-2xl text-muted-foreground">
-        Learn about Voltra Express — the undisputed global leader in international express shipping.
+        Learn about American Shipping & Logistics Express — the undisputed global leader in international express shipping.
       </p>
 
       <div className="mt-10 grid gap-6 md:grid-cols-3">
         <div className="relative overflow-hidden rounded-sm border border-border md:col-span-1">
-          <img src={expressHandoff} alt="Voltra Express package handoff" width={1200} height={900} loading="lazy" decoding="async" sizes="(min-width: 768px) 33vw, 100vw" srcSet={`${expressHandoff} 1200w`} className="h-full w-full object-cover" />
+          <img src={expressHandoff} alt="American Shipping & Logistics Express package handoff" width={1200} height={900} loading="lazy" decoding="async" sizes="(min-width: 768px) 33vw, 100vw" srcSet={`${expressHandoff} 1200w`} className="h-full w-full object-cover" />
         </div>
 
         <div className="flex flex-col gap-5 rounded-sm border border-border bg-surface p-8">
           <div className="grid h-12 w-12 place-items-center rounded-sm bg-brand text-brand-foreground">
             <Plane className="h-6 w-6" strokeWidth={2.5} />
           </div>
-          <h3 className="font-display text-2xl font-bold">Voltra Express</h3>
->>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
+          <h3 className="font-display text-2xl font-bold">American Shipping & Logistics Express</h3>
           <ul className="grid grid-cols-2 gap-y-2 text-sm text-muted-foreground">
             {[
               "Next possible business day",
@@ -345,18 +263,7 @@ function Divisions() {
             to="/services"
             className="mt-auto inline-flex w-fit items-center gap-2 rounded-sm bg-accent px-5 py-3 text-sm font-bold uppercase tracking-wider text-accent-foreground hover:opacity-90"
           >
-<<<<<<< HEAD
-             Explore American Shipping Express <ArrowRight className="h-4 w-4" />
-          </Link>
-        </div>
-
-          <div className="flex flex-col justify-center gap-4 rounded-sm bg-brand p-8 text-brand-foreground">
-          <div className="text-xs font-bold uppercase tracking-widest">On-time performance</div>
-          <div className="font-display text-6xl font-bold">99.2%</div>
-          <p className="max-w-sm text-brand-foreground/80">
-            of American Shipping &amp; Logistics Express shipments arrive on or before their promised time — measured across
-=======
-            Explore Voltra Express <ArrowRight className="h-4 w-4" />
+            Explore American Shipping & Logistics Express <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
 
@@ -364,8 +271,7 @@ function Divisions() {
           <div className="text-xs font-bold uppercase tracking-widest">On-time performance</div>
           <div className="font-display text-6xl font-bold">99.2%</div>
           <p className="max-w-sm text-brand-foreground/80">
-            of Voltra Express shipments arrive on or before their promised time — measured across
->>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
+            of American Shipping & Logistics Express shipments arrive on or before their promised time — measured across
             220+ countries, every day.
           </p>
           <div className="mt-4 grid grid-cols-3 gap-4 border-t border-brand-foreground/20 pt-4 text-sm">
@@ -398,25 +304,14 @@ function BusinessSplit() {
       image: expressHandoff,
       alt: "Business shipping partners exchanging a parcel",
       items: [
-<<<<<<< HEAD
-        { icon: Truck, title: "American Shipping &amp; Logistics eCommerce", desc: "Domestic and international residential delivery and returns." },
-        { icon: Plane, title: "American Shipping Express", desc: "Fast, door-to-door, courier delivered to 220+ countries." },
-      ],
-    },
-        {
-          tag: "Cargo Shipping",
-          title: "Global Forwarding.",
-          desc: "Discover shipping and logistics service options from American Shipping &amp; Logistics Global Forwarding.",
-=======
-        { icon: Truck, title: "Voltra eCommerce", desc: "Domestic and international residential delivery and returns." },
-        { icon: Plane, title: "Voltra Express", desc: "Fast, door-to-door, courier delivered to 220+ countries." },
+        { icon: Truck, title: "American Shipping & Logistics eCommerce", desc: "Domestic and international residential delivery and returns." },
+        { icon: Plane, title: "American Shipping & Logistics Express", desc: "Fast, door-to-door, courier delivered to 220+ countries." },
       ],
     },
     {
       tag: "Cargo Shipping",
       title: "Global Forwarding.",
-      desc: "Discover shipping and logistics service options from Voltra Global Forwarding.",
->>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
+      desc: "Discover shipping and logistics service options from American Shipping & Logistics Global Forwarding.",
       image: cargoPort,
       alt: "Freight workers at a cargo shipping port",
       items: [
@@ -424,17 +319,10 @@ function BusinessSplit() {
         { icon: Ship, title: "Ocean Freight", desc: "FCL, LCL, and specialised container services." },
       ],
     },
-<<<<<<< HEAD
-        {
-          tag: "Enterprise Logistics Services",
-          title: "American Shipping &amp; Logistics Supply Chain.",
-          desc: "Find out how American Shipping &amp; Logistics Supply Chain can revolutionize your business as a 3PL provider.",
-=======
     {
       tag: "Enterprise Logistics Services",
-      title: "Voltra Supply Chain.",
-      desc: "Find out how Voltra Supply Chain can revolutionize your business as a 3PL provider.",
->>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
+      title: "American Shipping & Logistics Supply Chain.",
+      desc: "Find out how American Shipping & Logistics Supply Chain can revolutionize your business as a 3PL provider.",
       image: heroCourier,
       alt: "Warehouse operations",
       items: [
@@ -491,11 +379,7 @@ function BusinessSplit() {
 /* ---------- Important service updates ---------- */
 function Updates() {
   const updates = [
-<<<<<<< HEAD
     "American Shipping & Logistics Express will implement weekly fuel surcharge updates",
-=======
-    "Voltra Express will implement weekly fuel surcharge updates",
->>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
     "New customs rules for shipments under €150 from outside the EU",
     "Operational update: Middle East corridor",
     "Peak-season capacity now available across all lanes",
@@ -510,31 +394,6 @@ function Updates() {
       </h2>
       <p className="mt-2 text-muted-foreground">Keep up to date with news and alerts.</p>
 
-<<<<<<< HEAD
-      <div className="mt-8 grid gap-6 md:grid-cols-2">
-        <ul className="divide-y divide-border rounded-2xl border border-border bg-surface/60">
-          {updates.map((u) => (
-            <li key={u}>
-              <a
-                href="#"
-                className="group flex items-center justify-between gap-4 px-5 py-4 hover:bg-surface"
-              >
-                <span className="text-sm font-medium">{u}</span>
-                <ArrowRight className="h-4 w-4 shrink-0 text-accent transition group-hover:translate-x-1" />
-              </a>
-            </li>
-          ))}
-        </ul>
-        <div className="relative overflow-hidden rounded-2xl border border-border">
-          <img src={globalPlanes} alt="Global air network" className="h-full w-full object-cover" loading="lazy" decoding="async" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-          <div className="absolute bottom-4 left-4 text-white">
-            <p className="text-xs uppercase tracking-widest text-white/70">Network</p>
-            <p className="mt-1 text-sm font-semibold">Serving 220+ countries</p>
-          </div>
-        </div>
-      </div>
-=======
       <ul className="mt-8 divide-y divide-border border-y border-border">
         {updates.map((u) => (
           <li key={u}>
@@ -548,7 +407,6 @@ function Updates() {
           </li>
         ))}
       </ul>
->>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
     </section>
   );
 }
@@ -560,35 +418,20 @@ function Highlights() {
       icon: Leaf,
       title: "Sustainability",
       desc: "Low-carbon supply chains, GoGreen Plus, and net-zero operations by 2050.",
-<<<<<<< HEAD
-      detail: "We are investing $7 billion by 2030 in clean fuels, electrified fleets, and climate-neutral buildings.",
       image: sustainabilityVan,
       alt: "American Shipping & Logistics electric delivery van driver",
-=======
-      image: sustainabilityVan,
-      alt: "Voltra electric delivery van driver",
->>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
     },
     {
       icon: Lightbulb,
       title: "Innovation",
       desc: "Customer-centric innovation, trend research and next-generation solutions.",
-<<<<<<< HEAD
-      detail: "AI-optimized routing, autonomous warehouses, and real-time shipment visibility across every mode.",
-=======
->>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
       image: innovationData,
       alt: "Global data connectivity visualization",
     },
     {
       icon: Newspaper,
       title: "Global Connectedness",
-<<<<<<< HEAD
       desc: "The American Shipping & Logistics 2026 report — the most comprehensive view of globalization available.",
-      detail: "Trade flows, lane analytics, and economic insights drawn from 1.9 billion shipments annually.",
-=======
-      desc: "The Voltra 2026 report — the most comprehensive view of globalization available.",
->>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
       image: globalPlanes,
       alt: "Cargo planes at sunrise",
     },
@@ -596,16 +439,10 @@ function Highlights() {
   return (
     <section className="container-x pb-24">
       <div className="grid gap-6 md:grid-cols-3">
-<<<<<<< HEAD
-        {tiles.map(({ icon: Icon, title, desc, detail, image, alt }) => (
-          <div
-            key={title}
-=======
         {tiles.map(({ icon: Icon, title, desc, image, alt }) => (
           <a
             key={title}
             href="#"
->>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
             className="group flex flex-col overflow-hidden rounded-sm border border-border bg-background transition hover:border-accent"
           >
             <div className="relative aspect-[4/3] overflow-hidden">
@@ -616,18 +453,11 @@ function Highlights() {
             </div>
             <div className="flex flex-1 flex-col p-6">
               <h3 className="font-display text-xl font-bold">{title}</h3>
-<<<<<<< HEAD
-              <p className="mt-2 text-sm text-muted-foreground">{desc}</p>
-              <p className="mt-2 text-sm text-muted-foreground">{detail}</p>
-=======
               <p className="mt-2 flex-1 text-sm text-muted-foreground">{desc}</p>
->>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
               <span className="mt-6 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-accent">
                 Learn more <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
               </span>
             </div>
-<<<<<<< HEAD
-=======
           </a>
         ))}
       </div>
@@ -655,22 +485,19 @@ function NetworkStrip() {
               <div className="font-display text-2xl font-bold md:text-3xl">{n}</div>
               <div className="text-xs uppercase tracking-wider text-muted-foreground">{label}</div>
             </div>
->>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432
           </div>
         ))}
       </div>
     </section>
   );
 }
-<<<<<<< HEAD
-=======
 
 /* ---------- Testimonials ---------- */
 function Testimonials() {
   const quotes = [
     {
       quote:
-        "Voltra Express moved our seasonal launch from three-week freight into two-day delivery across 14 markets. Our customers noticed the day we switched.",
+        "American Shipping & Logistics Express moved our seasonal launch from three-week freight into two-day delivery across 14 markets. Our customers noticed the day we switched.",
       author: "Ines Marchetti",
       role: "Head of Operations, Aera Studio",
     },
@@ -682,7 +509,7 @@ function Testimonials() {
     },
     {
       quote:
-        "We ship 40,000 orders a month. Voltra eCommerce handles pick, pack, ship and returns without a single missed cutoff.",
+        "We ship 40,000 orders a month. American Shipping & Logistics eCommerce handles pick, pack, ship and returns without a single missed cutoff.",
       author: "Priya Ramesh",
       role: "COO, Halo Wellness",
     },
@@ -700,7 +527,7 @@ function Testimonials() {
             </h2>
             <p className="mt-4 max-w-md text-muted-foreground">
               From independent Shopify stores to Fortune 100 manufacturers, the world's most
-              demanding shippers rely on Voltra for on-time, in-full delivery — every day.
+              demanding shippers rely on American Shipping & Logistics for on-time, in-full delivery — every day.
             </p>
             <div className="mt-6 flex items-center gap-2 text-sm">
               <div className="flex text-accent">
@@ -758,7 +585,7 @@ function CaseStudies() {
       metric: "0",
       metricLabel: "line stoppages in 18 months",
       image: testimonialCustomer,
-      alt: "Business customer receiving a Voltra parcel",
+      alt: "Business customer receiving a American Shipping & Logistics parcel",
     },
   ];
   return (
@@ -835,7 +662,7 @@ function FinalCTA() {
           </h2>
           <p className="mt-3 max-w-xl text-brand-foreground/80">
             Open a business account in under five minutes and unlock volume pricing, dedicated
-            account managers, and API access to every Voltra service.
+            account managers, and API access to every American Shipping & Logistics service.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <Link
@@ -855,7 +682,7 @@ function FinalCTA() {
         <div className="relative hidden overflow-hidden rounded-sm md:block">
           <img
             src={teamPortrait}
-            alt="Voltra team members in yellow branded jackets"
+            alt="American Shipping & Logistics team members in yellow branded jackets"
             width={1200}
             height={700}
             loading="lazy"
@@ -869,4 +696,3 @@ function FinalCTA() {
     </section>
   );
 }
->>>>>>> d6566b98f07a254d41597cb77ffaa074e06a4432

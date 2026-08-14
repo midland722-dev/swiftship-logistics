@@ -6,7 +6,7 @@ import { Check, User, Bell, Package, Building2 } from "lucide-react";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/_authenticated/onboarding")({
-  head: () => ({ meta: [{ title: "Get started — Voltra" }] }),
+  head: () => ({ meta: [{ title: "Get started — American Shipping & Logistics" }] }),
   component: Onboarding,
 });
 
@@ -86,7 +86,7 @@ function Onboarding() {
   return (
     <section className="container-x py-16">
       <p className="font-mono text-xs uppercase tracking-widest text-brand">Get started</p>
-      <h1 className="mt-2 font-display text-4xl font-bold">Set up your Voltra account</h1>
+      <h1 className="mt-2 font-display text-4xl font-bold">Set up your American Shipping & Logistics account</h1>
 
       <div className="mt-6 flex gap-2">
         {STEPS.map((s, i) => (
@@ -117,7 +117,7 @@ function Onboarding() {
         )}
         {step === 1 && (
           <div>
-            <div className="mb-4 flex items-center gap-2 text-brand"><Building2 className="h-4 w-4" /><span className="text-sm font-semibold">How do you plan to use Voltra?</span></div>
+            <div className="mb-4 flex items-center gap-2 text-brand"><Building2 className="h-4 w-4" /><span className="text-sm font-semibold">How do you plan to use American Shipping & Logistics?</span></div>
             <div className="grid gap-3 md:grid-cols-3">
               {(["individual", "business", "enterprise"] as const).map((t) => (
                 <button

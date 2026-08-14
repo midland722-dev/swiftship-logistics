@@ -8,7 +8,7 @@ import { toast } from "sonner";
 
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
-  head: () => ({ meta: [{ title: "Dashboard — Voltra" }] }),
+  head: () => ({ meta: [{ title: "Dashboard — American Shipping & Logistics" }] }),
   component: Dashboard,
 });
 
