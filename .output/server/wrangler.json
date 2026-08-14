@@ -1,11 +1,11 @@
 {
-  "compatibility_date": "2026-07-21",
+  "compatibility_date": "2026-08-14",
   "main": "index.mjs",
   "assets": {
     "binding": "ASSETS",
-    "directory": "..\\public"
+    "directory": "../public"
   },
-  "name": "tanstack-start-ts-desktop-dev-2xam-htdocs-ships",
+  "name": "midland722-dev-swiftship-logistics",
   "compatibility_flags": [
     "nodejs_compat"
   ],

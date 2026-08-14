@@ -1,4 +1,4 @@
-import { n as __toESM, t as __commonJSMin } from "../_runtime.mjs";
+import { o as __toESM, t as __commonJSMin } from "../_runtime.mjs";
 import processModule from "node:process";
 //#region node_modules/react/cjs/react.production.js
 /**
@@ -373,7 +373,7 @@ var require_react_production = /* @__PURE__ */ __commonJSMin(((exports) => {
 	exports.useTransition = function() {
 		return ReactSharedInternals.H.useTransition();
 	};
-	exports.version = "19.2.7";
+	exports.version = "19.2.8";
 }));
 //#endregion
 //#region node_modules/react/index.js
