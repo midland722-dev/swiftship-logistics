@@ -1,8 +1,13 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import { RouterProvider } from '@tanstack/react-router'
 import { getRouter } from './router'
 
 const router = getRouter()
 
 // biome-ignore lint: React 19 render api
-createRoot(document.getElementById('root')!).render(<StrictMode><router /></StrictMode>)
+createRoot(document.getElementById('root')!).render(
+  <StrictMode>
+    <RouterProvider router={router} />
+  </StrictMode>,
+)
