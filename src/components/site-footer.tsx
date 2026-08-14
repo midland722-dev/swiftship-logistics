@@ -74,7 +74,7 @@ export function SiteFooter() {
             ]}
           />
           <FooterCol
-            title="Careers & More"
+            title="Company"
             links={[
               ["Careers", "/careers"],
               ["Newsroom", "/news"],

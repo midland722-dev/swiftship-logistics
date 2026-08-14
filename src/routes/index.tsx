@@ -454,9 +454,9 @@ function Highlights() {
             <div className="flex flex-1 flex-col p-6">
               <h3 className="font-display text-xl font-bold">{title}</h3>
               <p className="mt-2 flex-1 text-sm text-muted-foreground">{desc}</p>
-              <span className="mt-6 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-accent">
-                Learn more <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
-              </span>
+               <span className="mt-6 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-accent">
+                 Learn more about {title.toLowerCase()} <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+               </span>
             </div>
           </a>
         ))}
