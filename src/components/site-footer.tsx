@@ -81,9 +81,9 @@ export function SiteFooter() {
               ["Sustainability", "/sustainability"],
               ["Help center", "/help"],
               ["Contact & locations", "/contact"],
+              ["Staff login", "/admin"],
             ]}
           />
-
         </div>
 
         {/* Legal bar */}
@@ -99,10 +99,11 @@ export function SiteFooter() {
                 ["Sustainability", "/sustainability"],
               ].map(([label, href]) => (
                 <li key={label}>
-                  <Link to={href} className="hover:text-brand">{label}</Link>
+                  <Link to={href} className="hover:text-brand">
+                    {label}
+                  </Link>
                 </li>
               ))}
-
             </ul>
           </div>
         </div>

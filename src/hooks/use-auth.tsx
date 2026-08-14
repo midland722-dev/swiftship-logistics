@@ -27,10 +27,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setRole(null);
       return;
     }
-    const { data } = await supabase
-      .from("user_roles")
-      .select("role")
-      .eq("user_id", uid);
+    const { data } = await supabase.from("user_roles").select("role").eq("user_id", uid);
     const roles = (data ?? []).map((r) => r.role as string);
     if (roles.includes("admin")) setRole("admin");
     else if (roles.includes("staff")) setRole("staff");
@@ -38,17 +35,44 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   useEffect(() => {
-    // Listen first, then get initial session
+    let mounted = true;
+    const timeout = setTimeout(() => {
+      if (mounted) {
+        console.warn("[Auth] getSession timed out, forcing loading=false");
+        setLoading(false);
+      }
+    }, 8000);
+
     const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => {
+      if (!mounted) return;
       setSession(s);
-      // Defer role fetch to avoid deadlocks
       setTimeout(() => loadRole(s?.user?.id), 0);
     });
-    supabase.auth.getSession().then(({ data }) => {
-      setSession(data.session);
-      loadRole(data.session?.user?.id).finally(() => setLoading(false));
-    });
-    return () => sub.subscription.unsubscribe();
+
+    supabase.auth
+      .getSession()
+      .then(({ data }) => {
+        if (!mounted) return;
+        setSession(data.session);
+        return loadRole(data.session?.user?.id);
+      })
+      .catch((err) => {
+        if (!mounted) return;
+        console.error("[Auth] getSession failed:", err);
+        setSession(null);
+        setRole(null);
+      })
+      .finally(() => {
+        if (!mounted) return;
+        clearTimeout(timeout);
+        setLoading(false);
+      });
+
+    return () => {
+      mounted = false;
+      clearTimeout(timeout);
+      sub.subscription.unsubscribe();
+    };
   }, []);
 
   const signOut = async () => {
