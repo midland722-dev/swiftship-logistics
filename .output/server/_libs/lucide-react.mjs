@@ -1,6 +1,6 @@
 import { o as __toESM } from "../_runtime.mjs";
 import { r as require_react } from "./react+tanstack__react-query.mjs";
-//#region node_modules/.pnpm/lucide-react@0.575.0_react@19.2.8/node_modules/lucide-react/dist/esm/shared/src/utils/mergeClasses.js
+//#region node_modules/lucide-react/dist/esm/shared/src/utils/mergeClasses.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 /**
 * @license lucide-react v0.575.0 - ISC
@@ -12,7 +12,7 @@ var mergeClasses = (...classes) => classes.filter((className, index, array) => {
 	return Boolean(className) && className.trim() !== "" && array.indexOf(className) === index;
 }).join(" ").trim();
 //#endregion
-//#region node_modules/.pnpm/lucide-react@0.575.0_react@19.2.8/node_modules/lucide-react/dist/esm/shared/src/utils/toKebabCase.js
+//#region node_modules/lucide-react/dist/esm/shared/src/utils/toKebabCase.js
 /**
 * @license lucide-react v0.575.0 - ISC
 *
@@ -21,7 +21,7 @@ var mergeClasses = (...classes) => classes.filter((className, index, array) => {
 */
 var toKebabCase = (string) => string.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
 //#endregion
-//#region node_modules/.pnpm/lucide-react@0.575.0_react@19.2.8/node_modules/lucide-react/dist/esm/shared/src/utils/toCamelCase.js
+//#region node_modules/lucide-react/dist/esm/shared/src/utils/toCamelCase.js
 /**
 * @license lucide-react v0.575.0 - ISC
 *
@@ -30,7 +30,7 @@ var toKebabCase = (string) => string.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLo
 */
 var toCamelCase = (string) => string.replace(/^([A-Z])|[\s-_]+(\w)/g, (match, p1, p2) => p2 ? p2.toUpperCase() : p1.toLowerCase());
 //#endregion
-//#region node_modules/.pnpm/lucide-react@0.575.0_react@19.2.8/node_modules/lucide-react/dist/esm/shared/src/utils/toPascalCase.js
+//#region node_modules/lucide-react/dist/esm/shared/src/utils/toPascalCase.js
 /**
 * @license lucide-react v0.575.0 - ISC
 *
@@ -42,7 +42,7 @@ var toPascalCase = (string) => {
 	return camelCase.charAt(0).toUpperCase() + camelCase.slice(1);
 };
 //#endregion
-//#region node_modules/.pnpm/lucide-react@0.575.0_react@19.2.8/node_modules/lucide-react/dist/esm/defaultAttributes.js
+//#region node_modules/lucide-react/dist/esm/defaultAttributes.js
 /**
 * @license lucide-react v0.575.0 - ISC
 *
@@ -61,7 +61,7 @@ var defaultAttributes = {
 	strokeLinejoin: "round"
 };
 //#endregion
-//#region node_modules/.pnpm/lucide-react@0.575.0_react@19.2.8/node_modules/lucide-react/dist/esm/shared/src/utils/hasA11yProp.js
+//#region node_modules/lucide-react/dist/esm/shared/src/utils/hasA11yProp.js
 /**
 * @license lucide-react v0.575.0 - ISC
 *
@@ -73,7 +73,7 @@ var hasA11yProp = (props) => {
 	return false;
 };
 //#endregion
-//#region node_modules/.pnpm/lucide-react@0.575.0_react@19.2.8/node_modules/lucide-react/dist/esm/Icon.js
+//#region node_modules/lucide-react/dist/esm/Icon.js
 /**
 * @license lucide-react v0.575.0 - ISC
 *
@@ -92,7 +92,7 @@ var Icon = (0, import_react.forwardRef)(({ color = "currentColor", size = 24, st
 	...rest
 }, [...iconNode.map(([tag, attrs]) => (0, import_react.createElement)(tag, attrs)), ...Array.isArray(children) ? children : [children]]));
 //#endregion
-//#region node_modules/.pnpm/lucide-react@0.575.0_react@19.2.8/node_modules/lucide-react/dist/esm/createLucideIcon.js
+//#region node_modules/lucide-react/dist/esm/createLucideIcon.js
 /**
 * @license lucide-react v0.575.0 - ISC
 *
