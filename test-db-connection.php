@@ -27,7 +27,7 @@ foreach ($vars as $var) {
 echo "\n";
 
 // Test connection
-$dbUrl = getenv('MYSQL_PRIVATE_URL') ?: getenv('DATABASE_URL') ?: '';
+$dbUrl = getenv('MYSQL_PRIVATE_URL') ?: getenv('DATABASE_URL') ?: 'mysql://root:sMwDwdAvrsolmefBQKatNKWrEpRBZGxS@mysql.railway.internal:3306/railway';
 if ($dbUrl && str_starts_with($dbUrl, 'mysql://')) {
     $url = parse_url($dbUrl);
     $dbHost = $url['host'] ?? 'localhost';
