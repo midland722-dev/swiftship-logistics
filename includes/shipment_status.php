@@ -126,7 +126,7 @@ if (!defined('TRACKING_WORKFLOW')) {
      * Each step lists the DB `status` values that map onto it. This is the
      * ONLY place the stepper mapping is defined now.
      */
-    define('TRACKING_WORKFLOW', serialize([
+    define('TRACKING_WORKFLOW', [
         ['key' => 'created',          'label' => 'Shipment Created',        'icon' => 'box',           'statuses' => ['pending', 'processing']],
         ['key' => 'picked_up',        'label' => 'Picked Up',               'icon' => 'hand-paper',    'statuses' => ['picked_up']],
         ['key' => 'sorting',          'label' => 'At Sorting Center',       'icon' => 'warehouse',     'statuses' => ['at_warehouse']],
@@ -135,13 +135,13 @@ if (!defined('TRACKING_WORKFLOW')) {
         ['key' => 'destination_hub',  'label' => 'Arrived at Destination Hub', 'icon' => 'building',   'statuses' => ['at_hub']],
         ['key' => 'out_for_delivery', 'label' => 'Out for Delivery',        'icon' => 'shipping-fast', 'statuses' => ['out_for_delivery']],
         ['key' => 'delivered',        'label' => 'Delivered',               'icon' => 'check-circle',  'statuses' => ['delivered']],
-    ]));
+    ]);
 }
 
 if (!defined('TRACKING_TERMINAL')) {
     /** Terminal / exception outcomes that are not part of the linear flow. */
-    define('TRACKING_TERMINAL', serialize([
+    define('TRACKING_TERMINAL', [
         'returned' => ['label' => 'Returned to Sender', 'icon' => 'undo'],
         'cancelled' => ['label' => 'Cancelled', 'icon' => 'times-circle'],
-    ]));
+    ]);
 }

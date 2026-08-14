@@ -219,7 +219,10 @@ function dispatchTrackingWebhooks(PDO $db, array $payload) {
                     'ignore_errors' => true,
                 ],
             ]);
-            $result = @file_get_contents($url, false, $ctx);
+            $suppress = function () {};
+            set_error_handler($suppress);
+            $result = file_get_contents($url, false, $ctx);
+            restore_error_handler();
             if ($result !== false) {
                 $status = 'sent';
                 $resp = substr($result, 0, 500);
@@ -400,8 +403,8 @@ function normalizeTrackingNumber($raw) {
  * (one of 'complete' | 'current' | 'pending').
  */
 function getTrackingProgress($status) {
-    $workflow = unserialize(TRACKING_WORKFLOW);
-    $terminal = unserialize(TRACKING_TERMINAL);
+    $workflow = TRACKING_WORKFLOW;
+    $terminal = TRACKING_TERMINAL;
     $status = strtolower((string)$status);
 
     if (isset($terminal[$status])) {
@@ -756,7 +759,7 @@ function getPublicTracking(PDO $db, $trackingNumber) {
         $lastUpdated = $shipment['created_at'];
     }
 
-    $workflow = unserialize(TRACKING_WORKFLOW);
+    $workflow = TRACKING_WORKFLOW;
     $manualPercent = !empty($shipment['progress_percent']) && $shipment['progress_percent'] !== '' ? (int)$shipment['progress_percent'] : null;
     $manualSteps = [];
     if (!empty($shipment['progress_steps'])) {

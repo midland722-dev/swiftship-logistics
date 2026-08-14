@@ -64,7 +64,8 @@ if (!$cache_hit) {
         $stats['avg_shipment_value'] = $stats['total_shipments'] > 0 ? ($stats['revenue_month'] / $stats['total_shipments']) : 0;
         $stats['delivery_success_rate'] = $stats['total_shipments'] > 0 ? round(($stats['delivered'] / $stats['total_shipments']) * 100, 1) : 0;
     } catch (Exception $e) {
-        $dashboard_errors[] = 'KPI query failed: ' . $e->getMessage();
+        error_log('Dashboard KPI error: ' . $e->getMessage());
+        $dashboard_errors[] = 'Some dashboard data could not be loaded.';
     }
 
     $status_counts = [];
@@ -72,7 +73,8 @@ if (!$cache_hit) {
         $stmt = $db->query("SELECT status, COUNT(*) as count FROM shipments GROUP BY status ORDER BY count DESC");
         $status_counts = $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch (Exception $e) {
-        $dashboard_errors[] = 'Status chart query failed: ' . $e->getMessage();
+        error_log('Dashboard status chart error: ' . $e->getMessage());
+        $dashboard_errors[] = 'Some dashboard data could not be loaded.';
     }
 
     $revenue_chart_data = [];
@@ -87,7 +89,8 @@ if (!$cache_hit) {
         $stmt->execute([':start' => date('Y-m-d 00:00:00', strtotime("-" . $range_days . " days"))]);
         $revenue_chart_data = $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch (Exception $e) {
-        $dashboard_errors[] = 'Revenue chart query failed: ' . $e->getMessage();
+        error_log('Dashboard revenue chart error: ' . $e->getMessage());
+        $dashboard_errors[] = 'Some dashboard data could not be loaded.';
     }
 
     $recent_shipments = [];
@@ -102,7 +105,8 @@ if (!$cache_hit) {
         ");
         $recent_shipments = $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch (Exception $e) {
-        $dashboard_errors[] = 'Recent shipments query failed: ' . $e->getMessage();
+        error_log('Dashboard recent shipments error: ' . $e->getMessage());
+        $dashboard_errors[] = 'Some dashboard data could not be loaded.';
     }
 
     $recent_tickets = [];
@@ -117,7 +121,8 @@ if (!$cache_hit) {
         ");
         $recent_tickets = $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch (Exception $e) {
-        $dashboard_errors[] = 'Recent tickets query failed: ' . $e->getMessage();
+        error_log('Dashboard recent tickets error: ' . $e->getMessage());
+        $dashboard_errors[] = 'Some dashboard data could not be loaded.';
     }
 
     $alerts = [];
@@ -136,7 +141,8 @@ if (!$cache_hit) {
         ");
         $alerts = $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch (Exception $e) {
-        $dashboard_errors[] = 'Alerts query failed: ' . $e->getMessage();
+        error_log('Dashboard alerts error: ' . $e->getMessage());
+        $dashboard_errors[] = 'Some dashboard data could not be loaded.';
     }
 
     $top_routes = [];
@@ -150,7 +156,8 @@ if (!$cache_hit) {
         ");
         $top_routes = $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch (Exception $e) {
-        $dashboard_errors[] = 'Top routes query failed: ' . $e->getMessage();
+        error_log('Dashboard top routes error: ' . $e->getMessage());
+        $dashboard_errors[] = 'Some dashboard data could not be loaded.';
     }
 
     $top_services = [];
@@ -164,7 +171,8 @@ if (!$cache_hit) {
         ");
         $top_services = $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch (Exception $e) {
-        $dashboard_errors[] = 'Top services query failed: ' . $e->getMessage();
+        error_log('Dashboard top services error: ' . $e->getMessage());
+        $dashboard_errors[] = 'Some dashboard data could not be loaded.';
     }
 
     file_put_contents($cache_file, json_encode([

@@ -48,7 +48,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         else {
             $status = 'sent';
             if ($channel === 'email' && $recipient !== '') {
-                @sendMail($recipient, $subject ?: 'Update about your shipment '.$shipment['tracking_number'], $body);
+                $mailSent = sendMail($recipient, $subject ?: 'Update about your shipment '.$shipment['tracking_number'], $body);
+                if (!$mailSent) { $status = 'failed'; }
             }
             // SMS / Push are logged; actual dispatch would use a provider queue.
             $db->prepare("INSERT INTO shipment_notifications (shipment_id, channel, template, recipient, subject, body, status, sent_by, created_at)

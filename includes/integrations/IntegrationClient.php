@@ -173,7 +173,7 @@ class IntegrationClient {
         $resp = null;
         while ($attempt <= $retry) {
             if ($attempt > 0) {
-                @sleep($delay);
+                sleep($delay);
             }
             if (!$this->rateLimitAllowed()) {
                 $lastErr = 'Rate limit exceeded for integration #' . $this->integration['id'];
@@ -194,7 +194,10 @@ class IntegrationClient {
                         'follow_location' => true,
                     ],
                 ]);
-                $raw = @file_get_contents($url, false, $ctx);
+                $suppress = function () {};
+                set_error_handler($suppress);
+                $raw = file_get_contents($url, false, $ctx);
+                restore_error_handler();
                 $meta = $http_response_header ?? [];
                 $status = $this->parseStatus($meta);
                 $respHeaders = $this->parseHeaders($meta);

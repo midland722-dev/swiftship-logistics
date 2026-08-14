@@ -127,10 +127,25 @@ export const updateShipmentStatus = createServerFn({ method: "POST" })
       }
     }
 
-    // ---- Email ---- (wired once Lovable Emails domain is configured)
-    if (prefs?.email_enabled) {
-      result.channels.email.skipped = "email_domain_not_configured";
-    }
+    // ---- Email ----
+    const sendEmailAlert = async (prefs: any, shipment: any) => {
+      if (!prefs?.email_enabled) return;
+      const domain = import.meta.env.VITE_EMAIL_DOMAIN;
+      if (!domain) {
+        console.warn("[email] domain not configured — skipping email notification");
+        return;
+      }
+      try {
+        await fetch('/api/notifications/email', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ shipmentId: shipment.id, recipient: shipment.recipient_email }),
+        });
+      } catch (err) {
+        console.error("[email] send failed", err);
+      }
+    };
+    await sendEmailAlert(prefs, shipment);
 
     return result;
   });

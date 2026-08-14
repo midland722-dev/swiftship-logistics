@@ -84,7 +84,7 @@ function db(): PDO {
             $pdo = new PDO($dsn, DB_USER, DB_PASS, $options);
         } catch (PDOException $e) {
             $detail = 'DB_CONNECTION_FAILED: ' . $e->getMessage() . ' | DSN=' . $dsn . ' user=' . DB_USER;
-            @file_put_contents(__DIR__ . '/../logs/db_connect_errors.log', '[' . date('Y-m-d H:i:s') . '] ' . $detail . "\n", FILE_APPEND | LOCK_EX);
+            file_put_contents(__DIR__ . '/../logs/db_connect_errors.log', '[' . date('Y-m-d H:i:s') . '] ' . $detail . "\n", FILE_APPEND | LOCK_EX);
             http_response_code(500);
             echo json_encode(['success' => false, 'message' => 'Database connection failed. Please contact support.']);
             exit;
