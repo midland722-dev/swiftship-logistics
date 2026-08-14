@@ -97,7 +97,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $db->commit();
             logShipmentAction($db, 'shipment_delivered', $id, "Delivery confirmed by " . ($receiver ?: 'courier'));
             $msg = 'Delivery confirmation saved.'; $msgType='success';
-        } catch (Exception $e) { $db->rollBack(); $msg='Error: '.$e->getMessage(); $msgType='danger'; }
+        } catch (Exception $e) { $db->rollBack(); error_log('Error: ' . $e->getMessage());
+            $msg = 'An error occurred. Please try again later.'; $msgType='danger'; }
     }
 }
 

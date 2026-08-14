@@ -4,6 +4,16 @@ require_once __DIR__ . '/../../includes/db.php';
 require_once __DIR__ . '/permissions.php';
 
 if (session_status() === PHP_SESSION_NONE) {
+    session_set_cookie_params([
+        'lifetime' => 0,
+        'path' => '/',
+        'domain' => '',
+        'secure' => isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on',
+        'httponly' => true,
+        'samesite' => 'Strict',
+    ]);
+    ini_set('session.use_only_cookies', 1);
+    ini_set('session.use_strict_mode', 1);
     session_start();
 }
 

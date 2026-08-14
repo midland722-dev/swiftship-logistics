@@ -6,6 +6,7 @@ require_once __DIR__ . '/../includes/validation.php';
 
 $page_title = 'Create Shipment - ' . SITE_NAME;
 $db = getDB();
+requirePermission('edit_shipment');
 ensureShipmentColumns($db);
 ensureShipmentStatusEnum($db);
 require_once __DIR__ . '/../includes/tracking.php';
@@ -341,7 +342,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
         } catch (Exception $e) {
             $db->rollBack();
-            $message = "Error creating shipment: " . $e->getMessage();
+            error_log('Create shipment failed: ' . $e->getMessage());
+            $message = "An error occurred while creating the shipment. Please try again.";
             $message_type = 'danger';
         }
     }

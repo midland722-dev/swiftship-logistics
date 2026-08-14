@@ -69,7 +69,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmt->execute([':id' => $customerId]);
                 $customer = $stmt->fetch(PDO::FETCH_ASSOC);
             } catch (Exception $e) {
-                $message = 'Update failed: ' . $e->getMessage();
+                error_log('Exception: ' . $e->getMessage());
+                    $message = 'An error occurred. Please try again later.';
                 $message_type = 'danger';
             }
         }

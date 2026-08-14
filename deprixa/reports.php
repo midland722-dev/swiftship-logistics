@@ -51,7 +51,8 @@ switch ($reportType) {
             $stmt->execute([':from' => $dateFrom . ' 00:00:00', ':to' => $dateTo . ' 23:59:59']);
             $reportData = $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (Exception $e) {
-            $message = 'Query failed: ' . $e->getMessage();
+            error_log('Exception: ' . $e->getMessage());
+                    $message = 'An error occurred. Please try again later.';
             $message_type = 'danger';
         }
         break;
@@ -75,7 +76,8 @@ switch ($reportType) {
             $stmt->execute([':from' => $dateFrom . ' 00:00:00', ':to' => $dateTo . ' 23:59:59']);
             $reportData = $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (Exception $e) {
-            $message = 'Query failed: ' . $e->getMessage();
+            error_log('Exception: ' . $e->getMessage());
+                    $message = 'An error occurred. Please try again later.';
             $message_type = 'danger';
         }
         break;
@@ -101,7 +103,8 @@ switch ($reportType) {
             $stmt->execute([':from' => $dateFrom . ' 00:00:00', ':to' => $dateTo . ' 23:59:59']);
             $reportData = $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (Exception $e) {
-            $message = 'Query failed: ' . $e->getMessage();
+            error_log('Exception: ' . $e->getMessage());
+                    $message = 'An error occurred. Please try again later.';
             $message_type = 'danger';
         }
         break;

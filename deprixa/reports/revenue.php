@@ -37,7 +37,8 @@ try {
     $stmt->execute([':from' => $dateFrom . ' 00:00:00', ':to' => $dateTo . ' 23:59:59']);
     $summary = array_merge($summary, $stmt->fetch(PDO::FETCH_ASSOC) ?: []);
 } catch (Exception $e) {
-    $message = 'Query failed: ' . $e->getMessage();
+    error_log('Revenue report query failed: ' . $e->getMessage());
+    $message = 'An error occurred while generating the report. Please try again later.';
     $message_type = 'danger';
 }
 

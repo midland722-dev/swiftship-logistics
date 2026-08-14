@@ -38,7 +38,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             $message = "Ticket updated successfully.";
             $message_type = 'success';
         } catch (Exception $e) {
-            $message = "Error updating ticket: " . $e->getMessage();
+            error_log('Ticket update failed: ' . $e->getMessage());
+            $message = "An error occurred while updating the ticket. Please try again.";
             $message_type = 'danger';
         }
     }

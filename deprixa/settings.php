@@ -72,7 +72,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         $message_type = 'success';
     } catch (Exception $e) {
         $db->rollBack();
-        $message = 'Error updating settings: ' . $e->getMessage();
+        error_log('Exception: ' . $e->getMessage());
+                    $message = 'An error occurred. Please try again later.';
         $message_type = 'danger';
     }
 }
@@ -93,7 +94,8 @@ try {
         $categories[$cat][] = $setting;
     }
 } catch (Exception $e) {
-    $message = 'Error loading settings: ' . $e->getMessage();
+    error_log('Exception: ' . $e->getMessage());
+                    $message = 'An error occurred. Please try again later.';
     $message_type = 'danger';
 }
 

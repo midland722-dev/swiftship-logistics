@@ -60,7 +60,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt = $db->prepare("SELECT * FROM shipments WHERE id=:id LIMIT 1");
             $stmt->execute([':id'=>$id]);
             $shipment = $stmt->fetch(PDO::FETCH_ASSOC);
-        } catch (Exception $e) { $db->rollBack(); $msg = 'Error: '.$e->getMessage(); $msgType='danger'; }
+        } catch (Exception $e) { $db->rollBack(); error_log('Error: ' . $e->getMessage());
+            $msg = 'An error occurred. Please try again later.'; $msgType='danger'; }
     }
 }
 

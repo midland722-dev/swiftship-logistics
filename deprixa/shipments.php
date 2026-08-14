@@ -86,10 +86,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                 $message_type = 'success';
             } catch (Exception $e) {
                 $db->rollBack();
-                $message = "Error updating status: " . $e->getMessage();
+                error_log('Shipment status update failed: ' . $e->getMessage());
+                $message = "An error occurred while updating the shipment status. Please try again.";
                 $message_type = 'danger';
             }
         } elseif ($action === 'delete_shipment' && !empty($_POST['shipment_id'])) {
+            requirePermission('delete_shipment');
             try {
                 $shipment_id = intval($_POST['shipment_id']);
                 $db->beginTransaction();
@@ -115,10 +117,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                 $message_type = 'success';
             } catch (Exception $e) {
                 $db->rollBack();
-                $message = "Error deleting shipment: " . $e->getMessage();
+                error_log('Shipment delete failed: ' . $e->getMessage());
+                $message = "An error occurred while deleting the shipment. Please try again.";
                 $message_type = 'danger';
             }
         } elseif ($action === 'bulk_delete' && !empty($_POST['shipment_ids'])) {
+            requirePermission('delete_shipment');
             try {
                 $ids = array_map('intval', $_POST['shipment_ids']);
                 $placeholders = implode(',', array_fill(0, count($ids), '?'));
@@ -141,10 +145,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                 $message_type = 'success';
             } catch (Exception $e) {
                 $db->rollBack();
-                $message = "Error deleting shipments: " . $e->getMessage();
+                error_log('Bulk delete shipments failed: ' . $e->getMessage());
+                $message = "An error occurred while deleting shipments. Please try again.";
                 $message_type = 'danger';
             }
         } elseif ($action === 'inline_edit' && !empty($_POST['shipment_id'])) {
+            requirePermission('edit_shipment');
             try {
                 $shipment_id = intval($_POST['shipment_id']);
                 $sender_name = trim($_POST['sender_name'] ?? '');
@@ -251,9 +257,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                 if ($db->inTransaction()) {
                     $db->rollBack();
                 }
-                $message = "Error updating shipment: " . $e->getMessage();
+                error_log('Shipment update failed: ' . $e->getMessage());
+                $message = "An error occurred while updating the shipment. Please try again.";
                 $message_type = 'danger';
-                log_error('Shipment update failed', ['shipment_id' => $shipment_id ?? null, 'error' => $e->getMessage()]);
             }
         }
     }
