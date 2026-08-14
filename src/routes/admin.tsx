@@ -23,6 +23,17 @@ function AdminPage() {
   const [busy, setBusy] = useState(false);
   const [loginError, setLoginError] = useState<string | null>(null);
 
+  useEffect(() => {
+    if (session && !loading) {
+      if (isAdmin) return;
+      const next = new URLSearchParams(window.location.search).get("next");
+      navigate({
+        to: next && next !== "/admin" ? next : "/dashboard",
+        replace: true,
+      });
+    }
+  }, [session, loading, isAdmin, navigate]);
+
   if (loading) return <div className="container-x py-16">Loading…</div>;
 
   const submit = async (e: React.FormEvent) => {
@@ -30,23 +41,9 @@ function AdminPage() {
     setBusy(true);
     setLoginError(null);
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) throw error;
-      const roleRes = await supabase
-        .from("user_roles")
-        .select("role")
-        .eq("user_id", data.session.user.id)
-        .maybeSingle();
-      const roleData = roleRes.data;
-      const roles = roleData ? [roleData.role] : [];
-      const isAdmin = roles.includes("admin");
       toast.success("Welcome back.");
-      const next = new URLSearchParams(window.location.search).get("next");
-      if (next && next !== "/admin") {
-        navigate({ to: next, replace: true });
-      } else if (!isAdmin) {
-        navigate({ to: "/dashboard", replace: true });
-      }
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : "Something went wrong";
       setLoginError(msg);
