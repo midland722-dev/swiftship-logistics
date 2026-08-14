@@ -2,6 +2,15 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Plane, Truck, Ship, Warehouse, Package, Boxes, Factory, ShoppingBag, CheckCircle2 } from "lucide-react";
 import servicesHero from "@/assets/services-hero.jpg";
 import warehouseOps from "@/assets/warehouse-ops.jpg";
+import { ImageGallery } from "@/components/image-gallery";
+import gExpress from "@/assets/express-handoff.jpg";
+import gPort from "@/assets/cargo-port.jpg";
+import gWarehouse from "@/assets/warehouse-ops.jpg";
+import gPlanes from "@/assets/global-planes.jpg";
+import gOceanAir from "@/assets/service-ocean-air.jpg";
+import gEcommerce from "@/assets/service-ecommerce.jpg";
+import gIndustrial from "@/assets/service-industrial.jpg";
+import gSupply from "@/assets/service-supply-chain.jpg";
 
 export const Route = createFileRoute("/services")({
   head: () => ({
@@ -135,6 +144,21 @@ function ServicesPage() {
           </div>
         </div>
       </section>
+      <ImageGallery
+        eyebrow="Inside the network"
+        title="Our operations, up close."
+        description="From sortation hubs to ocean terminals, take a look at the infrastructure behind every shipment."
+        images={[
+          { src: gExpress, alt: "Courier handing over an express parcel", caption: "Express handoff" },
+          { src: gPort, alt: "Container ship at a cargo port", caption: "Ocean freight terminal" },
+          { src: gWarehouse, alt: "Modern warehouse operations", caption: "Fulfilment centre" },
+          { src: gPlanes, alt: "Cargo aircraft on the apron", caption: "Global air network" },
+          { src: gOceanAir, alt: "Multimodal ocean and air freight", caption: "Multimodal freight" },
+          { src: gEcommerce, alt: "eCommerce parcels being sorted", caption: "eCommerce logistics" },
+          { src: gIndustrial, alt: "Industrial project cargo", caption: "Industrial projects" },
+          { src: gSupply, alt: "Supply chain control tower", caption: "Supply chain" },
+        ]}
+      />
     </>
   );
 }

@@ -1,6 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { MapPin, Briefcase, Heart, GraduationCap, Globe } from "lucide-react";
 import careersHero from "@/assets/careers-hero.jpg";
+import { ImageGallery } from "@/components/image-gallery";
+import gCareers from "@/assets/careers-hero.jpg";
+import gWarehouse from "@/assets/warehouse-ops.jpg";
+import gExpress from "@/assets/express-handoff.jpg";
+import gData from "@/assets/innovation-data.jpg";
+import gPlanes from "@/assets/global-planes.jpg";
+import gTeam from "@/assets/team-portrait.jpg";
 
 export const Route = createFileRoute("/careers")({
   head: () => ({
@@ -90,6 +97,19 @@ function CareersPage() {
           ))}
         </div>
       </section>
+      <ImageGallery
+        eyebrow="Life here"
+        title="Where you could be working."
+        description="Offices, hubs and depots across 220+ countries — every team keeps the network moving."
+        images={[
+          { src: gCareers, alt: "Colleagues collaborating in an office", caption: "Corporate teams" },
+          { src: gWarehouse, alt: "Warehouse team at work", caption: "Operations" },
+          { src: gExpress, alt: "Courier delivering a parcel", caption: "Last mile couriers" },
+          { src: gData, alt: "Engineers reviewing network data", caption: "Technology" },
+          { src: gPlanes, alt: "Ground crew loading a cargo plane", caption: "Aviation" },
+          { src: gTeam, alt: "Team portrait", caption: "Our people" },
+        ]}
+      />
     </>
   );
 }

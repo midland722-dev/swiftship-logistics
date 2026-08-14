@@ -2,6 +2,13 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Globe, Users, Award, Rocket } from "lucide-react";
 import teamPortrait from "@/assets/team-portrait.jpg";
 import aboutHeritage from "@/assets/about-heritage.jpg";
+import { ImageGallery } from "@/components/image-gallery";
+import gHeritage from "@/assets/about-heritage.jpg";
+import gTeam from "@/assets/team-portrait.jpg";
+import gWarehouse from "@/assets/warehouse-ops.jpg";
+import gPort from "@/assets/cargo-port.jpg";
+import gPlanes from "@/assets/global-planes.jpg";
+import gVan from "@/assets/sustainability-van.jpg";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -136,6 +143,19 @@ function AboutPage() {
           </div>
         </div>
       </section>
+      <ImageGallery
+        eyebrow="Gallery"
+        title="Five decades in pictures."
+        description="A look at the people, places and vehicles that make up American Shipping & Logistics."
+        images={[
+          { src: gHeritage, alt: "Vintage delivery van beside a modern one", caption: "Then and now" },
+          { src: gTeam, alt: "Colleagues from across our network", caption: "Our people" },
+          { src: gWarehouse, alt: "Warehouse operations", caption: "Inside the hub" },
+          { src: gPort, alt: "Container port at sunrise", caption: "Global gateways" },
+          { src: gPlanes, alt: "Cargo aircraft at an airport", caption: "Air network" },
+          { src: gVan, alt: "Electric delivery van", caption: "Last mile" },
+        ]}
+      />
     </>
   );
 }

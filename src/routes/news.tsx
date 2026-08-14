@@ -1,6 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Calendar } from "lucide-react";
 import newsHero from "@/assets/news-hero.jpg";
+import { ImageGallery } from "@/components/image-gallery";
+import gNews2 from "@/assets/news-hero.jpg";
+import gVan from "@/assets/sustainability-van.jpg";
+import gPort from "@/assets/cargo-port.jpg";
+import gWarehouse from "@/assets/warehouse-ops.jpg";
+import gData from "@/assets/innovation-data.jpg";
+import gCustomer from "@/assets/testimonial-customer.jpg";
 
 export const Route = createFileRoute("/news")({
   head: () => ({
@@ -72,6 +79,19 @@ function NewsPage() {
           ))}
         </div>
       </section>
+      <ImageGallery
+        eyebrow="Media library"
+        title="Press images."
+        description="Downloadable-quality imagery from across our network — click any photo to view it full size."
+        images={[
+          { src: gNews2, alt: "Cargo plane being loaded at dawn", caption: "Air hub at dawn" },
+          { src: gVan, alt: "Electric delivery van charging", caption: "Electric fleet" },
+          { src: gPort, alt: "Container terminal", caption: "Ocean terminal" },
+          { src: gWarehouse, alt: "Automated sortation hub", caption: "Automated sortation" },
+          { src: gData, alt: "Network control room", caption: "Control tower" },
+          { src: gCustomer, alt: "Customer receiving a parcel", caption: "Delivered" },
+        ]}
+      />
     </>
   );
 }
