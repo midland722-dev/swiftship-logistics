@@ -5,9 +5,9 @@ import sustainabilityHero from "@/assets/sustainability-hero.jpg";
 export const Route = createFileRoute("/sustainability")({
   head: () => ({
     meta: [
-      { title: "Sustainability — Voltra Logistics" },
-      { name: "description", content: "Net-zero by 2050. Voltra's roadmap to greener logistics — electric fleets, sustainable fuels, and carbon-neutral shipping." },
-      { property: "og:title", content: "Sustainability at Voltra" },
+      { title: "Sustainability — American Shipping & Logistics" },
+      { name: "description", content: "Net-zero by 2050. American Shipping & Logistics's roadmap to greener logistics — electric fleets, sustainable fuels, and carbon-neutral shipping." },
+      { property: "og:title", content: "Sustainability at American Shipping & Logistics" },
       { property: "og:description", content: "Our path to net-zero logistics by 2050." },
       { property: "og:url", content: "/sustainability" },
     ],
@@ -47,7 +47,7 @@ function SustainabilityPage() {
           </h1>
           <p className="mt-5 max-w-2xl text-lg text-muted-foreground">
             We're investing €7 billion by 2030 in clean fuels, electrified fleets, and
-            climate-neutral buildings. Every Voltra shipment is measured, reported, and
+            climate-neutral buildings. Every American Shipping & Logistics shipment is measured, reported, and
             reducible — because you can't decarbonise what you don't count.
           </p>
         </div>
@@ -82,7 +82,7 @@ function SustainabilityPage() {
         <div className="rounded-3xl border border-brand/30 bg-gradient-to-b from-brand/10 to-surface p-10 md:p-16">
           <h2 className="font-display text-3xl font-bold md:text-4xl">Ship greener today</h2>
           <p className="mt-3 max-w-2xl text-muted-foreground">
-            Add GoGreen Plus to any Voltra shipment and reduce your Scope 3 emissions with
+            Add GoGreen Plus to any American Shipping & Logistics shipment and reduce your Scope 3 emissions with
             certified sustainable fuel — auditable, additional, and reported.
           </p>
           <Link to="/quote" className="mt-6 inline-block rounded-sm bg-accent px-5 py-3 text-sm font-bold uppercase tracking-wider text-accent-foreground hover:opacity-90">

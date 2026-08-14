@@ -3,9 +3,9 @@ import { createFileRoute } from "@tanstack/react-router";
 export const Route = createFileRoute("/privacy")({
   head: () => ({
     meta: [
-      { title: "Privacy notice — Voltra" },
-      { name: "description", content: "How Voltra collects, uses, and protects your personal data across our logistics services." },
-      { property: "og:title", content: "Privacy notice — Voltra" },
+      { title: "Privacy notice — American Shipping & Logistics" },
+      { name: "description", content: "How American Shipping & Logistics collects, uses, and protects your personal data across our logistics services." },
+      { property: "og:title", content: "Privacy notice — American Shipping & Logistics" },
       { property: "og:url", content: "/privacy" },
     ],
     links: [{ rel: "canonical", href: "/privacy" }],

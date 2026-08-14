@@ -12,8 +12,8 @@ export const Route = createFileRoute("/auth")({
   validateSearch: searchSchema,
   head: () => ({
     meta: [
-      { title: "Sign in — Voltra" },
-      { name: "description", content: "Sign in or create a Voltra account to ship, track, and manage parcels." },
+      { title: "Sign in — American Shipping & Logistics" },
+      { name: "description", content: "Sign in or create a American Shipping & Logistics account to ship, track, and manage parcels." },
     ],
   }),
   component: AuthPage,
@@ -69,7 +69,7 @@ function AuthPage() {
           <span className="grid h-8 w-8 place-items-center rounded-sm bg-brand text-accent">
             <Package className="h-4 w-4" strokeWidth={2.75} />
           </span>
-          Voltra
+          American Shipping & Logistics
         </Link>
         <h1 className="font-display text-3xl font-bold">
           {mode === "signin" ? "Sign in" : "Create your account"}
@@ -125,7 +125,7 @@ function AuthPage() {
           onClick={() => setMode(mode === "signin" ? "signup" : "signin")}
           className="mt-4 w-full text-center text-sm text-muted-foreground hover:text-foreground"
         >
-          {mode === "signin" ? "New to Voltra? Create an account" : "Have an account? Sign in"}
+          {mode === "signin" ? "New to American Shipping & Logistics? Create an account" : "Have an account? Sign in"}
         </button>
       </div>
     </section>

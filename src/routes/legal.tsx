@@ -3,9 +3,9 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 export const Route = createFileRoute("/legal")({
   head: () => ({
     meta: [
-      { title: "Legal notice — Voltra" },
-      { name: "description", content: "Corporate information, registration details, and legal notices for Voltra Logistics." },
-      { property: "og:title", content: "Legal notice — Voltra" },
+      { title: "Legal notice — American Shipping & Logistics" },
+      { name: "description", content: "Corporate information, registration details, and legal notices for American Shipping & Logistics." },
+      { property: "og:title", content: "Legal notice — American Shipping & Logistics" },
       { property: "og:url", content: "/legal" },
     ],
     links: [{ rel: "canonical", href: "/legal" }],
@@ -22,7 +22,7 @@ function LegalPage() {
       <div className="prose prose-neutral mt-8 max-w-3xl text-muted-foreground">
         <h2 className="mt-8 font-display text-xl font-semibold text-foreground">Company information</h2>
         <p>
-          Voltra Logistics AG · Heidenkampsweg 100 · 20097 Hamburg, Germany.
+          American Shipping & Logistics AG · Heidenkampsweg 100 · 20097 Hamburg, Germany.
           Registered at the Hamburg local court, HRB 000000.
         </p>
 
@@ -40,7 +40,7 @@ function LegalPage() {
         <h2 className="mt-8 font-display text-xl font-semibold text-foreground">Disclaimer</h2>
         <p>
           Information on this website is provided for general purposes. While we take care to
-          keep content accurate and current, Voltra makes no warranty as to completeness or
+          keep content accurate and current, American Shipping & Logistics makes no warranty as to completeness or
           fitness for a particular purpose.
         </p>
 

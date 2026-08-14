@@ -10,8 +10,8 @@ export const Route = createFileRoute("/track")({
   validateSearch: searchSchema,
   head: () => ({
     meta: [
-      { title: "Track shipment — Voltra" },
-      { name: "description", content: "Live tracking for Voltra parcels and freight worldwide." },
+      { title: "Track shipment — American Shipping & Logistics" },
+      { name: "description", content: "Live tracking for American Shipping & Logistics parcels and freight worldwide." },
     ],
     links: [{ rel: "canonical", href: "/track" }],
   }),

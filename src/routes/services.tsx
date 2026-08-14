@@ -6,10 +6,10 @@ import warehouseOps from "@/assets/warehouse-ops.jpg";
 export const Route = createFileRoute("/services")({
   head: () => ({
     meta: [
-      { title: "Services — Voltra Logistics" },
-      { name: "description", content: "Express shipping, freight, eCommerce logistics, and supply chain solutions from Voltra." },
-      { property: "og:title", content: "Services — Voltra Logistics" },
-      { property: "og:description", content: "Everything Voltra ships, from letters to full truckloads." },
+      { title: "Services — American Shipping & Logistics" },
+      { name: "description", content: "Express shipping, freight, eCommerce logistics, and supply chain solutions from American Shipping & Logistics." },
+      { property: "og:title", content: "Services — American Shipping & Logistics" },
+      { property: "og:description", content: "Everything American Shipping & Logistics ships, from letters to full truckloads." },
     ],
     links: [{ rel: "canonical", href: "/services" }],
   }),
@@ -66,7 +66,7 @@ function ServicesPage() {
             Built for shippers who can't afford to guess.
           </h2>
           <p className="mt-4 text-muted-foreground">
-            Voltra operates its own aircraft, its own trucks, its own sortation hubs and its own
+            American Shipping & Logistics operates its own aircraft, its own trucks, its own sortation hubs and its own
             last-mile fleets. That's why we can guarantee times other carriers can only estimate —
             and why our on-time performance leads the industry across every mode we offer.
           </p>
@@ -87,7 +87,7 @@ function ServicesPage() {
         <div className="relative overflow-hidden rounded-sm border border-border">
           <img
             src={warehouseOps}
-            alt="Voltra sortation hub with automated forklifts"
+            alt="American Shipping & Logistics sortation hub with automated forklifts"
             width={1600}
             height={900}
             loading="lazy"

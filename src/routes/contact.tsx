@@ -4,10 +4,10 @@ import { Mail, Phone, MapPin, MessageSquare } from "lucide-react";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact — Voltra Logistics" },
-      { name: "description", content: "Get in touch with Voltra sales, support, or press. We reply within one business hour." },
-      { property: "og:title", content: "Contact — Voltra" },
-      { property: "og:description", content: "Talk to Voltra's logistics team." },
+      { title: "Contact — American Shipping & Logistics" },
+      { name: "description", content: "Get in touch with American Shipping & Logistics sales, support, or press. We reply within one business hour." },
+      { property: "og:title", content: "Contact — American Shipping & Logistics" },
+      { property: "og:description", content: "Talk to American Shipping & Logistics's logistics team." },
     ],
     links: [{ rel: "canonical", href: "/contact" }],
   }),

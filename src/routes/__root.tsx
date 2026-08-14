@@ -87,19 +87,19 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Voltra — Global Logistics & Courier Services" },
+      { title: "American Shipping & Logistics — Global Logistics & Courier Services" },
       {
         name: "description",
         content:
-          "Voltra moves parcels and freight to 220+ countries. Track shipments, get instant quotes, and book pickups in seconds.",
+          "American Shipping & Logistics moves parcels and freight to 220+ countries. Track shipments, get instant quotes, and book pickups in seconds.",
       },
-      { property: "og:title", content: "Voltra — Global Logistics & Courier Services" },
+      { property: "og:title", content: "American Shipping & Logistics — Global Logistics & Courier Services" },
       {
         property: "og:description",
-        content: "Track, quote, and ship worldwide with Voltra's modern logistics network.",
+        content: "Track, quote, and ship worldwide with American Shipping & Logistics's modern logistics network.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:site_name", content: "Voltra" },
+      { property: "og:site_name", content: "American Shipping & Logistics" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
@@ -118,7 +118,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Organization",
-          name: "Voltra Logistics",
+          name: "American Shipping & Logistics",
           url: "/",
           logo: "/favicon.ico",
           sameAs: [],

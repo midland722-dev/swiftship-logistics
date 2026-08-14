@@ -3,9 +3,9 @@ import { createFileRoute } from "@tanstack/react-router";
 export const Route = createFileRoute("/terms")({
   head: () => ({
     meta: [
-      { title: "Terms of use — Voltra" },
-      { name: "description", content: "Terms and conditions governing use of Voltra's website and services." },
-      { property: "og:title", content: "Terms of use — Voltra" },
+      { title: "Terms of use — American Shipping & Logistics" },
+      { name: "description", content: "Terms and conditions governing use of American Shipping & Logistics's website and services." },
+      { property: "og:title", content: "Terms of use — American Shipping & Logistics" },
       { property: "og:url", content: "/terms" },
     ],
     links: [{ rel: "canonical", href: "/terms" }],
@@ -28,10 +28,10 @@ function TermsPage() {
         <p>Shipping services are governed by our standard Terms &amp; Conditions of Carriage, provided at booking.</p>
 
         <h2 className="mt-8 font-display text-xl font-semibold text-foreground">Content</h2>
-        <p>All content on this site is © Voltra Logistics unless otherwise stated. You may not reproduce or redistribute without permission.</p>
+        <p>All content on this site is © American Shipping & Logistics unless otherwise stated. You may not reproduce or redistribute without permission.</p>
 
         <h2 className="mt-8 font-display text-xl font-semibold text-foreground">Limitation of liability</h2>
-        <p>To the maximum extent permitted by law, Voltra excludes all warranties and liabilities in connection with this website.</p>
+        <p>To the maximum extent permitted by law, American Shipping & Logistics excludes all warranties and liabilities in connection with this website.</p>
       </div>
     </section>
   );

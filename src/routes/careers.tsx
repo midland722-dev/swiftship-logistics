@@ -5,9 +5,9 @@ import careersHero from "@/assets/careers-hero.jpg";
 export const Route = createFileRoute("/careers")({
   head: () => ({
     meta: [
-      { title: "Careers — Voltra Logistics" },
-      { name: "description", content: "Join 128,000 Voltra colleagues in 220+ countries. Explore open roles in operations, engineering, and corporate teams." },
-      { property: "og:title", content: "Careers at Voltra" },
+      { title: "Careers — American Shipping & Logistics" },
+      { name: "description", content: "Join 128,000 American Shipping & Logistics colleagues in 220+ countries. Explore open roles in operations, engineering, and corporate teams." },
+      { property: "og:title", content: "Careers at American Shipping & Logistics" },
       { property: "og:description", content: "Open roles across engineering, operations, and corporate teams worldwide." },
       { property: "og:url", content: "/careers" },
     ],
@@ -34,7 +34,7 @@ function CareersPage() {
           Move the world with us.
         </h1>
         <p className="mt-5 max-w-2xl text-lg text-muted-foreground">
-          From couriers to coders, 128,000 Voltra colleagues keep global trade moving. Find
+          From couriers to coders, 128,000 American Shipping & Logistics colleagues keep global trade moving. Find
           your role — and grow a career that spans continents, disciplines, and decades.
         </p>
       </section>
@@ -43,7 +43,7 @@ function CareersPage() {
         <div className="overflow-hidden rounded-2xl border border-border">
           <img
             src={careersHero}
-            alt="Voltra colleagues collaborating in a modern office"
+            alt="American Shipping & Logistics colleagues collaborating in a modern office"
             width={1600}
             height={700}
             loading="lazy"

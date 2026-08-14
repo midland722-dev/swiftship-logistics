@@ -9,9 +9,9 @@ import { toast } from "sonner";
 export const Route = createFileRoute("/quote")({
   head: () => ({
     meta: [
-      { title: "Get a shipping quote — Voltra" },
+      { title: "Get a shipping quote — American Shipping & Logistics" },
       { name: "description", content: "Live shipping cost calculator with transparent breakdown by weight, dimensions, speed and insurance." },
-      { property: "og:title", content: "Instant shipping quote — Voltra" },
+      { property: "og:title", content: "Instant shipping quote — American Shipping & Logistics" },
       { property: "og:description", content: "Dynamic pricing calculator with live per-parcel estimates." },
     ],
     links: [{ rel: "canonical", href: "/quote" }],

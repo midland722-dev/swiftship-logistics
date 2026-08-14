@@ -5,9 +5,9 @@ import newsHero from "@/assets/news-hero.jpg";
 export const Route = createFileRoute("/news")({
   head: () => ({
     meta: [
-      { title: "Newsroom — Voltra" },
-      { name: "description", content: "Latest press releases, network updates, and service bulletins from Voltra." },
-      { property: "og:title", content: "Newsroom — Voltra" },
+      { title: "Newsroom — American Shipping & Logistics" },
+      { name: "description", content: "Latest press releases, network updates, and service bulletins from American Shipping & Logistics." },
+      { property: "og:title", content: "Newsroom — American Shipping & Logistics" },
       { property: "og:description", content: "Press releases and service bulletins." },
       { property: "og:url", content: "/news" },
     ],
@@ -17,9 +17,9 @@ export const Route = createFileRoute("/news")({
 });
 
 const posts = [
-  { date: "Jan 12, 2026", title: "Voltra opens new automated hub in Leipzig", tag: "Network" },
+  { date: "Jan 12, 2026", title: "American Shipping & Logistics opens new automated hub in Leipzig", tag: "Network" },
   { date: "Dec 04, 2025", title: "1,200 additional electric vans deployed across EU cities", tag: "Sustainability" },
-  { date: "Nov 18, 2025", title: "Voltra Q3 results: 8.7% year-over-year revenue growth", tag: "Investors" },
+  { date: "Nov 18, 2025", title: "American Shipping & Logistics Q3 results: 8.7% year-over-year revenue growth", tag: "Investors" },
   { date: "Oct 02, 2025", title: "New Trans-Pacific express route: LAX ↔ HKG in 18 hours", tag: "Service" },
   { date: "Sep 15, 2025", title: "GoGreen Plus expanded to all international parcels", tag: "Sustainability" },
 ];
@@ -30,7 +30,7 @@ function NewsPage() {
       <section className="container-x pt-16 pb-10 md:pt-24">
         <p className="font-mono text-xs uppercase tracking-widest text-brand">Newsroom</p>
         <h1 className="mt-2 max-w-3xl font-display text-5xl font-bold md:text-6xl">
-          The latest from Voltra.
+          The latest from American Shipping & Logistics.
         </h1>
         <p className="mt-5 max-w-2xl text-lg text-muted-foreground">
           Press releases, service bulletins, and behind-the-scenes stories from the world's
@@ -42,7 +42,7 @@ function NewsPage() {
         <div className="overflow-hidden rounded-2xl border border-border">
           <img
             src={newsHero}
-            alt="Voltra cargo plane being loaded at dawn"
+            alt="American Shipping & Logistics cargo plane being loaded at dawn"
             width={1600}
             height={700}
             loading="lazy"

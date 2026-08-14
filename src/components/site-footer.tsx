@@ -43,7 +43,7 @@ export function SiteFooter() {
           </div>
 
           <FooterCol
-            title="About Voltra"
+            title="About American Shipping & Logistics"
             links={[
               ["Company", "/about"],
               ["Newsroom", "/news"],
@@ -55,8 +55,8 @@ export function SiteFooter() {
           <FooterCol
             title="Business Divisions"
             links={[
-              ["Voltra Express", "/services"],
-              ["Voltra eCommerce", "/services"],
+              ["American Shipping & Logistics Express", "/services"],
+              ["American Shipping & Logistics eCommerce", "/services"],
               ["Global Forwarding", "/services"],
               ["Supply Chain", "/services"],
               ["Parcel & Same-day", "/services"],
@@ -88,7 +88,7 @@ export function SiteFooter() {
         {/* Legal bar */}
         <div className="border-t border-white/10">
           <div className="container-x flex flex-col gap-3 py-5 text-xs text-white/60 md:flex-row md:items-center md:justify-between">
-            <p>© {new Date().getFullYear()} Voltra Logistics. All rights reserved.</p>
+            <p>© {new Date().getFullYear()} American Shipping & Logistics. All rights reserved.</p>
             <ul className="flex flex-wrap gap-x-5 gap-y-2">
               {[
                 ["Legal Notice", "/legal"],
