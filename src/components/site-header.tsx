@@ -73,7 +73,7 @@ export function SiteHeader() {
       <div className="container-x flex h-16 items-center justify-between gap-6">
         <Link to="/" className="flex items-center gap-2 font-display text-lg font-bold tracking-tight" aria-label="Americans Shipping & Courier Logistics — Home">
           <img
-            src="/logo.png"
+            src={brandLogo.url}
             alt="Americans Shipping & Courier Logistics"
             className="h-10 w-auto"
           />

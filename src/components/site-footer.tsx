@@ -32,7 +32,7 @@ export function SiteFooter() {
           <div className="md:col-span-1">
             <div className="inline-flex items-center rounded-md bg-white p-3">
               <img
-                src="/logo.png"
+                src={brandLogo.url}
                 alt="Americans Shipping & Courier Logistics"
                 className="h-16 w-auto"
               />
