@@ -1,7 +1,21 @@
 import brandLogo from "@/assets/ascl-logo.png";
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { Menu, X, LogOut, LayoutDashboard, Shield, Mail, Phone, Plane, Ship, Truck, PackageCheck, Globe2, Zap } from "lucide-react";
+import {
+  Menu,
+  X,
+  LogOut,
+  LayoutDashboard,
+  Shield,
+  Mail,
+  Phone,
+  Plane,
+  Ship,
+  Truck,
+  PackageCheck,
+  Globe2,
+  Zap,
+} from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 
 const news = [
@@ -72,7 +86,11 @@ export function SiteHeader() {
         </div>
       </div>
       <div className="container-x flex h-16 items-center justify-between gap-6">
-        <Link to="/" className="flex items-center gap-2 font-display text-lg font-bold tracking-tight" aria-label="Americans Shipping & Courier Logistics — Home">
+        <Link
+          to="/"
+          className="flex items-center gap-2 font-display text-lg font-bold tracking-tight"
+          aria-label="Americans Shipping & Courier Logistics — Home"
+        >
           <img
             src={brandLogo}
             alt="Americans Shipping & Courier Logistics"
@@ -97,12 +115,12 @@ export function SiteHeader() {
           {session ? (
             <>
               {isAdmin && (
-                <Link
-                  to="/admin"
+                <a
+                  href="/admin"
                   className="inline-flex items-center gap-1 rounded-md px-3 py-2 text-sm text-muted-foreground hover:bg-surface hover:text-foreground"
                 >
                   <Shield className="h-4 w-4" /> Admin
-                </Link>
+                </a>
               )}
               <Link
                 to="/dashboard"
@@ -156,12 +174,40 @@ export function SiteHeader() {
             <div className="mt-2 border-t border-border/60 pt-2">
               {session ? (
                 <>
-                  <Link to="/dashboard" onClick={() => setOpen(false)} className="block rounded-md px-3 py-2 text-sm">Dashboard</Link>
-                  {isAdmin && <Link to="/admin" onClick={() => setOpen(false)} className="block rounded-md px-3 py-2 text-sm">Admin</Link>}
-                  <button onClick={() => { signOut(); setOpen(false); }} className="block w-full rounded-md px-3 py-2 text-left text-sm">Sign out</button>
+                  <Link
+                    to="/dashboard"
+                    onClick={() => setOpen(false)}
+                    className="block rounded-md px-3 py-2 text-sm"
+                  >
+                    Dashboard
+                  </Link>
+                  {isAdmin && (
+                    <a
+                      href="/admin"
+                      onClick={() => setOpen(false)}
+                      className="block rounded-md px-3 py-2 text-sm"
+                    >
+                      Admin
+                    </a>
+                  )}
+                  <button
+                    onClick={() => {
+                      signOut();
+                      setOpen(false);
+                    }}
+                    className="block w-full rounded-md px-3 py-2 text-left text-sm"
+                  >
+                    Sign out
+                  </button>
                 </>
               ) : (
-                <Link to="/quote" onClick={() => setOpen(false)} className="block rounded-md px-3 py-2 text-sm">Get a quote</Link>
+                <Link
+                  to="/quote"
+                  onClick={() => setOpen(false)}
+                  className="block rounded-md px-3 py-2 text-sm"
+                >
+                  Get a quote
+                </Link>
               )}
             </div>
           </nav>

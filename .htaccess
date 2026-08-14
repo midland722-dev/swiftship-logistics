@@ -1,14 +1,17 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
+    # Canonical redirect: /deprixa/* -> /admin/*
+    RewriteRule ^deprixa(/.*)?$ /admin$1 [R=301,L]
+
     # Exclude real files, directories, and symbolic links from rewriting
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-l
 
-    # Exclude /deprixa/ admin panel (PHP files)
-    RewriteCond %{REQUEST_URI} !^/deprixa/
-    
+    # Internally rewrite /admin/* -> /deprixa/*
+    RewriteRule ^admin(/.*)?$ /deprixa$1 [QSA,L]
+
     # Exclude /php/ directory
     RewriteCond %{REQUEST_URI} !^/php/
     

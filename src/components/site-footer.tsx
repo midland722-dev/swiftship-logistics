@@ -81,9 +81,18 @@ export function SiteFooter() {
               ["Sustainability", "/sustainability"],
               ["Help center", "/help"],
               ["Contact & locations", "/contact"],
-              ["Staff login", "/admin"],
             ]}
           />
+          <div>
+            <h4 className="mb-4 text-sm font-bold uppercase tracking-wider text-white">Company</h4>
+            <ul className="space-y-2.5 text-sm text-white/70">
+              <li>
+                <a href="/admin" className="hover:text-brand">
+                  Staff login
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
 
         {/* Legal bar */}

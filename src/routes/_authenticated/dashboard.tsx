@@ -2,10 +2,13 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
-import { enablePushForCurrentUser, disablePushForCurrentUser, pushSupported } from "@/lib/push-client";
+import {
+  enablePushForCurrentUser,
+  disablePushForCurrentUser,
+  pushSupported,
+} from "@/lib/push-client";
 import { Package, Plus, Bell, Settings, Shield } from "lucide-react";
 import { toast } from "sonner";
-
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({ meta: [{ title: "Dashboard — American Shipping & Logistics" }] }),
@@ -79,11 +82,7 @@ function Dashboard() {
           .eq("owner_id", user.id)
           .order("created_at", { ascending: false })
           .limit(20),
-        supabase
-          .from("shipment_alert_prefs")
-          .select("*")
-          .eq("user_id", user.id)
-          .maybeSingle(),
+        supabase.from("shipment_alert_prefs").select("*").eq("user_id", user.id).maybeSingle(),
       ]);
       setShipments((s ?? []) as Shipment[]);
       setQuotes((q ?? []) as Quote[]);
@@ -122,7 +121,6 @@ function Dashboard() {
     else toast.success("Alert preferences saved");
   };
 
-
   return (
     <section className="container-x py-12">
       <div className="flex flex-wrap items-end justify-between gap-4">
@@ -134,12 +132,12 @@ function Dashboard() {
         </div>
         <div className="flex gap-2">
           {isAdmin && (
-            <Link
-              to="/admin"
+            <a
+              href="/admin"
               className="inline-flex items-center gap-2 rounded-sm border border-border px-4 py-2 text-sm font-semibold hover:bg-surface"
             >
               <Shield className="h-4 w-4" /> Admin
-            </Link>
+            </a>
           )}
           <Link
             to="/quote"
@@ -158,7 +156,11 @@ function Dashboard() {
           </div>
           {shipments.length === 0 ? (
             <p className="mt-6 text-sm text-muted-foreground">
-              No shipments yet. <Link to="/quote" className="text-brand underline">Book your first one</Link>.
+              No shipments yet.{" "}
+              <Link to="/quote" className="text-brand underline">
+                Book your first one
+              </Link>
+              .
             </p>
           ) : (
             <ul className="mt-4 divide-y divide-border">
@@ -219,7 +221,6 @@ function Dashboard() {
                 checked={prefs.push_enabled}
                 onChange={handlePushToggle}
               />
-
             </div>
             <button
               onClick={savePrefs}
@@ -263,7 +264,15 @@ function Dashboard() {
   );
 }
 
-function ToggleRow({ label, checked, onChange }: { label: string; checked: boolean; onChange: (v: boolean) => void }) {
+function ToggleRow({
+  label,
+  checked,
+  onChange,
+}: {
+  label: string;
+  checked: boolean;
+  onChange: (v: boolean) => void;
+}) {
   return (
     <label className="flex items-center justify-between">
       <span>{label}</span>
@@ -288,7 +297,9 @@ function StatusBadge({ status }: { status: string }) {
     cancelled: "bg-muted text-muted-foreground",
   };
   return (
-    <span className={`rounded-full px-2 py-0.5 text-xs font-semibold ${colors[status] ?? colors.booked}`}>
+    <span
+      className={`rounded-full px-2 py-0.5 text-xs font-semibold ${colors[status] ?? colors.booked}`}
+    >
       {status.replace(/_/g, " ")}
     </span>
   );
