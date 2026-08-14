@@ -27,11 +27,21 @@ foreach ($vars as $var) {
 echo "\n";
 
 // Test connection
-$dbHost = getenv('MYSQLHOST') ?: getenv('DB_HOST') ?: 'mysql.railway.internal';
-$dbPort = getenv('MYSQLPORT') ?: getenv('DB_PORT') ?: '3306';
-$dbName = getenv('MYSQLDATABASE') ?: getenv('DB_NAME') ?: 'railway';
-$dbUser = getenv('MYSQLUSER') ?: getenv('DB_USER') ?: 'root';
-$dbPass = getenv('MYSQLPASSWORD') ?: getenv('DB_PASS') ?: getenv('MYSQL_ROOT_PASSWORD') ?: '';
+$dbUrl = getenv('MYSQL_PRIVATE_URL') ?: getenv('DATABASE_URL') ?: '';
+if ($dbUrl && str_starts_with($dbUrl, 'mysql://')) {
+    $url = parse_url($dbUrl);
+    $dbHost = $url['host'] ?? 'localhost';
+    $dbPort = $url['port'] ?? '3306';
+    $dbName = ltrim($url['path'] ?? '', '/');
+    $dbUser = $url['user'] ?? 'root';
+    $dbPass = $url['pass'] ?? '';
+} else {
+    $dbHost = getenv('MYSQLHOST') ?: getenv('DB_HOST') ?: 'mysql.railway.internal';
+    $dbPort = getenv('MYSQLPORT') ?: getenv('DB_PORT') ?: '3306';
+    $dbName = getenv('MYSQLDATABASE') ?: getenv('DB_NAME') ?: 'railway';
+    $dbUser = getenv('MYSQLUSER') ?: getenv('DB_USER') ?: 'root';
+    $dbPass = getenv('MYSQLPASSWORD') ?: getenv('DB_PASS') ?: getenv('MYSQL_ROOT_PASSWORD') ?: '';
+}
 
 echo "Testing connection to: $dbHost:$dbPort\n";
 echo "Database: $dbName\n";

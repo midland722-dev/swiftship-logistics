@@ -33,18 +33,29 @@ if (file_exists($envFile)) {
 $appEnv = getenv('APP_ENV') ?: (getenv('APP_ENV') ?: 'production');
 $isProduction = $appEnv === 'production';
 
-if ($isProduction) {
+// Support Railway's MYSQL_PRIVATE_URL or DATABASE_URL format:
+// mysql://user:pass@host:port/dbname
+$dbUrl = getenv('MYSQL_PRIVATE_URL') ?: getenv('DATABASE_URL') ?: '';
+
+if ($dbUrl && str_starts_with($dbUrl, 'mysql://')) {
+    $url = parse_url($dbUrl);
+    define('DB_HOST', $url['host'] ?? 'localhost');
+    define('DB_PORT', $url['port'] ?? '3306');
+    define('DB_NAME', ltrim($url['path'] ?? '', '/'));
+    define('DB_USER', $url['user'] ?? '');
+    define('DB_PASS', $url['pass'] ?? '');
+} elseif ($isProduction) {
     define('DB_HOST', getenv('DB_HOST') ?: getenv('MYSQLHOST') ?: 'localhost');
+    define('DB_PORT', getenv('DB_PORT') ?: getenv('MYSQLPORT') ?: '3306');
     define('DB_NAME', getenv('DB_NAME') ?: getenv('MYSQLDATABASE') ?: '');
     define('DB_USER', getenv('DB_USER') ?: getenv('MYSQLUSER') ?: '');
     define('DB_PASS', getenv('DB_PASS') ?: getenv('MYSQLPASSWORD') ?: getenv('MYSQL_ROOT_PASSWORD') ?: '');
-    define('DB_PORT', getenv('DB_PORT') ?: getenv('MYSQLPORT') ?: '3306');
 } else {
     define('DB_HOST', '127.0.0.1');
+    define('DB_PORT', '3306');
     define('DB_NAME', 'gdd');
     define('DB_USER', 'gdduser');
     define('DB_PASS', 'gdduser');
-    define('DB_PORT', '3306');
 }
 define('DB_CHARSET', 'utf8mb4');
 
