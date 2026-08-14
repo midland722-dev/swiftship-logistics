@@ -1,3 +1,4 @@
+import brandLogo from "@/assets/ascl-logo.jpg.asset.json";
 import { Link } from "@tanstack/react-router";
 import { Facebook, Twitter, Linkedin, Youtube, Instagram, Globe } from "lucide-react";
 

@@ -1,3 +1,4 @@
+import brandLogo from "@/assets/ascl-logo.jpg.asset.json";
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Menu, X, LogOut, LayoutDashboard, Shield, Mail, Phone, Plane, Ship, Truck, PackageCheck, Globe2, Zap } from "lucide-react";
