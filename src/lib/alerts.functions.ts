@@ -1,41 +1,14 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { z } from "zod";
+import { VALID_STATUSES, STATUS_LABEL, type AlertResult } from "@/lib/alerts-constants";
 
-const VALID_STATUSES = [
-  "booked",
-  "picked_up",
-  "in_transit",
-  "out_for_delivery",
-  "delivered",
-  "exception",
-  "cancelled",
-] as const;
-
-const inputSchema = z.object({
-  shipment_id: z.string().uuid(),
-  status: z.enum(VALID_STATUSES),
-});
-
-const STATUS_LABEL: Record<string, string> = {
-  booked: "Booked",
-  picked_up: "Picked up",
-  in_transit: "In transit",
-  out_for_delivery: "Out for delivery",
-  delivered: "Delivered",
-  exception: "Exception",
-  cancelled: "Cancelled",
-};
-
-interface AlertResult {
-  ok: boolean;
-  status: string;
-  channels: { push: { sent: number; failed: number }; email: { sent: number; skipped: string | null } };
-}
 
 export const updateShipmentStatus = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => inputSchema.parse(data))
+  .inputValidator((data: unknown) =>
+    z.object({ shipment_id: z.string().uuid(), status: z.enum(VALID_STATUSES) }).parse(data),
+  )
   .handler(async ({ data, context }): Promise<AlertResult> => {
     const { supabase, userId } = context;
 
