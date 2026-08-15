@@ -52,8 +52,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const signOut = async () => {
-    await supabase.auth.signOut();
-    setRole(null);
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        console.error("Sign out failed:", error);
+      }
+    } catch (err) {
+      console.error("Sign out error:", err);
+    } finally {
+      setSession(null);
+      setRole(null);
+    }
   };
 
   const refreshRole = async () => loadRole(session?.user?.id);
