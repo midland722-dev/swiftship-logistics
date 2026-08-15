@@ -23,7 +23,7 @@ include('../../database-settings.php');
 // asignamos la función de conexion a una variable
 $con = conexion();
 // recuperamos el id del usuario enviado por ajax
-$id = $_POST['id'];
+$id = mysql_real_escape_string($_POST['id']);
 // eliminamos de la tabla hacemos una consulta SQL
 $q = "DELETE FROM mode_bookings WHERE id=$id";
 // enviamos la consulta al método query

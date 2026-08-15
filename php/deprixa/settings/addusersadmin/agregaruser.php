@@ -24,21 +24,21 @@ include('../../database-settings.php');
 // asignamos la función de conexion a una variable
 $con = conexion();
 // recuperamos y asignamos a variables los campos enviados por ajax metodo POST
-$name_parson = $_POST['name_parson'];
-$name = $_POST['name'];
-$email = $_POST['email'];
-$phone = $_POST['phone'];
-$office = $_POST['office'];
-$role = $_POST['role'];
-$pwd = $_POST['pwd'];
+$name_parson = mysql_real_escape_string($_POST['name_parson']);
+$name = mysql_real_escape_string($_POST['name']);
+$email = mysql_real_escape_string($_POST['email']);
+$phone = mysql_real_escape_string($_POST['phone']);
+$office = mysql_real_escape_string($_POST['office']);
+$role = mysql_real_escape_string($_POST['role']);
+$pwd = password_hash($_POST['pwd'], PASSWORD_BCRYPT);
 // verificamos si esta marcado el check box activo
 if(isset($_POST['estado']))
-$estado = $_POST['estado'];
+$estado = mysql_real_escape_string($_POST['estado']);
 else
 $estado = 0;
 
 if(isset($_POST['type']))
-$type = $_POST['type'];
+$type = mysql_real_escape_string($_POST['type']);
 else
 $type = 0;
 
@@ -77,7 +77,7 @@ elseif(empty($pwd)){
 
 
 // insertamos en la base de datos - hacemos una consulta SQL
-$consulta = "INSERT INTO manager_admin (name_parson,name,email,phone,office,role,pwd,estado,type,date) VALUES('$name_parson','$name','$email','$phone','$office','$role','$pwd','$estado','$type',curdate())";
+$consulta = "INSERT INTO manager_admin (name_parson,name,email,phone,office,role,password,estado,type,date) VALUES('$name_parson','$name','$email','$phone','$office','$role','$pwd','$estado','$type',curdate())";
 $con->query($consulta); // enviamos la consulta al método query
 // retornamos un mensaje de confirmación
 echo json_encode(array('msg' => 'ok'));

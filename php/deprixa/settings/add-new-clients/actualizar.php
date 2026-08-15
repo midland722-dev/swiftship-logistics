@@ -24,16 +24,15 @@ include('../../database-settings.php');
 // asignamos la función de conexion a una variable
 $con = conexion();
 // recuperamos el cid del off_name enviado por ajax
-$id = $_POST['id'];
+$id = mysql_real_escape_string($_POST['id']);
 // recuperamos y asignamos a variables los campos enviados por ajax metodo POST
-$name = $_POST['name'];
-$address = $_POST['address'];
-$phone = $_POST['phone'];
-$email = $_POST['email'];
-$password = $_POST['password'];
+$name = mysql_real_escape_string($_POST['name']);
+$address = mysql_real_escape_string($_POST['address']);
+$phone = mysql_real_escape_string($_POST['phone']);
+$email = mysql_real_escape_string($_POST['email']);
 // verificamos si esta marcado el check box activo
 if(isset($_POST['estado']))
-$estado = $_POST['estado'];
+$estado = mysql_real_escape_string($_POST['estado']);
 else
 $estado = 0;
 
@@ -55,19 +54,10 @@ elseif(empty($email)){
 	echo json_encode(array('msg' => 'emavacio'));
 	exit();
 }
-elseif(empty($password)){
-	echo json_encode(array('msg' => 'apevacio'));
-	exit();
-}
 
 else{	
-	// verificamos si esta cambiando el password
-	if(empty($password)) // actualizamos la información del off_name hacemos una consulta SQL
-	$consulta = "UPDATE tbl_clients SET name='$name',  address='$address', email='$email', phone='$phone', password='$password', estado='$estado' WHERE id='$id'";
-	else{
-	$consulta = "UPDATE tbl_clients SET name='$name',  address='$address', email='$email', phone='$phone', password='$password', estado='$estado' WHERE id='$id'";	
-	}
-
+	// actualizamos la información
+	$consulta = "UPDATE tbl_clients SET name='$name',  address='$address', email='$email', phone='$phone', estado='$estado' WHERE id='$id'";
 }
 
 // enviamos la consulta al método query
