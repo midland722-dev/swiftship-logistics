@@ -19,9 +19,20 @@ $allowedOrigins = [
     'http://127.0.0.1:8080',
 ];
 
-if (defined('APP_URL')) {
-    $allowedOrigins[] = APP_URL;
-    $parsed = parse_url(APP_URL);
+$corsEnv = getenv('CORS_ALLOWED_ORIGINS');
+if ($corsEnv) {
+    foreach (explode(',', $corsEnv) as $origin) {
+        $origin = trim($origin);
+        if ($origin !== '') {
+            $allowedOrigins[] = $origin;
+        }
+    }
+}
+
+$appUrl = getenv('APP_URL');
+if ($appUrl) {
+    $allowedOrigins[] = $appUrl;
+    $parsed = parse_url($appUrl);
     if (!empty($parsed['host'])) {
         $allowedOrigins[] = $parsed['scheme'] . '://' . $parsed['host'] . ':5173';
         $allowedOrigins[] = $parsed['scheme'] . '://' . $parsed['host'] . ':8080';
