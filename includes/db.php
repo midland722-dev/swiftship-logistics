@@ -33,13 +33,26 @@ if (file_exists($envFile)) {
 $appEnv = getenv('APP_ENV') ?: (getenv('APP_ENV') ?: 'production');
 $isProduction = $appEnv === 'production';
 
-if ($isProduction) {
-    define('DB_HOST', getenv('DB_HOST') ?: 'localhost');
-    define('DB_NAME', getenv('DB_NAME') ?: '');
-    define('DB_USER', getenv('DB_USER') ?: '');
-    define('DB_PASS', getenv('DB_PASS') ?: '');
+// Support Railway's MYSQL_PRIVATE_URL or DATABASE_URL format:
+// mysql://user:pass@host:port/dbname
+$dbUrl = getenv('MYSQL_PRIVATE_URL') ?: getenv('DATABASE_URL') ?: '';
+
+if ($dbUrl && str_starts_with($dbUrl, 'mysql://')) {
+    $url = parse_url($dbUrl);
+    define('DB_HOST', $url['host'] ?? 'localhost');
+    define('DB_PORT', $url['port'] ?? '3306');
+    define('DB_NAME', ltrim($url['path'] ?? '', '/'));
+    define('DB_USER', $url['user'] ?? '');
+    define('DB_PASS', $url['pass'] ?? '');
+} elseif ($isProduction) {
+    define('DB_HOST', getenv('DB_HOST') ?: getenv('MYSQLHOST') ?: 'localhost');
+    define('DB_PORT', getenv('DB_PORT') ?: getenv('MYSQLPORT') ?: '3306');
+    define('DB_NAME', getenv('DB_NAME') ?: getenv('MYSQLDATABASE') ?: '');
+    define('DB_USER', getenv('DB_USER') ?: getenv('MYSQLUSER') ?: '');
+    define('DB_PASS', getenv('DB_PASS') ?: getenv('MYSQLPASSWORD') ?: getenv('MYSQL_ROOT_PASSWORD') ?: '');
 } else {
     define('DB_HOST', '127.0.0.1');
+    define('DB_PORT', '3306');
     define('DB_NAME', 'gdd');
     define('DB_USER', 'gdduser');
     define('DB_PASS', 'gdduser');
@@ -74,7 +87,7 @@ function generate_tracking_number(): string {
 function db(): PDO {
     static $pdo = null;
     if ($pdo === null) {
-        $dsn = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=' . DB_CHARSET;
+        $dsn = 'mysql:host=' . DB_HOST . ';port=' . DB_PORT . ';dbname=' . DB_NAME . ';charset=' . DB_CHARSET;
         $options = [
             PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,

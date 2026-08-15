@@ -1,12 +1,11 @@
-import { createFileRoute, Link, Navigate } from "@tanstack/react-router";
+import { createFileRoute, Link, Navigate, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
 import { useServerFn } from "@tanstack/react-start";
 import { updateShipmentStatus } from "@/lib/alerts.functions";
 import { toast } from "sonner";
-import { Users, Package, DollarSign, Newspaper, ShieldOff } from "lucide-react";
-
+import { Users, Package, DollarSign, Newspaper, ShieldOff, Loader2 } from "lucide-react";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({ meta: [{ title: "Admin — American Shipping & Logistics" }] }),
@@ -17,37 +16,56 @@ type Tab = "shipments" | "pricing" | "users" | "content";
 
 function AdminPage() {
   const { session, isAdmin, loading } = useAuth();
+  const navigate = useNavigate();
   const [tab, setTab] = useState<Tab>("shipments");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [loginError, setLoginError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (session && !loading) {
+      if (isAdmin) return;
+      const next = new URLSearchParams(window.location.search).get("next");
+      navigate({
+        to: next && next !== "/admin" ? next : "/dashboard",
+        replace: true,
+      });
+    }
+  }, [session, loading, isAdmin, navigate]);
 
   if (loading) return <div className="container-x py-16">Loading…</div>;
 
+  const submit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setBusy(true);
+    setLoginError(null);
+    try {
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      if (error) throw error;
+      toast.success("Welcome back.");
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "Something went wrong";
+      setLoginError(msg);
+      toast.error(msg);
+    } finally {
+      setBusy(false);
+    }
+  };
+
   if (!session) {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [busy, setBusy] = useState(false);
-
-    const submit = async (e: React.FormEvent) => {
-      e.preventDefault();
-      setBusy(true);
-      try {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
-        if (error) throw error;
-        toast.success("Welcome back.");
-      } catch (err: any) {
-        toast.error(err.message ?? "Something went wrong");
-      } finally {
-        setBusy(false);
-      }
-    };
-
     return (
       <section className="container-x flex min-h-[70vh] items-center justify-center py-16">
         <div className="w-full max-w-md rounded-2xl border border-border bg-surface/60 p-8">
           <h1 className="font-display text-3xl font-bold">Admin sign in</h1>
-          <p className="mt-1 text-sm text-muted-foreground">Sign in to access the admin control center.</p>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Sign in to access the admin control center.
+          </p>
           <form onSubmit={submit} className="mt-6 space-y-4">
             <label className="block">
-              <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Email</span>
+              <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                Email
+              </span>
               <input
                 required
                 type="email"
@@ -57,7 +75,9 @@ function AdminPage() {
               />
             </label>
             <label className="block">
-              <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Password</span>
+              <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                Password
+              </span>
               <input
                 required
                 type="password"
@@ -67,6 +87,7 @@ function AdminPage() {
                 className="mt-2 w-full rounded-lg border border-border bg-background px-3 py-2.5 text-sm outline-none focus:border-brand"
               />
             </label>
+            {loginError && <p className="text-sm text-red-500">{loginError}</p>}
             <button
               disabled={busy}
               className="w-full rounded-sm bg-accent py-3 text-sm font-bold uppercase tracking-wider text-accent-foreground hover:opacity-90 disabled:opacity-60"
@@ -87,7 +108,12 @@ function AdminPage() {
         <p className="mt-2 text-sm text-muted-foreground">
           You're signed in but not an admin. Ask an existing admin to grant you the role.
         </p>
-        <Link to="/dashboard" className="mt-6 inline-block rounded-sm border border-border px-4 py-2 text-sm">Back to dashboard</Link>
+        <Link
+          to="/dashboard"
+          className="mt-6 inline-block rounded-sm border border-border px-4 py-2 text-sm"
+        >
+          Back to dashboard
+        </Link>
       </div>
     );
   }
@@ -110,7 +136,9 @@ function AdminPage() {
             key={k}
             onClick={() => setTab(k)}
             className={`inline-flex items-center gap-2 border-b-2 px-3 py-2 text-sm font-semibold ${
-              tab === k ? "border-brand text-foreground" : "border-transparent text-muted-foreground hover:text-foreground"
+              tab === k
+                ? "border-brand text-foreground"
+                : "border-transparent text-muted-foreground hover:text-foreground"
             }`}
           >
             <Icon className="h-4 w-4" /> {l}
@@ -130,37 +158,65 @@ function AdminPage() {
 
 // ------------- Shipments -------------
 function ShipmentsAdmin() {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [items, setItems] = useState<any[]>([]);
   const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
   const updateStatusFn = useServerFn(updateShipmentStatus);
 
   const load = async () => {
-    const { data } = await supabase
-      .from("shipments")
-      .select("*")
-      .order("created_at", { ascending: false })
-      .limit(200);
-    setItems(data ?? []);
+    setLoading(true);
+    setError(null);
+    try {
+      const { data, error } = await supabase
+        .from("shipments")
+        .select("*")
+        .order("created_at", { ascending: false })
+        .limit(200);
+      if (error) throw error;
+      setItems(data ?? []);
+    } catch (e: unknown) {
+      console.error("Failed to load shipments:", e);
+      setError(e instanceof Error ? e.message : "Failed to load shipments");
+      toast.error(e instanceof Error ? e.message : "Failed to load shipments");
+    } finally {
+      setLoading(false);
+    }
   };
   useEffect(() => {
     load();
   }, []);
 
-  const updateStatus = async (id: string, tracking_code: string, _from: string, _to: string, status: string) => {
+  const updateStatus = async (
+    id: string,
+    tracking_code: string,
+    _from: string,
+    _to: string,
+    status: string,
+  ) => {
     setBusy(true);
     try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const res = await updateStatusFn({ data: { shipment_id: id, status: status as any } });
       const pushMsg = res.channels.push.sent > 0 ? ` · ${res.channels.push.sent} push sent` : "";
       toast.success(`${tracking_code} → ${status}${pushMsg}`);
       await load();
-    } catch (e: any) {
-      toast.error(e?.message ?? "Update failed");
+    } catch (e: unknown) {
+      toast.error(e instanceof Error ? e.message : "Update failed");
     }
     setBusy(false);
   };
 
-  const STATUSES = ["booked", "picked_up", "in_transit", "out_for_delivery", "delivered", "exception", "cancelled"];
-
+  const STATUSES = [
+    "booked",
+    "picked_up",
+    "in_transit",
+    "out_for_delivery",
+    "delivered",
+    "exception",
+    "cancelled",
+  ];
 
   return (
     <div className="rounded-2xl border border-border bg-surface/60 p-6">
@@ -168,7 +224,21 @@ function ShipmentsAdmin() {
         <h2 className="font-display text-lg font-semibold">All shipments</h2>
         <span className="text-xs text-muted-foreground">{items.length} shown</span>
       </div>
-      {items.length === 0 ? (
+      {loading ? (
+        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          <Loader2 className="h-4 w-4 animate-spin" /> Loading shipments…
+        </div>
+      ) : error ? (
+        <div className="space-y-3">
+          <p className="text-sm text-red-500">{error}</p>
+          <button
+            onClick={load}
+            className="rounded-sm border border-border px-3 py-1.5 text-xs font-semibold hover:bg-surface"
+          >
+            Retry
+          </button>
+        </div>
+      ) : items.length === 0 ? (
         <p className="text-sm text-muted-foreground">No shipments yet.</p>
       ) : (
         <div className="overflow-x-auto">
@@ -186,22 +256,40 @@ function ShipmentsAdmin() {
               {items.map((s) => (
                 <tr key={s.id}>
                   <td className="py-2 pr-4 font-mono text-xs">{s.tracking_code}</td>
-                  <td className="py-2 pr-4">{s.from_location} → {s.to_location}</td>
+                  <td className="py-2 pr-4">
+                    {s.from_location} → {s.to_location}
+                  </td>
                   <td className="py-2 pr-4">${Number(s.price).toFixed(2)}</td>
                   <td className="py-2 pr-4">
                     <select
                       value={s.status}
                       disabled={busy}
-                      onChange={(e) => updateStatus(s.id, s.tracking_code, s.from_location, s.to_location, e.target.value)}
+                      onChange={(e) =>
+                        updateStatus(
+                          s.id,
+                          s.tracking_code,
+                          s.from_location,
+                          s.to_location,
+                          e.target.value,
+                        )
+                      }
                       className="rounded border border-border bg-background px-2 py-1 text-xs"
                     >
                       {STATUSES.map((st) => (
-                        <option key={st} value={st}>{st.replace(/_/g, " ")}</option>
+                        <option key={st} value={st}>
+                          {st.replace(/_/g, " ")}
+                        </option>
                       ))}
                     </select>
                   </td>
                   <td className="py-2">
-                    <Link to="/track" search={{ id: s.tracking_code }} className="text-brand hover:underline">View</Link>
+                    <Link
+                      to="/track"
+                      search={{ id: s.tracking_code }}
+                      className="text-brand hover:underline"
+                    >
+                      View
+                    </Link>
                   </td>
                 </tr>
               ))}
@@ -215,17 +303,55 @@ function ShipmentsAdmin() {
 
 // ------------- Pricing -------------
 function PricingAdmin() {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [rules, setRules] = useState<any | null>(null);
   const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  const load = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const { data, error } = await supabase
+        .from("pricing_rules")
+        .select("*")
+        .eq("is_active", true)
+        .maybeSingle();
+      if (error) throw error;
+      setRules(data);
+    } catch (e: unknown) {
+      console.error("Failed to load pricing rules:", e);
+      setError(e instanceof Error ? e.message : "Failed to load pricing rules");
+      toast.error(e instanceof Error ? e.message : "Failed to load pricing rules");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    supabase
-      .from("pricing_rules")
-      .select("*")
-      .eq("is_active", true)
-      .maybeSingle()
-      .then(({ data }) => setRules(data));
+    load();
   }, []);
-  if (!rules) return <div className="text-sm text-muted-foreground">Loading…</div>;
+
+  if (loading)
+    return (
+      <div className="flex items-center gap-2 text-sm text-muted-foreground">
+        <Loader2 className="h-4 w-4 animate-spin" /> Loading pricing…
+      </div>
+    );
+  if (error)
+    return (
+      <div className="space-y-3">
+        <p className="text-sm text-red-500">{error}</p>
+        <button
+          onClick={load}
+          className="rounded-sm border border-border px-3 py-1.5 text-xs font-semibold hover:bg-surface"
+        >
+          Retry
+        </button>
+      </div>
+    );
+  if (!rules) return <p className="text-sm text-muted-foreground">No pricing rules found.</p>;
 
   const save = async () => {
     setBusy(true);
@@ -250,11 +376,15 @@ function PricingAdmin() {
   return (
     <div className="rounded-2xl border border-border bg-surface/60 p-6">
       <h2 className="font-display text-lg font-semibold">Pricing rules</h2>
-      <p className="mt-1 text-sm text-muted-foreground">These values feed the customer quote calculator in real time.</p>
+      <p className="mt-1 text-sm text-muted-foreground">
+        These values feed the customer quote calculator in real time.
+      </p>
       <div className="mt-6 grid gap-4 md:grid-cols-3">
         {fields.map(([k, label]) => (
           <label key={String(k)} className="block">
-            <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">{label}</span>
+            <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+              {label}
+            </span>
             <input
               type="number"
               step="0.01"
@@ -278,16 +408,30 @@ function PricingAdmin() {
 
 // ------------- Users -------------
 function UsersAdmin() {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [roles, setRoles] = useState<any[]>([]);
   const [email, setEmail] = useState("");
   const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
   const load = async () => {
-    const { data } = await supabase
-      .from("user_roles")
-      .select("id, user_id, role, created_at")
-      .order("created_at", { ascending: false });
-    setRoles(data ?? []);
+    setLoading(true);
+    setError(null);
+    try {
+      const { data, error } = await supabase
+        .from("user_roles")
+        .select("id, user_id, role, created_at")
+        .order("created_at", { ascending: false });
+      if (error) throw error;
+      setRoles(data ?? []);
+    } catch (e: unknown) {
+      console.error("Failed to load roles:", e);
+      setError(e instanceof Error ? e.message : "Failed to load roles");
+      toast.error(e instanceof Error ? e.message : "Failed to load roles");
+    } finally {
+      setLoading(false);
+    }
   };
   useEffect(() => {
     load();
@@ -296,7 +440,10 @@ function UsersAdmin() {
   const grantAdmin = async () => {
     if (!email) return;
     setBusy(true);
-    const { error } = await supabase.rpc("admin_grant_role", { _target_email: email, _role: "admin" });
+    const { error } = await supabase.rpc("admin_grant_role", {
+      _target_email: email,
+      _role: "admin",
+    });
     setBusy(false);
     if (error) toast.error(error.message);
     else {
@@ -306,7 +453,10 @@ function UsersAdmin() {
     }
   };
   const revoke = async (user_id: string, role: string) => {
-    const { error } = await supabase.rpc("admin_revoke_role", { _target_user: user_id, _role: role as "admin" });
+    const { error } = await supabase.rpc("admin_revoke_role", {
+      _target_user: user_id,
+      _role: role as "admin",
+    });
     if (error) toast.error(error.message);
     else {
       toast.success("Role revoked");
@@ -334,30 +484,52 @@ function UsersAdmin() {
           </button>
         </div>
         <p className="mt-2 text-xs text-muted-foreground">
-          The user must have already signed up. To grant staff instead, adjust the role in your DB (or extend this UI).
+          The user must have already signed up. To grant staff instead, adjust the role in your DB
+          (or extend this UI).
         </p>
       </div>
 
       <div className="rounded-2xl border border-border bg-surface/60 p-6">
         <h2 className="font-display text-lg font-semibold">Role assignments</h2>
-        <ul className="mt-4 divide-y divide-border text-sm">
-          {roles.map((r) => (
-            <li key={r.id} className="flex items-center justify-between py-2">
-              <div>
-                <div className="font-mono text-xs">{r.user_id}</div>
-                <div className="text-xs text-muted-foreground">
-                  <span className="rounded-full bg-brand/20 px-2 py-0.5 text-xs font-semibold text-brand">{r.role}</span>
-                  <span className="ml-2">{new Date(r.created_at).toLocaleDateString()}</span>
+        {loading ? (
+          <div className="mt-4 flex items-center gap-2 text-sm text-muted-foreground">
+            <Loader2 className="h-4 w-4 animate-spin" /> Loading roles…
+          </div>
+        ) : error ? (
+          <div className="mt-4 space-y-3">
+            <p className="text-sm text-red-500">{error}</p>
+            <button
+              onClick={load}
+              className="rounded-sm border border-border px-3 py-1.5 text-xs font-semibold hover:bg-surface"
+            >
+              Retry
+            </button>
+          </div>
+        ) : (
+          <ul className="mt-4 divide-y divide-border text-sm">
+            {roles.map((r) => (
+              <li key={r.id} className="flex items-center justify-between py-2">
+                <div>
+                  <div className="font-mono text-xs">{r.user_id}</div>
+                  <div className="text-xs text-muted-foreground">
+                    <span className="rounded-full bg-brand/20 px-2 py-0.5 text-xs font-semibold text-brand">
+                      {r.role}
+                    </span>
+                    <span className="ml-2">{new Date(r.created_at).toLocaleDateString()}</span>
+                  </div>
                 </div>
-              </div>
-              {r.role !== "customer" && (
-                <button onClick={() => revoke(r.user_id, r.role)} className="text-xs text-red-500 hover:underline">
-                  Revoke
-                </button>
-              )}
-            </li>
-          ))}
-        </ul>
+                {r.role !== "customer" && (
+                  <button
+                    onClick={() => revoke(r.user_id, r.role)}
+                    className="text-xs text-red-500 hover:underline"
+                  >
+                    Revoke
+                  </button>
+                )}
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   );
@@ -365,20 +537,39 @@ function UsersAdmin() {
 
 // ------------- Content -------------
 function ContentAdmin() {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [bulletins, setBulletins] = useState<any[]>([]);
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [severity, setSeverity] = useState<"info" | "warning" | "critical">("info");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const load = async () => {
-    const { data } = await supabase.from("service_bulletins").select("*").order("created_at", { ascending: false });
-    setBulletins(data ?? []);
+    setLoading(true);
+    setError(null);
+    try {
+      const { data, error } = await supabase
+        .from("service_bulletins")
+        .select("*")
+        .order("created_at", { ascending: false });
+      if (error) throw error;
+      setBulletins(data ?? []);
+    } catch (e: unknown) {
+      console.error("Failed to load bulletins:", e);
+      setError(e instanceof Error ? e.message : "Failed to load bulletins");
+      toast.error(e instanceof Error ? e.message : "Failed to load bulletins");
+    } finally {
+      setLoading(false);
+    }
   };
   useEffect(() => {
     load();
   }, []);
   const create = async () => {
     if (!title) return;
-    const { error } = await supabase.from("service_bulletins").insert({ title, body, severity, active: true });
+    const { error } = await supabase
+      .from("service_bulletins")
+      .insert({ title, body, severity, active: true });
     if (error) toast.error(error.message);
     else {
       toast.success("Bulletin posted");
@@ -401,15 +592,33 @@ function ContentAdmin() {
       <div className="rounded-2xl border border-border bg-surface/60 p-6">
         <h2 className="font-display text-lg font-semibold">New service bulletin</h2>
         <div className="mt-4 grid gap-3">
-          <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Title" className="rounded-lg border border-border bg-background px-3 py-2 text-sm" />
-          <textarea value={body} onChange={(e) => setBody(e.target.value)} placeholder="Body (optional)" rows={3} className="rounded-lg border border-border bg-background px-3 py-2 text-sm" />
+          <input
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="Title"
+            className="rounded-lg border border-border bg-background px-3 py-2 text-sm"
+          />
+          <textarea
+            value={body}
+            onChange={(e) => setBody(e.target.value)}
+            placeholder="Body (optional)"
+            rows={3}
+            className="rounded-lg border border-border bg-background px-3 py-2 text-sm"
+          />
           <div className="flex items-center gap-3">
-            <select value={severity} onChange={(e) => setSeverity(e.target.value as "info" | "warning" | "critical")} className="rounded-lg border border-border bg-background px-3 py-2 text-sm">
+            <select
+              value={severity}
+              onChange={(e) => setSeverity(e.target.value as "info" | "warning" | "critical")}
+              className="rounded-lg border border-border bg-background px-3 py-2 text-sm"
+            >
               <option value="info">Info</option>
               <option value="warning">Warning</option>
               <option value="critical">Critical</option>
             </select>
-            <button onClick={create} className="rounded-sm bg-accent px-4 py-2 text-sm font-bold uppercase tracking-wider text-accent-foreground hover:opacity-90">
+            <button
+              onClick={create}
+              className="rounded-sm bg-accent px-4 py-2 text-sm font-bold uppercase tracking-wider text-accent-foreground hover:opacity-90"
+            >
               Publish
             </button>
           </div>
@@ -418,30 +627,60 @@ function ContentAdmin() {
 
       <div className="rounded-2xl border border-border bg-surface/60 p-6">
         <h2 className="font-display text-lg font-semibold">Existing bulletins</h2>
-        <ul className="mt-4 divide-y divide-border text-sm">
-          {bulletins.map((b) => (
-            <li key={b.id} className="flex items-start justify-between gap-4 py-3">
-              <div className="min-w-0 flex-1">
-                <div className="flex items-center gap-2">
-                  <span className={`rounded-full px-2 py-0.5 text-xs font-semibold ${
-                    b.severity === "critical" ? "bg-red-500/20 text-red-500" :
-                    b.severity === "warning" ? "bg-yellow-500/20 text-yellow-600" :
-                    "bg-brand/20 text-brand"
-                  }`}>{b.severity}</span>
-                  <span className="font-semibold">{b.title}</span>
-                  {!b.active && <span className="text-xs text-muted-foreground">(hidden)</span>}
+        {loading ? (
+          <div className="mt-4 flex items-center gap-2 text-sm text-muted-foreground">
+            <Loader2 className="h-4 w-4 animate-spin" /> Loading bulletins…
+          </div>
+        ) : error ? (
+          <div className="mt-4 space-y-3">
+            <p className="text-sm text-red-500">{error}</p>
+            <button
+              onClick={load}
+              className="rounded-sm border border-border px-3 py-1.5 text-xs font-semibold hover:bg-surface"
+            >
+              Retry
+            </button>
+          </div>
+        ) : (
+          <ul className="mt-4 divide-y divide-border text-sm">
+            {bulletins.map((b) => (
+              <li key={b.id} className="flex items-start justify-between gap-4 py-3">
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-2">
+                    <span
+                      className={`rounded-full px-2 py-0.5 text-xs font-semibold ${
+                        b.severity === "critical"
+                          ? "bg-red-500/20 text-red-500"
+                          : b.severity === "warning"
+                            ? "bg-yellow-500/20 text-yellow-600"
+                            : "bg-brand/20 text-brand"
+                      }`}
+                    >
+                      {b.severity}
+                    </span>
+                    <span className="font-semibold">{b.title}</span>
+                    {!b.active && <span className="text-xs text-muted-foreground">(hidden)</span>}
+                  </div>
+                  {b.body && <p className="mt-1 text-xs text-muted-foreground">{b.body}</p>}
                 </div>
-                {b.body && <p className="mt-1 text-xs text-muted-foreground">{b.body}</p>}
-              </div>
-              <div className="flex gap-2">
-                <button onClick={() => toggle(b.id, b.active)} className="text-xs text-muted-foreground hover:underline">
-                  {b.active ? "Hide" : "Show"}
-                </button>
-                <button onClick={() => remove(b.id)} className="text-xs text-red-500 hover:underline">Delete</button>
-              </div>
-            </li>
-          ))}
-        </ul>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => toggle(b.id, b.active)}
+                    className="text-xs text-muted-foreground hover:underline"
+                  >
+                    {b.active ? "Hide" : "Show"}
+                  </button>
+                  <button
+                    onClick={() => remove(b.id)}
+                    className="text-xs text-red-500 hover:underline"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   );

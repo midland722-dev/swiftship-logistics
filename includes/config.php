@@ -44,10 +44,22 @@ if (APP_DEBUG) {
     ini_set('display_errors', '0');
 }
 
-$db_host = getenv('DB_HOST') ?: 'localhost';
-$db_name = getenv('DB_NAME') ?: 'gdd';
-$db_user = getenv('DB_USER') ?: 'gdduser';
-$db_pass = getenv('DB_PASS') ?: 'gdduser';
+$db_host = getenv('DB_HOST') ?: getenv('MYSQLHOST') ?: 'localhost';
+$db_port = getenv('DB_PORT') ?: getenv('MYSQLPORT') ?: '3306';
+$db_name = getenv('DB_NAME') ?: getenv('MYSQLDATABASE') ?: 'gdd';
+$db_user = getenv('DB_USER') ?: getenv('MYSQLUSER') ?: 'gdduser';
+$db_pass = getenv('DB_PASS') ?: getenv('MYSQLPASSWORD') ?: getenv('MYSQL_ROOT_PASSWORD') ?: 'gdduser';
+
+// Support Railway's MYSQL_PRIVATE_URL / DATABASE_URL format
+$dbUrl = getenv('MYSQL_PRIVATE_URL') ?: getenv('DATABASE_URL') ?: '';
+if ($dbUrl && str_starts_with($dbUrl, 'mysql://')) {
+    $url = parse_url($dbUrl);
+    $db_host = $url['host'] ?? $db_host;
+    $db_port = $url['port'] ?? $db_port;
+    $db_name = ltrim($url['path'] ?? '', '/') ?: $db_name;
+    $db_user = $url['user'] ?? $db_user;
+    $db_pass = $url['pass'] ?? $db_pass;
+}
 
 $google_translate_api_key = getenv('GOOGLE_TRANSLATE_API_KEY') ?: '';
 

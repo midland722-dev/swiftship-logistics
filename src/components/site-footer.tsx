@@ -83,7 +83,16 @@ export function SiteFooter() {
               ["Contact & locations", "/contact"],
             ]}
           />
-
+          <div>
+            <h4 className="mb-4 text-sm font-bold uppercase tracking-wider text-white">Company</h4>
+            <ul className="space-y-2.5 text-sm text-white/70">
+              <li>
+                <a href="/admin" className="hover:text-brand">
+                  Staff login
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
 
         {/* Legal bar */}
@@ -99,10 +108,11 @@ export function SiteFooter() {
                 ["Sustainability", "/sustainability"],
               ].map(([label, href]) => (
                 <li key={label}>
-                  <Link to={href} className="hover:text-brand">{label}</Link>
+                  <Link to={href} className="hover:text-brand">
+                    {label}
+                  </Link>
                 </li>
               ))}
-
             </ul>
           </div>
         </div>
