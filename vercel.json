@@ -1,6 +1,10 @@
 {
   "installCommand": "npm install",
   "buildCommand": "npm run build",
-  "outputDirectory": ".output/public",
-  "nodeVersion": "22.x"
+  "nodeVersion": "22.x",
+  "build": {
+    "env": {
+      "NITRO_PRESET": "vercel"
+    }
+  }
 }
