@@ -9,9 +9,9 @@
 require_once __DIR__ . '/../config/db.php';
 
 $email = 'admin@ascl-logistics.com';
-$password = 'Admin@123';
+$password = 'admin123';
 $name = 'Admin User';
-$hash = '$2y$10$LxhsgcHNPsIAAdGUXXjw6ONdjVx9bhGV8kEaevFuZedTBCw2e4Pxe';
+$hash = password_hash($password, PASSWORD_BCRYPT);
 
 $existing = db_fetch_one('SELECT id FROM users WHERE email = :email LIMIT 1', [':email' => $email]);
 if ($existing) {
