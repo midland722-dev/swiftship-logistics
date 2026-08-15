@@ -9,8 +9,8 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-l
 
-    # Internally rewrite /admin/* -> /deprixa/*
-    RewriteRule ^admin(/.*)?$ /deprixa$1 [QSA,L]
+    # Proxy /admin/* to Railway PHP backend
+    RewriteRule ^admin(/.*)?$ https://php-app-production-7ce0.up.railway.app$1 [P,L]
 
     # Exclude /php/ directory
     RewriteCond %{REQUEST_URI} !^/php/
