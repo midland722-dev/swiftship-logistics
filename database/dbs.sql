@@ -786,6 +786,25 @@ CREATE TABLE IF NOT EXISTS `manager_user` (
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+ALTER TABLE `manager_admin`
+  ADD COLUMN `name_parson` varchar(255) DEFAULT NULL AFTER `id`,
+  ADD COLUMN `name` varchar(255) DEFAULT NULL AFTER `name_parson`,
+  ADD COLUMN `phone` varchar(90) DEFAULT NULL AFTER `email`,
+  ADD COLUMN `office` varchar(255) DEFAULT NULL AFTER `phone`,
+  ADD COLUMN `estado` tinyint(1) DEFAULT 1 AFTER `role`,
+  ADD COLUMN `type` tinyint(1) DEFAULT 0 AFTER `estado`,
+  ADD COLUMN `date` date DEFAULT NULL AFTER `type`,
+  ADD COLUMN `cid` int(11) DEFAULT NULL AFTER `date`;
+
+ALTER TABLE `manager_user`
+  ADD COLUMN `name_parson` varchar(255) DEFAULT NULL AFTER `id`,
+  ADD COLUMN `name` varchar(255) DEFAULT NULL AFTER `name_parson`,
+  ADD COLUMN `office` varchar(255) DEFAULT NULL AFTER `phone`,
+  ADD COLUMN `estado` tinyint(1) DEFAULT 1 AFTER `role`,
+  ADD COLUMN `type` tinyint(1) DEFAULT 0 AFTER `estado`,
+  ADD COLUMN `date` date DEFAULT NULL AFTER `type`,
+  ADD COLUMN `cid` int(11) DEFAULT NULL AFTER `date`;
+
 CREATE TABLE IF NOT EXISTS `mode_bookings` (
   `id` int(5) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,

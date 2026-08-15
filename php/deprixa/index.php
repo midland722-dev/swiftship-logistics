@@ -32,12 +32,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             [$email]
         );
         if ($user && password_verify($password, $user['password'])) {
-            $_SESSION['user_id'] = (int)$user['id'];
-            $_SESSION['user_name'] = (string)$user['email'];
-            $_SESSION['user_display_name'] = (string)$user['name'];
-            $_SESSION['user_type'] = (string)$user['role'];
-            header('Location: admin.php');
-            exit;
+            $role = strtolower((string)($user['role'] ?? ''));
+            if (!in_array($role, ['admin', 'staff'], true)) {
+                $error = 'You do not have permission to access the admin panel.';
+            } else {
+                $_SESSION['user_id'] = (int)$user['id'];
+                $_SESSION['user_name'] = (string)$user['email'];
+                $_SESSION['user_display_name'] = (string)$user['name'];
+                $_SESSION['user_type'] = (string)$user['role'];
+                header('Location: admin.php');
+                exit;
+            }
         }
         $error = 'Invalid email or password.';
     }

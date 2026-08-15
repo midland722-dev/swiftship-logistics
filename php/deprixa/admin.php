@@ -15,6 +15,12 @@ if (!isset($_SESSION['user_name']) || empty($_SESSION['user_name'])) {
     exit;
 }
 
+$legacyRole = strtolower((string)($_SESSION['user_type'] ?? ''));
+if (!in_array($legacyRole, ['admin', 'staff'], true)) {
+    header('Location: index.php?error=' . urlencode('You do not have permission to access that page.'));
+    exit;
+}
+
 require_once __DIR__ . '/../includes/db.php';
 require_once __DIR__ . '/../php/validation/TrackingValidator.php';
 require_once __DIR__ . '/../php/services/TrackingService.php';
