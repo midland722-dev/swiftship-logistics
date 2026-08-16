@@ -22,18 +22,17 @@
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 	require_once('../deprixa/database.php');
 
-	$fname = $_POST['fname'];
-	$lname = $_POST['lname'];
+	$fname = mysql_real_escape_string($_POST['fname']);
+	$lname = mysql_real_escape_string($_POST['lname']);
 	$name = $fname.' '.$lname;
-	$company = $_POST['company'];
-	$email = $_POST['email'];
-	$phone = $_POST['phone'];
-	$address=$_POST['address'];
-	$country = $_POST['country'];
-	$state = $_POST['state'];
-	$zipcode = $_POST['zipcode'];
-	$estado = $_POST['estado'];
-	$password = $_POST['password'];
+	$company = mysql_real_escape_string($_POST['company']);
+	$email = mysql_real_escape_string($_POST['email']);
+	$phone = mysql_real_escape_string($_POST['phone']);
+	$address=mysql_real_escape_string($_POST['address']);
+	$country = mysql_real_escape_string($_POST['country']);
+	$state = mysql_real_escape_string($_POST['state']);
+	$zipcode = mysql_real_escape_string($_POST['zipcode']);
+	$estado = mysql_real_escape_string($_POST['estado']);
 
 	
 	$sql1 =mysql_query("SELECT email FROM tbl_clients WHERE email='$email'");
@@ -43,8 +42,8 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
 									window.location = \"https://quadruple-logistics.com/user/login.php\"
 								</script>"; 							
 						}else{
-							$sql1="INSERT INTO tbl_clients (name,email,phone,address,password,country,state,zipcode,estado,company,date) VALUES 	
-							('$name','$email','$phone','$address','$password','$country','$state','$zipcode','$estado','$company',curdate())";
+							$sql1="INSERT INTO tbl_clients (name,email,phone,address,country,state,zipcode,estado,company,date) VALUES 	
+							('$name','$email','$phone','$address','$country','$state','$zipcode','$estado','$company',curdate())";
 						}
 	dbQuery($sql1);
 	
@@ -84,7 +83,6 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
 						<p style='font-size:14px;'>Customer Name: <strong>".$name."</strong></p>
 						<hr/>
 						<p style='font-size:14px;'>Username: <strong> ".$email."</strong></p>						
-						<p style='font-size:14px;'>Password: <strong> ".$password."</strong></p>
 						<br><br>
 						<p><a style='background:#eee;color:#333;padding:10px;' href='".$row["website"]."login.php' >Customer Login</a></p>
 						<br><br>						

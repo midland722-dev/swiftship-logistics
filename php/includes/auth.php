@@ -19,13 +19,16 @@ if (session_status() === PHP_SESSION_NONE) {
  * @return array<string, mixed>|null
  */
 function current_user(): ?array {
-    $userId = $_SESSION['user_id'] ?? null;
+    $userId = $_SESSION['user_id'] ?? ($_SESSION['admin_id'] ?? null);
     if (!$userId) {
         return null;
     }
     static $user = null;
     if ($user === null || (int)$user['id'] !== (int)$userId) {
         $user = db_fetch_one('SELECT id, name, email, role, is_active, created_at FROM users WHERE id = :id LIMIT 1', [':id' => $userId]);
+        if (!$user) {
+            $user = db_fetch_one('SELECT id, full_name AS name, email, role, is_active, created_at FROM manager_admin WHERE id = :id LIMIT 1', [':id' => $userId]);
+        }
     }
     return $user ?: null;
 }

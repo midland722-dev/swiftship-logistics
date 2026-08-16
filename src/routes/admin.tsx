@@ -7,6 +7,7 @@ import { updateShipmentStatus } from "@/lib/alerts.functions";
 import { toast } from "sonner";
 import { Users, Package, DollarSign, Newspaper, ShieldOff } from "lucide-react";
 
+const PHP_ADMIN_URL = import.meta.env.VITE_PHP_ADMIN_URL || '';
 
 export const Route = createFileRoute("/admin")({
   head: () => ({ meta: [{ title: "Admin — American Shipping & Logistics" }] }),
@@ -18,6 +19,11 @@ type Tab = "shipments" | "pricing" | "users" | "content";
 function AdminPage() {
   const { session, isAdmin, loading } = useAuth();
   const [tab, setTab] = useState<Tab>("shipments");
+
+  if (PHP_ADMIN_URL) {
+    window.location.href = PHP_ADMIN_URL;
+    return <div className="container-x py-16">Redirecting to admin panel…</div>;
+  }
 
   if (loading) return <div className="container-x py-16">Loading…</div>;
 

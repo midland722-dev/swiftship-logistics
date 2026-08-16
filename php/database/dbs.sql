@@ -786,6 +786,25 @@ CREATE TABLE IF NOT EXISTS `manager_user` (
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+ALTER TABLE `manager_admin`
+  ADD COLUMN `name_parson` varchar(255) DEFAULT NULL AFTER `id`,
+  ADD COLUMN `name` varchar(255) DEFAULT NULL AFTER `name_parson`,
+  ADD COLUMN `phone` varchar(90) DEFAULT NULL AFTER `email`,
+  ADD COLUMN `office` varchar(255) DEFAULT NULL AFTER `phone`,
+  ADD COLUMN `estado` tinyint(1) DEFAULT 1 AFTER `role`,
+  ADD COLUMN `type` tinyint(1) DEFAULT 0 AFTER `estado`,
+  ADD COLUMN `date` date DEFAULT NULL AFTER `type`,
+  ADD COLUMN `cid` int(11) DEFAULT NULL AFTER `date`;
+
+ALTER TABLE `manager_user`
+  ADD COLUMN `name_parson` varchar(255) DEFAULT NULL AFTER `id`,
+  ADD COLUMN `name` varchar(255) DEFAULT NULL AFTER `name_parson`,
+  ADD COLUMN `office` varchar(255) DEFAULT NULL AFTER `phone`,
+  ADD COLUMN `estado` tinyint(1) DEFAULT 1 AFTER `role`,
+  ADD COLUMN `type` tinyint(1) DEFAULT 0 AFTER `estado`,
+  ADD COLUMN `date` date DEFAULT NULL AFTER `type`,
+  ADD COLUMN `cid` int(11) DEFAULT NULL AFTER `date`;
+
 CREATE TABLE IF NOT EXISTS `mode_bookings` (
   `id` int(5) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
@@ -1972,15 +1991,6 @@ INSERT IGNORE INTO `calculator` (`id`, `currency`, `normal`, `express`) VALUES
 
 INSERT IGNORE INTO `company` (`id`, `name`, `email`, `phone`, `address`, `website`, `tax_id`) VALUES
 (1, 'Americans Shipping & Courier Logistics', 'info@ascl-logistics.com', '+12158159791', '4500 Harbor Boulevard, Long Beach, CA 90802, USA', 'https://www.ascl-logistics.com', 'US-123456789');
-
-INSERT IGNORE INTO `users` (`id`, `name`, `email`, `password`, `role`, `is_active`) VALUES
-(1, 'System Administrator', 'admin@ascl-logistics.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin', 1),
-(2, 'James Rodriguez', 'james.rodriguez@ascl-logistics.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'staff', 1),
-(3, 'Emily Chen', 'emily.chen@ascl-logistics.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'staff', 1);
-
-INSERT IGNORE INTO `manager_admin` (`id`, `username`, `password`, `email`, `full_name`, `role`, `is_active`) VALUES
-(1, 'admin', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin@ascl-logistics.com', 'System Administrator', 'admin', 1),
-(2, 'james.rodriguez', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'james.rodriguez@ascl-logistics.com', 'James Rodriguez', 'admin', 1);
 
 INSERT IGNORE INTO `shipments` (`id`, `tracking_number`, `customer_id`, `status`, `service_type`, `priority`, `origin_country`, `origin_city`, `destination_country`, `destination_city`, `total_weight`, `declared_value`, `currency`, `payment_status`, `payment_method`, `total_amount`, `notes`, `estimated_delivery`, `created_by`, `created_at`) VALUES
 (1, 'LX-2024-001', 1, 'in_transit', 'express', 'high', 'US', 'Miami', 'US', 'Chicago', 2.50, 500.00, 'USD', 'paid', 'credit_card', 45.00, 'Time-sensitive documents', '2024-01-18', 1, NOW()),

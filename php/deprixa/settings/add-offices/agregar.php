@@ -24,15 +24,15 @@ include('../../database-settings.php');
 // asignamos la función de conexion a una variable
 $con = conexion();
 // recuperamos y asignamos a variables los campos enviados por ajax metodo POST
-$off_name = $_POST['off_name'];
-$address = $_POST['address'];
-$city = $_POST['city'];
-$ph_no = $_POST['ph_no'];
-$office_time = $_POST['office_time'];
-$contact_person = $_POST['contact_person'];
+$off_name = mysql_real_escape_string($_POST['off_name']);
+$address = mysql_real_escape_string($_POST['address']);
+$city = mysql_real_escape_string($_POST['city']);
+$ph_no = mysql_real_escape_string($_POST['ph_no']);
+$office_time = mysql_real_escape_string($_POST['office_time']);
+$contact_person = mysql_real_escape_string($_POST['contact_person']);
 // verificamos si esta marcado el check box activo
 if(isset($_POST['estado']))
-$estado = $_POST['estado'];
+$estado = mysql_real_escape_string($_POST['estado']);
 else
 $estado = 0;
 

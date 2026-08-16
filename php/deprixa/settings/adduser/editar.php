@@ -24,9 +24,9 @@ include('../../database-settings.php');
 // asignamos la función de conexion a una variable
 $con = conexion();
 // recuperamos el id del usuario enviado por ajax
-$cid = $_POST['cid'];
+$cid = mysql_real_escape_string($_POST['cid']);
 // recuperamos los datos del usuario hacemos una consulta SQL
-$q = "SELECT * FROM manager_user WHERE cid=$cid";
+$q = "SELECT * FROM manager_user WHERE cid='$cid'";
 // enviamos la consulta al método query
 $result = $con->query($q);
 // creamos una variable del tipo array la cual almacena todos los datos del usuario

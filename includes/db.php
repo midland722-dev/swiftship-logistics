@@ -30,21 +30,21 @@ if (file_exists($envFile)) {
     }
 }
 
-$appEnv = getenv('APP_ENV') ?: (getenv('APP_ENV') ?: 'production');
+$appEnv = getenv('APP_ENV') ?: 'production';
 $isProduction = $appEnv === 'production';
 
-if ($isProduction) {
+if (!$isProduction) {
     define('DB_HOST', getenv('DB_HOST') ?: 'localhost');
     define('DB_NAME', getenv('DB_NAME') ?: '');
     define('DB_USER', getenv('DB_USER') ?: '');
     define('DB_PASS', getenv('DB_PASS') ?: '');
 } else {
-    define('DB_HOST', '127.0.0.1');
-    define('DB_NAME', 'gdd');
-    define('DB_USER', 'gdduser');
-    define('DB_PASS', 'gdduser');
+    define('DB_HOST', getenv('DB_HOST') ?: '');
+    define('DB_NAME', getenv('DB_NAME') ?: '');
+    define('DB_USER', getenv('DB_USER') ?: '');
+    define('DB_PASS', getenv('DB_PASS') ?: '');
 }
-define('DB_CHARSET', 'utf8mb4');
+define('DB_CHARSET', getenv('DB_CHARSET') ?: 'utf8mb4');
 
 /**
  * Returns a singleton PDO connection (legacy alias for db()).
@@ -85,8 +85,15 @@ function db(): PDO {
         } catch (PDOException $e) {
             $detail = 'DB_CONNECTION_FAILED: ' . $e->getMessage() . ' | DSN=' . $dsn . ' user=' . DB_USER;
             @file_put_contents(__DIR__ . '/../logs/db_connect_errors.log', '[' . date('Y-m-d H:i:s') . '] ' . $detail . "\n", FILE_APPEND | LOCK_EX);
+            if (function_exists('is_api_request') && is_api_request()) {
+                http_response_code(500);
+                header('Content-Type: application/json; charset=utf-8');
+                echo json_encode(['success' => false, 'message' => 'Database connection failed. Please contact support.']);
+                exit;
+            }
             http_response_code(500);
-            echo json_encode(['success' => false, 'message' => 'Database connection failed. Please contact support.']);
+            echo '<h1>Database Connection Error</h1>';
+            echo '<p>The application is unable to connect to the database. Please contact support.</p>';
             exit;
         }
     }

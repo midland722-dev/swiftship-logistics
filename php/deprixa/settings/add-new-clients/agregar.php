@@ -24,19 +24,18 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
 require_once('../../database.php');
 
 
-	$name = $_POST['name'];
-	$company = $_POST['company'];
-	$email = $_POST['email'];
-	$phone = $_POST['phone'];
-	$address=$_POST['address'];
-	$country = $_POST['country'];
-	$state = $_POST['state'];
-	$zipcode = $_POST['zipcode'];
-	$password = $_POST['password'];
+	$name = mysql_real_escape_string($_POST['name']);
+	$company = mysql_real_escape_string($_POST['company']);
+	$email = mysql_real_escape_string($_POST['email']);
+	$phone = mysql_real_escape_string($_POST['phone']);
+	$address=mysql_real_escape_string($_POST['address']);
+	$country = mysql_real_escape_string($_POST['country']);
+	$state = mysql_real_escape_string($_POST['state']);
+	$zipcode = mysql_real_escape_string($_POST['zipcode']);
 	
 	// verificamos si esta marcado el check box activo
 	if(isset($_POST['estado']))
-	$estado = $_POST['estado'];
+	$estado = mysql_real_escape_string($_POST['estado']);
 	else
 	$estado = 0;
 
@@ -47,8 +46,8 @@ require_once('../../database.php');
 						window.location = \"../../customer.php\"
 					</script>"; 							
 			}else{
-				$sql1="INSERT INTO tbl_clients (name, address,email, phone, password, company, country, state, zipcode, estado,date) VALUES 	
-				('$name','$address', '$email', '$phone', '$password', '$company', '$country', '$state', '$zipcode',  '$estado',curdate())";
+				$sql1="INSERT INTO tbl_clients (name, address,email, phone, company, country, state, zipcode, estado,date) VALUES 	
+				('$name','$address', '$email', '$phone', '$company', '$country', '$state', '$zipcode',  '$estado',curdate())";
 			}
 	dbQuery($sql1);
 	
@@ -61,8 +60,8 @@ require_once('../../database.php');
 
 
 // insertamos en la base de datos - hacemos una consulta SQL
-$consulta = "INSERT INTO tbl_clients (name, password, address, email, phone, estado)
-			VALUES ('$name','$password', '$address', '$email', '$phone', '$estado')";
+$consulta = "INSERT INTO tbl_clients (name, address, email, phone, estado)
+			VALUES ('$name','$address', '$email', '$phone', '$estado')";
 $con->query($consulta); // enviamos la consulta al método query
 // retornamos un mensaje de confirmación
 echo json_encode(array('msg' => 'ok'));
