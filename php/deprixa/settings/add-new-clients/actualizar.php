@@ -21,6 +21,17 @@
  
 
 include('../../database-settings.php');
+
+if (session_status() === PHP_SESSION_NONE) session_start();
+
+$submitted_token = $_POST['csrf_token'] ?? '';
+$session_token   = $_SESSION['csrf_token'] ?? '';
+
+if (!hash_equals($session_token, $submitted_token)) {
+    echo json_encode(array('msg' => 'Invalid security token. Please refresh and try again.'));
+    exit;
+}
+
 // asignamos la función de conexion a una variable
 $con = conexion();
 // recuperamos el cid del off_name enviado por ajax
@@ -61,17 +72,20 @@ elseif(empty($password)){
 }
 
 else{	
-	// verificamos si esta cambiando el password
-	if(empty($password)) // actualizamos la información del off_name hacemos una consulta SQL
-	$consulta = "UPDATE tbl_clients SET name='$name',  address='$address', email='$email', phone='$phone', password='$password', estado='$estado' WHERE id='$id'";
-	else{
-	$consulta = "UPDATE tbl_clients SET name='$name',  address='$address', email='$email', phone='$phone', password='$password', estado='$estado' WHERE id='$id'";	
-	}
-
+	// actualizamos la información del cliente usando prepared statement
+	$consulta = "UPDATE tbl_clients SET name=:name, address=:address, email=:email, phone=:phone, password=:password, estado=:estado WHERE id=:id";
+	$stmt = $con->prepare($consulta);
+	$stmt->execute([
+		':name' => $name,
+		':address' => $address,
+		':email' => $email,
+		':phone' => $phone,
+		':password' => $password,
+		':estado' => $estado,
+		':id' => $id
+	]);
 }
 
-// enviamos la consulta al método query
-$con->query($consulta);
 // retornamos un mensaje de confirmación
 echo json_encode(array('msg' => 'ok'));
 

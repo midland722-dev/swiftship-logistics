@@ -21,27 +21,37 @@
  
 
 include('../../database-settings.php');
+
+if (session_status() === PHP_SESSION_NONE) session_start();
+
+$submitted_token = $_POST['csrf_token'] ?? '';
+$session_token   = $_SESSION['csrf_token'] ?? '';
+
+if (!hash_equals($session_token, $submitted_token)) {
+    echo json_encode(array('msg' => 'Invalid security token. Please refresh and try again.'));
+    exit;
+}
+
 // asignamos la función de conexion a una variable
 $con = conexion();
 // recuperamos el id del usuario enviado por ajax
 $id = $_POST['id'];
-// recuperamos el estado del usuario hacemos una consulta SQL
-$q = "SELECT estado FROM tbl_clients WHERE id='$id'";
-// asignamos a una variable la consulta devuelta por el método query
-$resultado = $con->query($q);
-// camvertimos en array la consulta utilizando el método fetch_assoc
+// recuperamos el estado del usuario usando prepared statement
+$stmt = $con->prepare("SELECT estado FROM tbl_clients WHERE id=?");
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$resultado = $stmt->get_result();
 $estado = $resultado->fetch_assoc();
 // verificamos si esta activo o inactivo
 if($estado['estado'] == '1'){
 	// Cambiamos el estado a inactivo
-	$q = "UPDATE tbl_clients SET estado='0' WHERE id='$id'";
-}
-else{
+	$updateStmt = $con->prepare("UPDATE tbl_clients SET estado='0' WHERE id=?");
+} else {
 	// Cambiamos el estado a activo
-	$q = "UPDATE tbl_clients SET estado='1' WHERE id='$id'";
+	$updateStmt = $con->prepare("UPDATE tbl_clients SET estado='1' WHERE id=?");
 }
-// pasamos la consulta según el resultado de la verificación
-$con->query($q);
+$updateStmt->bind_param("i", $id);
+$updateStmt->execute();
 // retornamos un mensaje de confirmación
 echo json_encode(array('msg' => 'ok'));
 

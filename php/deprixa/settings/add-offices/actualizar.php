@@ -21,6 +21,17 @@
  
 
 include('../../database-settings.php');
+
+if (session_status() === PHP_SESSION_NONE) session_start();
+
+$submitted_token = $_POST['csrf_token'] ?? '';
+$session_token   = $_SESSION['csrf_token'] ?? '';
+
+if (!hash_equals($session_token, $submitted_token)) {
+    echo json_encode(array('msg' => 'Invalid security token. Please refresh and try again.'));
+    exit;
+}
+
 // asignamos la función de conexion a una variable
 $con = conexion();
 // recuperamos el id del off_name enviado por ajax
@@ -66,18 +77,21 @@ elseif(empty($contact_person)){
 }
 
 else{	
-	// verificamos si esta cambiando el password
-	if(empty($password)) // actualizamos la información del off_name hacemos una consulta SQL
-	$consulta = "UPDATE offices SET off_name='$off_name', address='$address', city='$city', ph_no='$ph_no', office_time='$office_time', contact_person='$contact_person', estado='$estado' WHERE id='$id'";
-	else{
-	$password = md5($password); // encriptamos la nueva contraseña
-	$consulta = "UPDATE offices SET off_name='$off_name', address='$address', city='$city', ph_no='$ph_no', office_time='$office_time', contact_person='$contact_person', estado='$estado' WHERE id='$id'";	
-	}
-
+	// actualizamos la información del registro usando prepared statement
+	$consulta = "UPDATE offices SET off_name=:off_name, address=:address, city=:city, ph_no=:ph_no, office_time=:office_time, contact_person=:contact_person, estado=:estado WHERE id=:id";
+	$stmt = $con->prepare($consulta);
+	$stmt->execute([
+		':off_name' => $off_name,
+		':address' => $address,
+		':city' => $city,
+		':ph_no' => $ph_no,
+		':office_time' => $office_time,
+		':contact_person' => $contact_person,
+		':estado' => $estado,
+		':id' => $id
+	]);
 }
 
-// enviamos la consulta al método query
-$con->query($consulta);
 // retornamos un mensaje de confirmación
 echo json_encode(array('msg' => 'ok'));
 

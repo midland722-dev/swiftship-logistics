@@ -273,7 +273,7 @@ require_once('../database.php');
 													  <input type="text"  name="cons_no" class="form-control cons_no" value="<?php echo $cons_no; ?>" readonly="true">
 													</div>
 													<div class="col-sm-5">
-													  <input class="form-control office" name="office" value="<?php echo $_SESSION['user_name'] ;?>" readonly="true">																  
+													  <input class="form-control office" name="office" value="<?php echo htmlspecialchars($_SESSION['user_name'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" readonly="true">																  
 													</div>
 												</div>
 												<?php } ?>

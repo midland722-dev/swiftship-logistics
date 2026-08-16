@@ -114,7 +114,7 @@ isUser();
                                 <div class="dropdown-menu dropdown-menu-right dropdown-arrow profile-dropdown " aria-labelledby="Preview">
                                     <!-- item-->
                                     <div class="dropdown-item noti-title">
-                                        <h5 class="text-overflow"><small>Welcome ! <?php echo $_SESSION['user_name']; ?></small> </h5>
+                                        <h5 class="text-overflow"><small>Welcome ! <?php echo htmlspecialchars($_SESSION['user_name'] ?? 'Guest', ENT_QUOTES, 'UTF-8'); ?></small> </h5>
                                     </div>
 
                                     <!-- item-->

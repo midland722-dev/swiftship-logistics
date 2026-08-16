@@ -20,14 +20,25 @@
 // *************************************************************************
 
 include('../../database-settings.php');
+
+if (session_status() === PHP_SESSION_NONE) session_start();
+
+$submitted_token = $_POST['csrf_token'] ?? '';
+$session_token   = $_SESSION['csrf_token'] ?? '';
+
+if (!hash_equals($session_token, $submitted_token)) {
+    echo json_encode(array('msg' => 'Invalid security token. Please refresh and try again.'));
+    exit;
+}
+
 // asignamos la función de conexion a una variable
 $con = conexion();
 // recuperamos el id del usuario enviado por ajax
 $cid = $_POST['cid'];
-// eliminamos de la tabla hacemos una consulta SQL
-$q = "DELETE FROM manager_admin WHERE cid=$cid";
-// enviamos la consulta al método query
-$con->query($q);
+// eliminamos de la tabla usando prepared statement
+$stmt = $con->prepare("DELETE FROM manager_admin WHERE cid=?");
+$stmt->bind_param("i", $cid);
+$stmt->execute();
 // retornamos un mensaje de confirmación
 echo json_encode(array('msg' => 'ok'));
 
