@@ -111,7 +111,7 @@ function QuotePage() {
         currency: breakdown.currency,
         eta: eta.toISOString(),
       })
-      .select("id, tracking_code")
+      .select("id, tracking_number")
       .single();
     setBooking(false);
     if (error || !data) {
@@ -123,8 +123,8 @@ function QuotePage() {
       label: "Shipment booked",
       location: from,
     });
-    toast.success(`Booked ${data.tracking_code}`);
-    navigate({ to: "/track", search: { id: data.tracking_code } });
+    toast.success(`Booked ${data.tracking_number}`);
+    navigate({ to: "/track", search: { id: data.tracking_number } });
   };
 
   return (

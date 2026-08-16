@@ -14,7 +14,7 @@ export const Route = createFileRoute("/_authenticated/dashboard")({
 
 interface Shipment {
   id: string;
-  tracking_code: string;
+  tracking_number: string;
   from_location: string;
   to_location: string;
   status: string;
@@ -167,10 +167,10 @@ function Dashboard() {
                   <div className="min-w-0 flex-1">
                     <Link
                       to="/track"
-                      search={{ id: s.tracking_code }}
+                      search={{ id: s.tracking_number }}
                       className="font-mono text-xs text-brand hover:underline"
                     >
-                      {s.tracking_code}
+                      {s.tracking_number}
                     </Link>
                     <div className="text-sm font-medium">
                       {s.from_location} → {s.to_location}

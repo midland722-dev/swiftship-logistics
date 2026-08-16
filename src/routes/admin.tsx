@@ -146,12 +146,12 @@ function ShipmentsAdmin() {
     load();
   }, []);
 
-  const updateStatus = async (id: string, tracking_code: string, _from: string, _to: string, status: string) => {
+  const updateStatus = async (id: string, tracking_number: string, _from: string, _to: string, status: string) => {
     setBusy(true);
     try {
       const res = await updateStatusFn({ data: { shipment_id: id, status: status as any } });
       const pushMsg = res.channels.push.sent > 0 ? ` · ${res.channels.push.sent} push sent` : "";
-      toast.success(`${tracking_code} → ${status}${pushMsg}`);
+      toast.success(`${tracking_number} → ${status}${pushMsg}`);
       await load();
     } catch (e: any) {
       toast.error(e?.message ?? "Update failed");
@@ -185,14 +185,14 @@ function ShipmentsAdmin() {
             <tbody className="divide-y divide-border">
               {items.map((s) => (
                 <tr key={s.id}>
-                  <td className="py-2 pr-4 font-mono text-xs">{s.tracking_code}</td>
+                  <td className="py-2 pr-4 font-mono text-xs">{s.tracking_number}</td>
                   <td className="py-2 pr-4">{s.from_location} → {s.to_location}</td>
                   <td className="py-2 pr-4">${Number(s.price).toFixed(2)}</td>
                   <td className="py-2 pr-4">
                     <select
                       value={s.status}
                       disabled={busy}
-                      onChange={(e) => updateStatus(s.id, s.tracking_code, s.from_location, s.to_location, e.target.value)}
+                      onChange={(e) => updateStatus(s.id, s.tracking_number, s.from_location, s.to_location, e.target.value)}
                       className="rounded border border-border bg-background px-2 py-1 text-xs"
                     >
                       {STATUSES.map((st) => (
@@ -201,7 +201,7 @@ function ShipmentsAdmin() {
                     </select>
                   </td>
                   <td className="py-2">
-                    <Link to="/track" search={{ id: s.tracking_code }} className="text-brand hover:underline">View</Link>
+                    <Link to="/track" search={{ id: s.tracking_number }} className="text-brand hover:underline">View</Link>
                   </td>
                 </tr>
               ))}

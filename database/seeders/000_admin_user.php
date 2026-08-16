@@ -9,7 +9,7 @@
 require_once __DIR__ . '/../config/db.php';
 
 $email = 'admin@ascl-logistics.com';
-$password = 'admin123';
+$password = getenv('ADMIN_PASSWORD') ?: bin2hex(random_bytes(8));
 $name = 'Admin User';
 $hash = password_hash($password, PASSWORD_BCRYPT);
 
