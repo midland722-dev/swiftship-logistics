@@ -3535,7 +3535,7 @@ ZodSet.create;
 ZodFunction.create;
 ZodLazy.create;
 ZodLiteral.create;
-var enumType = ZodEnum.create;
+ZodEnum.create;
 ZodNativeEnum.create;
 ZodPromise.create;
 ZodEffects.create;
@@ -3544,4 +3544,4 @@ ZodNullable.create;
 ZodEffects.createWithPreprocess;
 ZodPipeline.create;
 //#endregion
-export { objectType as n, stringType as r, enumType as t };
+export { stringType as n, objectType as t };

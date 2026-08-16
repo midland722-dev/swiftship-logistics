@@ -1,5 +1,5 @@
 import { n as require_jsx_runtime } from "../_libs/react+tanstack__react-query.mjs";
-import { Z as Check } from "../_libs/lucide-react.mjs";
+import { Y as Check } from "../_libs/lucide-react.mjs";
 import { y as Link } from "../_libs/@tanstack/react-router+[...].mjs";
 //#region node_modules/.nitro/vite/services/ssr/assets/pricing-TBtbKByP.js
 var import_jsx_runtime = require_jsx_runtime();

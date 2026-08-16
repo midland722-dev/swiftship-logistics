@@ -352,18 +352,6 @@ function callLayer(fn, event, handler, inner) {
 function isUnhandledResponse(val) {
 	return val === void 0 || val === kNotFound;
 }
-function toRequest(input, options) {
-	if (typeof input === "string") {
-		let url = input;
-		if (url[0] === "/") {
-			const headers = options?.headers ? new Headers(options.headers) : void 0;
-			const host = headers?.get("host") || "localhost";
-			url = `${(headers?.get("x-forwarded-proto") || "").split(",")[0].trim() === "https" ? "https" : "http"}://${host}${url}`;
-		}
-		return new Request(url, options);
-	} else if (options || input instanceof URL) return new Request(input, options);
-	return input;
-}
 function defineHandler(input) {
 	if (typeof input === "function") return handlerWithFetch(input);
 	const handler = input.handler || (input.fetch ? function _fetchHandler(event) {
@@ -469,4 +457,4 @@ function routeHandler(route) {
 String.raw`(?:^|/)(?:\.|%(?:25)*2e){1,2}(?:/|$)`;
 String.raw`%(?:25)*(?:2f|5c)`;
 //#endregion
-export { toRequest as i, HTTPError as n, defineLazyEventHandler as r, H3Core as t };
+export { defineLazyEventHandler as i, HTTPError as n, HTTPResponse as r, H3Core as t };
