@@ -20,6 +20,17 @@
 // *************************************************************************
  
 include('../../database-settings.php');
+
+if (session_status() === PHP_SESSION_NONE) session_start();
+
+$submitted_token = $_POST['csrf_token'] ?? '';
+$session_token   = $_SESSION['csrf_token'] ?? '';
+
+if (!hash_equals($session_token, $submitted_token)) {
+    echo json_encode(array('msg' => 'Invalid security token. Please refresh and try again.'));
+    exit;
+}
+
 // asignamos la función de conexion a una variable
 $con = conexion();
 // recuperamos y asignamos a variables los campos enviados por ajax metodo POST
@@ -47,13 +58,16 @@ elseif(empty($dimensions)){
 	exit();
 }
 
+// insertamos en la base de datos usando prepared statement
+$consulta = "INSERT INTO type_shipments (name,packaging,dimensions,estado) VALUES(:name,:packaging,:dimensions,:estado)";
+$stmt = $con->prepare($consulta);
+$stmt->execute([
+    ':name' => $name,
+    ':packaging' => $packaging,
+    ':dimensions' => $dimensions,
+    ':estado' => $estado
+]);
 
-
-
-
-// insertamos en la base de datos - hacemos una consulta SQL
-$consulta = "INSERT INTO type_shipments (name,packaging,dimensions,estado) VALUES('$name','$packaging','$dimensions','$estado')";
-$con->query($consulta); // enviamos la consulta al método query
 // retornamos un mensaje de confirmación
 echo json_encode(array('msg' => 'ok'));
 

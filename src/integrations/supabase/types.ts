@@ -359,7 +359,7 @@ export type Database = {
           service_speed: string
           status: string
           to_location: string
-          tracking_code: string
+          tracking_number: string
           updated_at: string
           weight_kg: number
           width_cm: number | null
@@ -382,7 +382,7 @@ export type Database = {
           service_speed: string
           status?: string
           to_location: string
-          tracking_code?: string
+          tracking_number?: string
           updated_at?: string
           weight_kg: number
           width_cm?: number | null
@@ -405,7 +405,7 @@ export type Database = {
           service_speed?: string
           status?: string
           to_location?: string
-          tracking_code?: string
+          tracking_number?: string
           updated_at?: string
           weight_kg?: number
           width_cm?: number | null
@@ -452,7 +452,7 @@ export type Database = {
         }
         Returns: undefined
       }
-      generate_tracking_code: { Args: never; Returns: string }
+      generate_tracking_number: { Args: never; Returns: string }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]

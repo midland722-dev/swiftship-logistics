@@ -33,10 +33,12 @@ function getParam($value, $default = '') {
  * @return string
  */
 function sqlValue($value, string $type = 'str'): string {
+    global $dbConn;
     if ($type === 'int') {
         return (int)$value;
     }
-    return "'" . mysql_real_escape_string((string)$value) . "'";
+    $escaped = mysqli_real_escape_string($dbConn, (string)$value);
+    return "'" . $escaped . "'";
 }
 
 /**
@@ -52,11 +54,12 @@ function sqlValue($value, string $type = 'str'): string {
  * @return string
  */
 function consultar($campo, $tabla, $where) {
-    $campo = mysql_real_escape_string($campo);
-    $tabla = mysql_real_escape_string($tabla);
-    $where = mysql_real_escape_string($where);
-    $sql = mysql_query("SELECT `$campo` FROM `$tabla` WHERE $where");
-    if ($row = mysql_fetch_array($sql)) {
+    global $dbConn;
+    $campo = mysqli_real_escape_string($dbConn, $campo);
+    $tabla = mysqli_real_escape_string($dbConn, $tabla);
+    $where = mysqli_real_escape_string($dbConn, $where);
+    $sql = mysqli_query($dbConn, "SELECT `$campo` FROM `$tabla` WHERE $where");
+    if ($row = mysqli_fetch_assoc($sql)) {
         return $row[$campo];
     }
     return '';
@@ -73,11 +76,12 @@ function consultar($campo, $tabla, $where) {
  * @return float
  */
 function abonos_saldo($tabla, $cuenta, $where) {
-    $tabla = mysql_real_escape_string($tabla);
-    $cuenta = mysql_real_escape_string($cuenta);
-    $where = mysql_real_escape_string($where);
-    $sql = mysql_query("SELECT SUM(`$cuenta`) AS valores FROM `$tabla` WHERE $where");
-    if ($row = mysql_fetch_array($sql)) {
+    global $dbConn;
+    $tabla = mysqli_real_escape_string($dbConn, $tabla);
+    $cuenta = mysqli_real_escape_string($dbConn, $cuenta);
+    $where = mysqli_real_escape_string($dbConn, $where);
+    $sql = mysqli_query($dbConn, "SELECT SUM(`$cuenta`) AS valores FROM `$tabla` WHERE $where");
+    if ($row = mysqli_fetch_assoc($sql)) {
         return (float)($row['valores'] ?? 0);
     }
     return 0.0;

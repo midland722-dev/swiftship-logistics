@@ -14,7 +14,7 @@ export const Route = createFileRoute("/_authenticated/dashboard")({
 
 interface Shipment {
   id: string;
-  tracking_code: string;
+  tracking_number: string;
   from_location: string;
   to_location: string;
   status: string;
@@ -135,7 +135,7 @@ function Dashboard() {
         <div className="flex gap-2">
           {isAdmin && (
             <Link
-              to="/admin"
+              to="/deprixa/login.php"
               className="inline-flex items-center gap-2 rounded-sm border border-border px-4 py-2 text-sm font-semibold hover:bg-surface"
             >
               <Shield className="h-4 w-4" /> Admin
@@ -167,10 +167,10 @@ function Dashboard() {
                   <div className="min-w-0 flex-1">
                     <Link
                       to="/track"
-                      search={{ id: s.tracking_code }}
+                      search={{ id: s.tracking_number }}
                       className="font-mono text-xs text-brand hover:underline"
                     >
-                      {s.tracking_code}
+                      {s.tracking_number}
                     </Link>
                     <div className="text-sm font-medium">
                       {s.from_location} → {s.to_location}

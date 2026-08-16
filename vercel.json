@@ -6,5 +6,31 @@
     "env": {
       "NITRO_PRESET": "vercel"
     }
-  }
+  },
+  "rewrites": [
+    {
+      "source": "/deprixa/:path*",
+      "destination": "https://php-app-production-7ce0.up.railway.app/deprixa/:path$1"
+    },
+    {
+      "source": "/php/:path*",
+      "destination": "https://php-app-production-7ce0.up.railway.app/php/:path$1"
+    },
+    {
+      "source": "/api/:path*",
+      "destination": "https://php-app-production-7ce0.up.railway.app/api/:path$1"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/admin",
+      "destination": "/deprixa/login.php",
+      "permanent": false
+    },
+    {
+      "source": "/admin/",
+      "destination": "/deprixa/login.php",
+      "permanent": false
+    }
+  ]
 }

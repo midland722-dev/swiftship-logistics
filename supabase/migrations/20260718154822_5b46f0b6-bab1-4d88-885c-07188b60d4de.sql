@@ -96,7 +96,7 @@ CREATE POLICY "pricing admin write" ON public.pricing_rules FOR ALL TO authentic
 INSERT INTO public.pricing_rules (is_active) VALUES (true);
 
 -- ============ SHIPMENTS ============
-CREATE OR REPLACE FUNCTION public.generate_tracking_code()
+CREATE OR REPLACE FUNCTION public.generate_tracking_number()
 RETURNS TEXT LANGUAGE plpgsql AS $$
 DECLARE code TEXT;
 BEGIN
@@ -107,7 +107,7 @@ $$;
 
 CREATE TABLE public.shipments (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  tracking_code TEXT NOT NULL UNIQUE DEFAULT public.generate_tracking_code(),
+  tracking_number TEXT NOT NULL UNIQUE DEFAULT public.generate_tracking_number(),
   owner_id UUID REFERENCES auth.users(id) ON DELETE SET NULL,
   from_location TEXT NOT NULL,
   to_location TEXT NOT NULL,

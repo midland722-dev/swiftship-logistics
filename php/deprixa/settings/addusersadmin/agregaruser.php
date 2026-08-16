@@ -21,8 +21,17 @@
  
 
 include('../../database-settings.php');
-// asignamos la función de conexion a una variable
-$con = conexion();
+
+if (session_status() === PHP_SESSION_NONE) session_start();
+
+$submitted_token = $_POST['csrf_token'] ?? '';
+$session_token   = $_SESSION['csrf_token'] ?? '';
+
+if (!hash_equals($session_token, $submitted_token)) {
+    echo json_encode(array('msg' => 'Invalid security token. Please refresh and try again.'));
+    exit;
+}
+
 // recuperamos y asignamos a variables los campos enviados por ajax metodo POST
 $name_parson = $_POST['name_parson'];
 $name = $_POST['name'];
@@ -73,12 +82,22 @@ elseif(empty($pwd)){
 	exit();
 }
 
+// insertamos en la base de datos usando prepared statement
+$hashedPassword = password_hash($pwd, PASSWORD_DEFAULT);
+$consulta = "INSERT INTO manager_admin (name_parson,name,email,phone,office,role,pwd,estado,type,date) VALUES(:name_parson,:name,:email,:phone,:office,:role,:pwd,:estado,:type,curdate())";
+$stmt = $con->prepare($consulta);
+$stmt->execute([
+    ':name_parson' => $name_parson,
+    ':name' => $name,
+    ':email' => $email,
+    ':phone' => $phone,
+    ':office' => $office,
+    ':role' => $role,
+    ':pwd' => $hashedPassword,
+    ':estado' => $estado,
+    ':type' => $type
+]);
 
-
-
-// insertamos en la base de datos - hacemos una consulta SQL
-$consulta = "INSERT INTO manager_admin (name_parson,name,email,phone,office,role,pwd,estado,type,date) VALUES('$name_parson','$name','$email','$phone','$office','$role','$pwd','$estado','$type',curdate())";
-$con->query($consulta); // enviamos la consulta al método query
 // retornamos un mensaje de confirmación
 echo json_encode(array('msg' => 'ok'));
 

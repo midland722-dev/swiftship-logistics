@@ -15,7 +15,7 @@ export const updateShipmentStatus = createServerFn({ method: "POST" })
     // Authorize: admin, staff, or the shipment owner may update
     const { data: shipment, error: fetchErr } = await supabase
       .from("shipments")
-      .select("id, tracking_code, from_location, to_location, owner_id, status")
+      .select("id, tracking_number, from_location, to_location, owner_id, status")
       .eq("id", data.shipment_id)
       .maybeSingle();
     if (fetchErr || !shipment) throw new Error("Shipment not found");
@@ -63,9 +63,9 @@ export const updateShipmentStatus = createServerFn({ method: "POST" })
         .eq("user_id", shipment.owner_id),
     ]);
 
-    const title = `${shipment.tracking_code}: ${STATUS_LABEL[data.status] ?? data.status}`;
+    const title = `${shipment.tracking_number}: ${STATUS_LABEL[data.status] ?? data.status}`;
     const body = `${shipment.from_location} → ${shipment.to_location}`;
-    const url = `/track?id=${encodeURIComponent(shipment.tracking_code)}`;
+    const url = `/track?id=${encodeURIComponent(shipment.tracking_number)}`;
 
     // ---- Web push ----
     if ((prefs?.push_enabled ?? false) && subs && subs.length > 0) {
@@ -76,7 +76,7 @@ export const updateShipmentStatus = createServerFn({ method: "POST" })
         try {
           const webpush = (await import("web-push")).default;
           webpush.setVapidDetails(subject, publicKey, privateKey);
-          const payload = JSON.stringify({ title, body, url, tag: `ship-${shipment.tracking_code}` });
+          const payload = JSON.stringify({ title, body, url, tag: `ship-${shipment.tracking_number}` });
           for (const s of subs) {
             try {
               await webpush.sendNotification(

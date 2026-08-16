@@ -20,14 +20,26 @@
 // *************************************************************************
  
 include('../../database-settings.php');
+
+if (session_status() === PHP_SESSION_NONE) session_start();
+
+$submitted_token = $_POST['csrf_token'] ?? '';
+$session_token   = $_SESSION['csrf_token'] ?? '';
+
+if (!hash_equals($session_token, $submitted_token)) {
+    echo json_encode(array('msg' => 'Invalid security token. Please refresh and try again.'));
+    exit;
+}
+
 // asignamos la función de conexion a una variable
 $con = conexion();
 // recuperamos el id del usuario enviado por ajax
 $id = $_POST['id'];
-// recuperamos los datos del usuario hacemos una consulta SQL
-$q = "SELECT * FROM mode_bookings WHERE id=$id";
-// enviamos la consulta al método query
-$result = $con->query($q);
+// recuperamos los datos del usuario usando prepared statement
+$stmt = $con->prepare("SELECT * FROM mode_bookings WHERE id=?");
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$result = $stmt->get_result();
 // creamos una variable del tipo array la cual almacena todos los datos del usuario
 $datos = array();
 while ($row=$result->fetch_assoc()) {

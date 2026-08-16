@@ -9,7 +9,7 @@
 require_once __DIR__ . '/../config/db.php';
 
 $email = 'admin@ascl-logistics.com';
-$password = 'Admin@123';
+$password = getenv('ADMIN_PASSWORD') ?: bin2hex(random_bytes(8));
 $name = 'Admin User';
 
 $existing = db_fetch_one('SELECT id FROM users WHERE email = :email LIMIT 1', [':email' => $email]);

@@ -5,7 +5,7 @@ RETURNS TRIGGER LANGUAGE plpgsql SET search_path = public AS $$
 BEGIN NEW.updated_at = now(); RETURN NEW; END;
 $$;
 
-CREATE OR REPLACE FUNCTION public.generate_tracking_code()
+CREATE OR REPLACE FUNCTION public.generate_tracking_number()
 RETURNS TEXT LANGUAGE plpgsql SET search_path = public AS $$
 DECLARE code TEXT;
 BEGIN

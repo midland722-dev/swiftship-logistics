@@ -39,7 +39,7 @@ function TrackPage() {
       const { data: s } = await supabase
         .from("shipments")
         .select("*")
-        .eq("tracking_code", id)
+        .eq("tracking_number", id)
         .maybeSingle();
       if (!s) {
         setShipment(null);
@@ -107,7 +107,7 @@ function TrackPage() {
           <div className="rounded-2xl border border-border bg-surface/60 p-6 md:p-8">
             <div className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-4">
               <div className="min-w-0">
-                <div className="font-mono text-xs text-muted-foreground">{shipment.tracking_code}</div>
+                <div className="font-mono text-xs text-muted-foreground">{shipment.tracking_number}</div>
                 <h2 className="mt-1 truncate font-display text-2xl font-bold">
                   {shipment.status.replace(/_/g, " ")}
                   {shipment.eta && ` — arriving ${new Date(shipment.eta).toLocaleDateString()}`}

@@ -98,7 +98,7 @@ export function SiteHeader() {
             <>
               {isAdmin && (
                 <Link
-                  to="/admin"
+                  to="/deprixa/login.php"
                   className="inline-flex items-center gap-1 rounded-md px-3 py-2 text-sm text-muted-foreground hover:bg-surface hover:text-foreground"
                 >
                   <Shield className="h-4 w-4" /> Admin
@@ -157,7 +157,7 @@ export function SiteHeader() {
               {session ? (
                 <>
                   <Link to="/dashboard" onClick={() => setOpen(false)} className="block rounded-md px-3 py-2 text-sm">Dashboard</Link>
-                  {isAdmin && <Link to="/admin" onClick={() => setOpen(false)} className="block rounded-md px-3 py-2 text-sm">Admin</Link>}
+                  {isAdmin && <Link to="/deprixa/login.php" onClick={() => setOpen(false)} className="block rounded-md px-3 py-2 text-sm">Admin</Link>}
                   <button onClick={() => { signOut(); setOpen(false); }} className="block w-full rounded-md px-3 py-2 text-left text-sm">Sign out</button>
                 </>
               ) : (

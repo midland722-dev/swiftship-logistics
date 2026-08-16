@@ -148,7 +148,7 @@ isUser();
 															<div class="row">
 																<div class="col-sm-4 form-group">
 																	<label  class="control-label">Email <span class="required-field">*</span></label>
-																	<input name="email" value="<?php echo $_SESSION['user_name']; ?>"  class="form-control" type="text" required  placeholder="yourname@gmail.com" readonly>
+																	<input name="email" value="<?php echo htmlspecialchars($_SESSION['user_name'] ?? '', ENT_QUOTES, 'UTF-8'); ?>"  class="form-control" type="text" required  placeholder="yourname@gmail.com" readonly>
 																</div>
 																
 																<div class="col-sm-4 form-group">
@@ -169,7 +169,7 @@ isUser();
 															<div class="row" >
 																<div class="col-sm-12 form-group">
 																		<label  class="control-label"><i class="fa fa-user icon text-default-lter"></i>&nbsp;Customer Name<span class="required-field">*</span></label>
-																		<input type="text"  name="officename" id="officename" value="<?php echo $_SESSION['user_name'] ;?>" class="form-control"  readonly="true" >
+																		<input type="text"  name="officename" id="officename" value="<?php echo htmlspecialchars($_SESSION['user_name'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" class="form-control"  readonly="true" >
 																  </div>
 															</div>
 															

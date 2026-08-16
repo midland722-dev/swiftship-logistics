@@ -20,6 +20,17 @@
 // *************************************************************************
 
 include('../../database-settings.php');
+
+if (session_status() === PHP_SESSION_NONE) session_start();
+
+$submitted_token = $_POST['csrf_token'] ?? '';
+$session_token   = $_SESSION['csrf_token'] ?? '';
+
+if (!hash_equals($session_token, $submitted_token)) {
+    echo json_encode(array('msg' => 'Invalid security token. Please refresh and try again.'));
+    exit;
+}
+
 // asignamos la función de conexion a una variable
 $con = conexion();
 // recuperamos el id del off_name enviado por ajax
@@ -50,18 +61,18 @@ elseif(empty($dimensions)){
 }
 
 else{	
-	// verificamos si esta cambiando el password
-	if(empty($password)) // actualizamos la información del off_name hacemos una consulta SQL
-	$consulta = "UPDATE type_shipments SET name='$name', packaging='$packaging', dimensions='$dimensions', estado='$estado' WHERE id='$id'";
-	else{
-	$password = md5($password); // encriptamos la nueva contraseña
-	$consulta = "UPDATE type_shipments SET name='$name', packaging='$packaging', dimensions='$dimensions', estado='$estado' WHERE id='$id'";	
-	}
-
+	// actualizamos la información del tipo de envío usando prepared statement
+	$consulta = "UPDATE type_shipments SET name=:name, packaging=:packaging, dimensions=:dimensions, estado=:estado WHERE id=:id";
+	$stmt = $con->prepare($consulta);
+	$stmt->execute([
+		':name' => $name,
+		':packaging' => $packaging,
+		':dimensions' => $dimensions,
+		':estado' => $estado,
+		':id' => $id
+	]);
 }
 
-// enviamos la consulta al método query
-$con->query($consulta);
 // retornamos un mensaje de confirmación
 echo json_encode(array('msg' => 'ok'));
 
