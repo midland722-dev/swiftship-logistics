@@ -1,0 +1,11 @@
+# Nixpacks configuration for Railway PHP deployment
+# This ensures Railway treats this repo as PHP, not Node.js/Vite.
+
+[phases.setup]
+nixPkgs = ['php83', 'php83Packages.composer']
+
+# No Node.js build step is required for the PHP backend.
+# The React frontend is built and deployed separately on Vercel.
+
+[start]
+cmd = 'php -S 0.0.0.0:$PORT -t . router.php'
