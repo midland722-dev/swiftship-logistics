@@ -25,9 +25,9 @@ foreach ($possibleConfigs as $cfg) {
 
 // Fallback constants if the config file was not found.
 if (!defined('DB_HOST')) {
-    define('DB_HOST', getenv('DB_HOST') ?: 'localhost');
-    define('DB_NAME', getenv('DB_NAME') ?: 'shipping_db');
-    define('DB_USER', getenv('DB_USER') ?: 'root');
+    define('DB_HOST', getenv('DB_HOST') ?: '');
+    define('DB_NAME', getenv('DB_NAME') ?: '');
+    define('DB_USER', getenv('DB_USER') ?: '');
     define('DB_PASS', getenv('DB_PASS') ?: '');
     define('DB_CHARSET', getenv('DB_CHARSET') ?: 'utf8mb4');
 }

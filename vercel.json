@@ -6,5 +6,11 @@
     "env": {
       "NITRO_PRESET": "vercel"
     }
-  }
+  },
+  "rewrites": [
+    {
+      "source": "/admin",
+      "destination": "https://your-railway-app.up.railway.app/deprixa/login.php"
+    }
+  ]
 }

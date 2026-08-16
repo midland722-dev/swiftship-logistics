@@ -30,21 +30,21 @@ if (file_exists($envFile)) {
     }
 }
 
-$appEnv = getenv('APP_ENV') ?: (getenv('APP_ENV') ?: 'production');
+$appEnv = getenv('APP_ENV') ?: 'production';
 $isProduction = $appEnv === 'production';
 
-if ($isProduction) {
+if (!$isProduction) {
     define('DB_HOST', getenv('DB_HOST') ?: 'localhost');
     define('DB_NAME', getenv('DB_NAME') ?: '');
     define('DB_USER', getenv('DB_USER') ?: '');
     define('DB_PASS', getenv('DB_PASS') ?: '');
 } else {
-    define('DB_HOST', '127.0.0.1');
-    define('DB_NAME', 'gdd');
-    define('DB_USER', 'gdduser');
-    define('DB_PASS', 'gdduser');
+    define('DB_HOST', getenv('DB_HOST') ?: '');
+    define('DB_NAME', getenv('DB_NAME') ?: '');
+    define('DB_USER', getenv('DB_USER') ?: '');
+    define('DB_PASS', getenv('DB_PASS') ?: '');
 }
-define('DB_CHARSET', 'utf8mb4');
+define('DB_CHARSET', getenv('DB_CHARSET') ?: 'utf8mb4');
 
 /**
  * Returns a singleton PDO connection (legacy alias for db()).

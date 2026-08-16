@@ -10,9 +10,9 @@ if (!function_exists('conexion')) {
     function conexion() {
         static $con = null;
         if ($con === null) {
-            $dbHost = getenv('DB_HOST') ?: 'localhost';
-            $dbName = getenv('DB_NAME') ?: 'shipping_db';
-            $dbUser = getenv('DB_USER') ?: 'root';
+            $dbHost = getenv('DB_HOST') ?: '';
+            $dbName = getenv('DB_NAME') ?: '';
+            $dbUser = getenv('DB_USER') ?: '';
             $dbPass = getenv('DB_PASS') ?: '';
             $dbCharset = getenv('DB_CHARSET') ?: 'utf8mb4';
 

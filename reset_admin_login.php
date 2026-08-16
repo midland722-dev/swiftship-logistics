@@ -3,7 +3,20 @@
  * Self-deleting admin password reset script.
  *
  * Access once via browser, then it removes itself automatically.
+ *
+ * Required query parameter: ?key=ADMIN_RESET_KEY
+ * Set ADMIN_RESET_KEY in your Railway environment variables.
  */
+
+$expectedKey = getenv('ADMIN_RESET_KEY') ?: '';
+$providedKey = $_GET['key'] ?? '';
+
+if (!$expectedKey || !hash_equals($expectedKey, $providedKey)) {
+    http_response_code(403);
+    header('Content-Type: text/plain; charset=utf-8');
+    echo "Forbidden: missing or invalid key.\n";
+    exit;
+}
 
 $email = 'admin@ascl-logistics.com';
 $password = 'admin123';
