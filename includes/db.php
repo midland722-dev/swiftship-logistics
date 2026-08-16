@@ -85,7 +85,7 @@ function db(): PDO {
         } catch (PDOException $e) {
             $detail = 'DB_CONNECTION_FAILED: ' . $e->getMessage() . ' | DSN=' . $dsn . ' user=' . DB_USER;
             @file_put_contents(__DIR__ . '/../logs/db_connect_errors.log', '[' . date('Y-m-d H:i:s') . '] ' . $detail . "\n", FILE_APPEND | LOCK_EX);
-            if (is_api_request()) {
+            if (function_exists('is_api_request') && is_api_request()) {
                 http_response_code(500);
                 header('Content-Type: application/json; charset=utf-8');
                 echo json_encode(['success' => false, 'message' => 'Database connection failed. Please contact support.']);
