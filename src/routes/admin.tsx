@@ -13,84 +13,28 @@ export const Route = createFileRoute("/admin")({
   component: AdminPage,
 });
 
-type Tab = "shipments" | "pricing" | "users" | "content";
-
 function AdminPage() {
   const { session, isAdmin, loading } = useAuth();
   const [tab, setTab] = useState<Tab>("shipments");
 
-  if (loading) return <div className="container-x py-16">Loading…</div>;
-
-  if (!session) {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [busy, setBusy] = useState(false);
-
-    const submit = async (e: React.FormEvent) => {
-      e.preventDefault();
-      setBusy(true);
-      try {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
-        if (error) throw error;
-        toast.success("Welcome back.");
-      } catch (err: any) {
-        toast.error(err.message ?? "Something went wrong");
-      } finally {
-        setBusy(false);
-      }
-    };
-
-    return (
-      <section className="container-x flex min-h-[70vh] items-center justify-center py-16">
-        <div className="w-full max-w-md rounded-2xl border border-border bg-surface/60 p-8">
-          <h1 className="font-display text-3xl font-bold">Admin sign in</h1>
-          <p className="mt-1 text-sm text-muted-foreground">Sign in to access the admin control center.</p>
-          <form onSubmit={submit} className="mt-6 space-y-4">
-            <label className="block">
-              <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Email</span>
-              <input
-                required
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="mt-2 w-full rounded-lg border border-border bg-background px-3 py-2.5 text-sm outline-none focus:border-brand"
-              />
-            </label>
-            <label className="block">
-              <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Password</span>
-              <input
-                required
-                type="password"
-                minLength={6}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="mt-2 w-full rounded-lg border border-border bg-background px-3 py-2.5 text-sm outline-none focus:border-brand"
-              />
-            </label>
-            <button
-              disabled={busy}
-              className="w-full rounded-sm bg-accent py-3 text-sm font-bold uppercase tracking-wider text-accent-foreground hover:opacity-90 disabled:opacity-60"
-            >
-              {busy ? "Please wait…" : "Sign in"}
-            </button>
-          </form>
-        </div>
-      </section>
-    );
+  if (!loading && !session) {
+    return <Navigate to="/deprixa/login.php" replace />;
   }
 
-  if (!isAdmin) {
+  if (!loading && session && !isAdmin) {
     return (
       <div className="container-x py-16 text-center">
         <ShieldOff className="mx-auto h-8 w-8 text-red-500" />
         <h1 className="mt-4 font-display text-2xl font-bold">Admin access required</h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          You're signed in but not an admin. Ask an existing admin to grant you the role.
+          You're signed in but not an admin. The production admin panel is at /deprixa/login.php.
         </p>
-        <Link to="/dashboard" className="mt-6 inline-block rounded-sm border border-border px-4 py-2 text-sm">Back to dashboard</Link>
+        <Link to="/deprixa/login.php" className="mt-6 inline-block rounded-sm border border-border px-4 py-2 text-sm">Go to admin login</Link>
       </div>
     );
   }
+
+  if (loading) return <div className="container-x py-16">Loading…</div>;
 
   return (
     <section className="container-x py-12">

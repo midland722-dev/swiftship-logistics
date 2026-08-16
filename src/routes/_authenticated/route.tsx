@@ -15,7 +15,7 @@ function ProtectedLayout() {
     );
   }
   if (!session) {
-    return <Navigate to="/admin" search={{ next: location.pathname }} replace />;
+    return <Navigate to="/deprixa/login.php" search={{ next: location.pathname }} replace />;
   }
   return <Outlet />;
 }

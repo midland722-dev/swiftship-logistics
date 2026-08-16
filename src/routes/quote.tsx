@@ -67,7 +67,7 @@ function QuotePage() {
 
   const saveQuote = async () => {
     if (!user) {
-      navigate({ to: "/admin", search: { next: "/quote" } });
+      navigate({ to: "/deprixa/login.php", search: { next: "/quote" } });
       return;
     }
     const { error } = await supabase.from("quotes").insert({
@@ -89,7 +89,7 @@ function QuotePage() {
 
   const book = async () => {
     if (!user) {
-      navigate({ to: "/admin", search: { next: "/quote" } });
+      navigate({ to: "/deprixa/login.php", search: { next: "/quote" } });
       return;
     }
     setBooking(true);
