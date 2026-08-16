@@ -10,7 +10,7 @@
   "rewrites": [
     {
       "source": "/admin",
-      "destination": "https://your-railway-app.up.railway.app/deprixa/login.php"
+      "destination": "https://php-app-production-7ce0.up.railway.app/deprixa/login.php"
     }
   ]
 }

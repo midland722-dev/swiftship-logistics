@@ -2,7 +2,7 @@
     RewriteEngine On
 
     # Redirect legacy /admin path to the PHP admin login
-    RewriteRule ^admin$ /deprixa/login.php [R=302,L]
+    RewriteRule ^admin/?$ /deprixa/login.php [R=302,L]
 
     # Exclude real files, directories, and symbolic links from rewriting
     RewriteCond %{REQUEST_FILENAME} !-f
