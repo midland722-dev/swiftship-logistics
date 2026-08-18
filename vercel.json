@@ -6,5 +6,17 @@
     "env": {
       "NITRO_PRESET": "vercel"
     }
-  }
+  },
+  "redirects": [
+    {
+      "source": "/deprixa/:path*",
+      "destination": "https://panel.ascl-logistics.com/deprixa/:path*",
+      "permanent": false
+    },
+    {
+      "source": "/php/:path*",
+      "destination": "https://panel.ascl-logistics.com/php/:path*",
+      "permanent": false
+    }
+  ]
 }
