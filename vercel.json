@@ -1,22 +1,14 @@
 {
   "installCommand": "npm install",
   "buildCommand": "npm run build",
-  "nodeVersion": "22.x",
   "build": {
     "env": {
       "NITRO_PRESET": "vercel"
     }
   },
-  "redirects": [
-    {
-      "source": "/deprixa/:path*",
-      "destination": "https://panel.ascl-logistics.com/deprixa/:path*",
-      "permanent": false
-    },
-    {
-      "source": "/php/:path*",
-      "destination": "https://panel.ascl-logistics.com/php/:path*",
-      "permanent": false
-    }
+  "rewrites": [
+    { "source": "/deprixa/:path*", "destination": "https://php-app-production-7ce0.up.railway.app/deprixa/:path*" },
+    { "source": "/php/:path*", "destination": "https://php-app-production-7ce0.up.railway.app/php/:path*" },
+    { "source": "/api/:path*", "destination": "https://php-app-production-7ce0.up.railway.app/api/:path*" }
   ]
 }
