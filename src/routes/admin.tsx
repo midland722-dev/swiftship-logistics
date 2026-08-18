@@ -1,4 +1,4 @@
-import { createFileRoute, Link, Navigate } from "@tanstack/react-router";
+import { createFileRoute, Link, Navigate, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
@@ -10,6 +10,9 @@ import { Users, Package, DollarSign, Newspaper, ShieldOff } from "lucide-react";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({ meta: [{ title: "Admin — American Shipping & Logistics" }] }),
+  validateSearch: (search: Record<string, unknown>) => ({
+    next: typeof search.next === "string" ? search.next : undefined,
+  }),
   component: AdminPage,
 });
 
@@ -18,14 +21,15 @@ type Tab = "shipments" | "pricing" | "users" | "content";
 function AdminPage() {
   const { session, isAdmin, loading } = useAuth();
   const [tab, setTab] = useState<Tab>("shipments");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [busy, setBusy] = useState(false);
+  const navigate = useNavigate();
+  const { next } = Route.useSearch();
 
   if (loading) return <div className="container-x py-16">Loading…</div>;
 
   if (!session) {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [busy, setBusy] = useState(false);
-
     const submit = async (e: React.FormEvent) => {
       e.preventDefault();
       setBusy(true);
@@ -33,6 +37,7 @@ function AdminPage() {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
         toast.success("Welcome back.");
+        navigate({ to: next && next.startsWith("/") ? next : "/dashboard" });
       } catch (err: any) {
         toast.error(err.message ?? "Something went wrong");
       } finally {
@@ -306,7 +311,7 @@ function UsersAdmin() {
     }
   };
   const revoke = async (user_id: string, role: string) => {
-    const { error } = await supabase.rpc("admin_revoke_role", { _target_user: user_id, _role: role as "admin" });
+    const { error } = await supabase.rpc("admin_revoke_role", { _target_user: user_id, _role: role as "admin" | "staff" });
     if (error) toast.error(error.message);
     else {
       toast.success("Role revoked");
