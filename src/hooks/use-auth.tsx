@@ -38,17 +38,28 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   useEffect(() => {
-    // Listen first, then get initial session
-    const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => {
-      setSession(s);
-      // Defer role fetch to avoid deadlocks
-      setTimeout(() => loadRole(s?.user?.id), 0);
-    });
-    supabase.auth.getSession().then(({ data }) => {
-      setSession(data.session);
-      loadRole(data.session?.user?.id).finally(() => setLoading(false));
-    });
-    return () => sub.subscription.unsubscribe();
+    // If Supabase isn't configured (missing env vars), degrade gracefully
+    // instead of crashing the whole React tree with the root error boundary.
+    let sub: { subscription: { unsubscribe: () => void } } | undefined;
+    try {
+      const { data } = supabase.auth.onAuthStateChange((_e, s) => {
+        setSession(s);
+        // Defer role fetch to avoid deadlocks
+        setTimeout(() => loadRole(s?.user?.id), 0);
+      });
+      sub = data;
+      supabase.auth
+        .getSession()
+        .then(({ data }) => {
+          setSession(data.session);
+          return loadRole(data.session?.user?.id);
+        })
+        .catch(() => {})
+        .finally(() => setLoading(false));
+    } catch {
+      setLoading(false);
+    }
+    return () => sub?.subscription.unsubscribe();
   }, []);
 
   const signOut = async () => {
