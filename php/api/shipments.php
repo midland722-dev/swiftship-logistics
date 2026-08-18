@@ -12,9 +12,12 @@
 require_once __DIR__ . '/../includes/auth.php';
 require_once __DIR__ . '/../includes/cors.php';
 require_once __DIR__ . '/../includes/response.php';
+require_once __DIR__ . '/../includes/security.php';
 require_once __DIR__ . '/../config/db.php';
 
 require_role(['admin', 'staff']);
+
+csrf_same_origin_guard();
 
 $method = $_SERVER['REQUEST_METHOD'];
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
@@ -168,14 +171,33 @@ if ($method === 'PUT' && $id > 0) {
         'receiver_name', 'receiver_phone', 'receiver_email', 'receiver_address',
     ];
 
+    $allowedStatuses = ['pending', 'booked', 'picked_up', 'in_transit', 'out_for_delivery', 'delivered', 'exception', 'cancelled'];
+
     $sets = [];
     $params = [':id' => $id];
 
     foreach ($allowed as $field) {
-        if (array_key_exists($field, $input)) {
-            $sets[] = "`$field` = :$field";
-            $params[":$field"] = $input[$field];
+        if (!array_key_exists($field, $input)) {
+            continue;
         }
+        $value = $input[$field];
+        // Reject unexpected types (arrays/objects) to avoid malformed SQL.
+        if (is_array($value) || is_object($value)) {
+            json_error("Invalid value for field: $field", 422, 'VALIDATION_ERROR');
+        }
+        if ($field === 'status' && !in_array((string)$value, $allowedStatuses, true)) {
+            json_error("Invalid status: $value", 422, 'VALIDATION_ERROR');
+        }
+        // Coerce numeric / boolean-ish fields.
+        if (in_array($field, ['total_weight', 'total_volume', 'declared_value', 'insurance_amount', 'total_amount'], true)) {
+            $value = $value === '' ? null : (float)$value;
+        } elseif (in_array($field, ['pieces'], true)) {
+            $value = (int)$value;
+        } elseif (in_array($field, ['is_fragile', 'is_insured'], true)) {
+            $value = !empty($value) ? 1 : 0;
+        }
+        $sets[] = "`$field` = :$field";
+        $params[":$field"] = $value;
     }
 
     if ($sets) {

@@ -38,6 +38,7 @@ export const updateShipmentStatus = createServerFn({ method: "POST" })
       shipment_id: data.shipment_id,
       label: STATUS_LABEL[data.status] ?? data.status,
       location: shipment.to_location,
+      occurred_at: new Date().toISOString(),
     });
 
     const result: AlertResult = {

@@ -1974,13 +1974,13 @@ INSERT IGNORE INTO `company` (`id`, `name`, `email`, `phone`, `address`, `websit
 (1, 'Americans Shipping & Courier Logistics', 'info@ascl-logistics.com', '+12158159791', '4500 Harbor Boulevard, Long Beach, CA 90802, USA', 'https://www.ascl-logistics.com', 'US-123456789');
 
 INSERT IGNORE INTO `users` (`id`, `name`, `email`, `password`, `role`, `is_active`) VALUES
-(1, 'System Administrator', 'admin@ascl-logistics.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin', 1),
-(2, 'James Rodriguez', 'james.rodriguez@ascl-logistics.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'staff', 1),
-(3, 'Emily Chen', 'emily.chen@ascl-logistics.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'staff', 1);
+(1, 'System Administrator', 'admin@ascl-logistics.com', '', 'admin', 1),
+(2, 'James Rodriguez', 'james.rodriguez@ascl-logistics.com', '', 'staff', 1),
+(3, 'Emily Chen', 'emily.chen@ascl-logistics.com', '', 'staff', 1);
 
 INSERT IGNORE INTO `manager_admin` (`id`, `username`, `password`, `email`, `full_name`, `role`, `is_active`) VALUES
-(1, 'admin', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin@ascl-logistics.com', 'System Administrator', 'admin', 1),
-(2, 'james.rodriguez', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'james.rodriguez@ascl-logistics.com', 'James Rodriguez', 'admin', 1);
+(1, 'admin', '', 'admin@ascl-logistics.com', 'System Administrator', 'admin', 1),
+(2, 'james.rodriguez', '', 'james.rodriguez@ascl-logistics.com', 'James Rodriguez', 'admin', 1);
 
 INSERT IGNORE INTO `shipments` (`id`, `tracking_number`, `customer_id`, `status`, `service_type`, `priority`, `origin_country`, `origin_city`, `destination_country`, `destination_city`, `total_weight`, `declared_value`, `currency`, `payment_status`, `payment_method`, `total_amount`, `notes`, `estimated_delivery`, `created_by`, `created_at`) VALUES
 (1, 'LX-2024-001', 1, 'in_transit', 'express', 'high', 'US', 'Miami', 'US', 'Chicago', 2.50, 500.00, 'USD', 'paid', 'credit_card', 45.00, 'Time-sensitive documents', '2024-01-18', 1, NOW()),

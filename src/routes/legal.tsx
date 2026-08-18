@@ -34,7 +34,7 @@ function LegalPage() {
 
         <h2 className="mt-8 font-display text-xl font-semibold text-foreground">Contact</h2>
         <p>
-          Email: <a href="mailto:legal@voltra.example" className="text-brand hover:underline">legal@voltra.example</a>
+          Email: <a href="mailto:legal@ascl-logistics.com" className="text-brand hover:underline">legal@ascl-logistics.com</a>
         </p>
 
         <h2 className="mt-8 font-display text-xl font-semibold text-foreground">Disclaimer</h2>

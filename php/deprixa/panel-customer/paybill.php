@@ -120,7 +120,7 @@ isUser();
 								
 								<tbody>
 									<?php  					
-										$result3 = mysql_query("SELECT * FROM courier_online WHERE status='In-Transit' OR status='Shipment-arrived' OR status='Returned' and office='".$_SESSION["user_name"]."' ");
+										$result3 = mysql_query("SELECT * FROM courier_online WHERE status='In-Transit' OR status='Shipment-arrived' OR status='Returned' and office='".mysql_real_escape_string($_SESSION["user_name"])."' ");
 										while($row = mysql_fetch_array($result3)) {					
 									?>	
 								  <tr>

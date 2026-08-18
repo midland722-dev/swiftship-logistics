@@ -31,6 +31,8 @@ $phone = $_POST['phone'];
 $office = $_POST['office'];
 $role = $_POST['role'];
 $pwd = $_POST['pwd'];
+// Store a bcrypt hash instead of the plaintext password.
+$pwd_hash = password_hash($pwd, PASSWORD_BCRYPT);
 // verificamos si esta marcado el check box activo
 if(isset($_POST['estado']))
 $estado = $_POST['estado'];
@@ -77,7 +79,7 @@ elseif(empty($pwd)){
 
 
 // insertamos en la base de datos - hacemos una consulta SQL
-$consulta = "INSERT INTO manager_admin (name_parson,name,email,phone,office,role,pwd,estado,type,date) VALUES('$name_parson','$name','$email','$phone','$office','$role','$pwd','$estado','$type',curdate())";
+$consulta = "INSERT INTO manager_admin (name_parson,name,email,phone,office,role,pwd,estado,type,date) VALUES('$name_parson','$name','$email','$phone','$office','$role','$pwd_hash','$estado','$type',curdate())";
 $con->query($consulta); // enviamos la consulta al método query
 // retornamos un mensaje de confirmación
 echo json_encode(array('msg' => 'ok'));

@@ -39,7 +39,7 @@ function SustainabilityPage() {
           srcSet={`${sustainabilityHero} 1600w`}
           className="pointer-events-none absolute inset-0 h-full w-full object-cover"
         />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-background via-background/90 to-background/40" />
+        <div className="pointer-events-none absolute inset-0 bg-linear-to-r from-background via-background/90 to-background/40" />
         <div className="container-x relative pt-16 pb-16 md:pt-24 md:pb-24">
           <p className="font-mono text-xs uppercase tracking-widest text-brand">Sustainability</p>
           <h1 className="mt-2 max-w-3xl font-display text-5xl font-bold md:text-6xl">
@@ -79,7 +79,7 @@ function SustainabilityPage() {
       </section>
 
       <section className="container-x pb-24">
-        <div className="rounded-3xl border border-brand/30 bg-gradient-to-b from-brand/10 to-surface p-10 md:p-16">
+        <div className="rounded-3xl border border-brand/30 bg-linear-to-b from-brand/10 to-surface p-10 md:p-16">
           <h2 className="font-display text-3xl font-bold md:text-4xl">Ship greener today</h2>
           <p className="mt-3 max-w-2xl text-muted-foreground">
             Add GoGreen Plus to any American Shipping & Logistics shipment and reduce your Scope 3 emissions with

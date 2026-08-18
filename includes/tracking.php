@@ -62,13 +62,8 @@ function ensureTrackingHistory(PDO $db) {
  * Public tracking URL for a shipment (used in emails, QR codes, webhooks).
  */
 function trackingUrl($trackingNumber) {
-    $baseUrl = rtrim((string)getenv('APP_URL'), '/');
-    if ($baseUrl === '') {
-        $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
-        $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
-        $baseUrl = $scheme . '://' . $host;
-    }
-    return $baseUrl . '/shp/track.php?id=' . urlencode($trackingNumber);
+    $baseUrl = rtrim(getenv('APP_URL') ?: '', '/');
+    return $baseUrl . '/track.php?id=' . urlencode($trackingNumber);
 }
 
 /**
@@ -128,7 +123,7 @@ function notifyTrackingEvent(PDO $db, $shipmentId, $trackingNumber, $status, $lo
                     ':type' => trackingNotificationType($status),
                     ':title' => 'Shipment ' . $trackingNumber . ' — ' . $label,
                     ':message' => ($location ? 'Location: ' . $location . '. ' : '') . ($description ?: $label),
-                    ':url' => '/shp/track.php?cons_no=' . $trackingNumber,
+                    ':url' => rtrim(getenv('APP_URL') ?: '', '/') . '/track.php?cons_no=' . $trackingNumber,
                 ]);
             } catch (Exception $e) {
                 getLogger()->warning('In-app notification insert failed: ' . $e->getMessage());
@@ -210,6 +205,12 @@ function dispatchTrackingWebhooks(PDO $db, array $payload) {
             $err = null;
             $url = $sub['target_url'];
             $sig = $sub['secret'] ? hash_hmac('sha256', $body, $sub['secret']) : '';
+            $vparts = parse_url($url);
+            $vscheme = strtolower($vparts['scheme'] ?? '');
+            $vhost = strtolower($vparts['host'] ?? '');
+            $visLocal = $vhost === 'localhost' || $vhost === '127.0.0.1'
+                || preg_match('/^(10\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.)/', $vhost);
+            $urlOk = ($vscheme === 'http' || $vscheme === 'https') && !$visLocal;
             $ctx = stream_context_create([
                 'http' => [
                     'method' => 'POST',
@@ -219,20 +220,25 @@ function dispatchTrackingWebhooks(PDO $db, array $payload) {
                     'ignore_errors' => true,
                 ],
             ]);
-            $result = @file_get_contents($url, false, $ctx);
-            if ($result !== false) {
-                $status = 'sent';
-                $resp = substr($result, 0, 500);
-            } else {
-                $status = 'failed';
-                $err = 'Delivery failed';
-            }
-            if (isset($http_response_header) && is_array($http_response_header)) {
-                foreach ($http_response_header as $h) {
-                    if (preg_match('#^HTTP/\S+\s+(\d{3})#i', $h, $m)) {
-                        $code = (int)$m[1]; break;
+            if ($urlOk) {
+                $result = @file_get_contents($url, false, $ctx);
+                if ($result !== false) {
+                    $status = 'sent';
+                    $resp = substr($result, 0, 500);
+                } else {
+                    $status = 'failed';
+                    $err = 'Delivery failed';
+                }
+                if (isset($http_response_header) && is_array($http_response_header)) {
+                    foreach ($http_response_header as $h) {
+                        if (preg_match('#^HTTP/\S+\s+(\d{3})#i', $h, $m)) {
+                            $code = (int)$m[1]; break;
+                        }
                     }
                 }
+            } else {
+                $status = 'failed';
+                $err = 'Disallowed webhook target URL';
             }
             $db->prepare("
                 INSERT INTO webhook_events (event_type, payload, target_url, status, response_code, response_body, error_message, created_at)
@@ -443,12 +449,6 @@ function getTrackingProgress($status) {
     return $result;
 }
 
-/**
- * Human-friendly label for a raw status code.
- * Guarded so admin includes/shipment_helpers.php (which provides a richer
- * mapping via allShipmentStatuses()) can be loaded first without a fatal
- * "cannot redeclare" error.
- */
 /**
  * Strip PII / internal fields from a shipment row before exposing publicly.
  */

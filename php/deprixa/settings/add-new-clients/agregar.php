@@ -40,7 +40,7 @@ require_once('../../database.php');
 	else
 	$estado = 0;
 
-	$sql1 =mysql_query("SELECT email FROM tbl_clients WHERE email='$email' AND name='$name'");
+	$sql1 =mysql_query("SELECT email FROM tbl_clients WHERE email='".mysql_real_escape_string($email)."' AND name='".mysql_real_escape_string($name)."'");
 			if($row=mysql_fetch_array($sql1)){							
 				 echo "<script type=\"text/javascript\">
 						alert(\"The email $email already is are registered in the database, by Please enter data different, thank you.\");
@@ -48,7 +48,7 @@ require_once('../../database.php');
 					</script>"; 							
 			}else{
 				$sql1="INSERT INTO tbl_clients (name, address,email, phone, password, company, country, state, zipcode, estado,date) VALUES 	
-				('$name','$address', '$email', '$phone', '$password', '$company', '$country', '$state', '$zipcode',  '$estado',curdate())";
+				('".mysql_real_escape_string($name)."','".mysql_real_escape_string($address)."', '".mysql_real_escape_string($email)."', '".mysql_real_escape_string($phone)."', '".mysql_real_escape_string($password)."', '".mysql_real_escape_string($company)."', '".mysql_real_escape_string($country)."', '".mysql_real_escape_string($state)."', '".mysql_real_escape_string($zipcode)."',  '".mysql_real_escape_string($estado)."',curdate())";
 			}
 	dbQuery($sql1);
 	
@@ -62,7 +62,7 @@ require_once('../../database.php');
 
 // insertamos en la base de datos - hacemos una consulta SQL
 $consulta = "INSERT INTO tbl_clients (name, password, address, email, phone, estado)
-			VALUES ('$name','$password', '$address', '$email', '$phone', '$estado')";
+			VALUES ('".mysql_real_escape_string($name)."','".mysql_real_escape_string($password)."', '".mysql_real_escape_string($address)."', '".mysql_real_escape_string($email)."', '".mysql_real_escape_string($phone)."', '".mysql_real_escape_string($estado)."')";
 $con->query($consulta); // enviamos la consulta al método query
 // retornamos un mensaje de confirmación
 echo json_encode(array('msg' => 'ok'));

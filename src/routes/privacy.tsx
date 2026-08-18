@@ -31,7 +31,7 @@ function PrivacyPage() {
         <p>Carriers, customs authorities, and vetted subprocessors — only as needed to complete your shipments.</p>
 
         <h2 className="mt-8 font-display text-xl font-semibold text-foreground">4. Your rights</h2>
-        <p>You can access, correct, export, or delete your data at any time. Email <a href="mailto:privacy@voltra.example" className="text-brand hover:underline">privacy@voltra.example</a>.</p>
+        <p>You can access, correct, export, or delete your data at any time. Email <a href="mailto:privacy@ascl-logistics.com" className="text-brand hover:underline">privacy@ascl-logistics.com</a>.</p>
 
         <h2 className="mt-8 font-display text-xl font-semibold text-foreground">5. Cookies</h2>
         <p>We use essential cookies for session and security, and optional analytics cookies you can decline in cookie settings.</p>

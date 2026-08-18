@@ -27,7 +27,7 @@ $imagen = mysql_real_escape_string($imagen);
 $cons_no= mysql_real_escape_string($_POST['cons_no'] ?? '');
 $office= mysql_real_escape_string($_POST['office'] ?? '');
 													
-$respuesta = mysql_query("INSERT INTO upload_image_bank(cons_no,nombre_imagen,imagen,tipo,office,date) VALUES('$cons_no','$nombre','$imagen','$type','$office',curdate())", $dbConn);
+$respuesta = mysql_query("INSERT INTO upload_image_bank(cons_no,nombre_imagen,imagen,tipo,office,date) VALUES('$cons_no','".mysql_real_escape_string($nombre)."','$imagen','".mysql_real_escape_string($type)."','$office',curdate())", $dbConn);
 
 //redireccionamos
 header("Location: paybill.php?".($respuesta ? 'ok' : 'error'));

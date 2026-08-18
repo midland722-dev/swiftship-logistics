@@ -43,15 +43,15 @@ require_once('../../database.php');
 	else
 	$type = 0;
 
-	$sql1 =mysql_query("SELECT email,name FROM manager_user WHERE email='$email' OR name='$name'");
+	$sql1 =mysql_query("SELECT email,name FROM manager_user WHERE email='".mysql_real_escape_string($email)."' OR name='".mysql_real_escape_string($name)."'");
 			if($row=mysql_fetch_array($sql1)){							
 				 echo "<script type=\"text/javascript\">
 						alert(\"The email $email and name of user $name already is are registered in the database, by Please enter data different, thank you.\");
 						window.location = \"../../add-new-users.php\"
 					</script>"; 							
 			}else{
-				$sql1="INSERT INTO manager_user (name_parson,name,email,phone,office,role,pwd,estado,type,date) VALUES 	
-				('$name_parson','$name','$email','$phone','$office','$role','$pwd','$estado','$type',curdate())";
+			$sql1="INSERT INTO manager_user (name_parson,name,email,phone,office,role,pwd,estado,type,date) VALUES 	
+			('".mysql_real_escape_string($name_parson)."','".mysql_real_escape_string($name)."','".mysql_real_escape_string($email)."','".mysql_real_escape_string($phone)."','".mysql_real_escape_string($office)."','".mysql_real_escape_string($role)."','".mysql_real_escape_string($pwd)."','".(int)$estado."','".(int)$type."',curdate())";
 			}
 	dbQuery($sql1);
 	

@@ -3,22 +3,25 @@
  * Seeder: default admin user
  *
  * Creates a default admin account if none exists.
- * IMPORTANT: Change the password after first login.
+ * The initial password is randomly generated and printed ONCE to stderr.
+ * Change it after first login. Existing admin passwords are never overwritten.
  */
 
 require_once __DIR__ . '/../config/db.php';
 
 $email = 'admin@ascl-logistics.com';
-$password = 'Admin@123';
 $name = 'Admin User';
 
 $existing = db_fetch_one('SELECT id FROM users WHERE email = :email LIMIT 1', [':email' => $email]);
 if ($existing) {
-    echo "Admin user already exists (id: {$existing['id']}).\n";
+    // Never overwrite an existing admin password.
+    fwrite(STDERR, "Admin user already exists (id: {$existing['id']}). Leaving password unchanged.\n");
     exit;
 }
 
-$hash = password_hash($password, PASSWORD_DEFAULT);
+$password = bin2hex(random_bytes(12)); // 24-char random password
+$hash = password_hash($password, PASSWORD_BCRYPT);
+
 db_execute(
     'INSERT INTO users (name, email, password, role, is_active, created_at, updated_at)
      VALUES (:name, :email, :password, :role, 1, NOW(), NOW())',
@@ -30,7 +33,6 @@ db_execute(
     ]
 );
 
-echo "Admin user created.\n";
-echo "Email: {$email}\n";
-echo "Password: {$password}\n";
-echo "Please log in at /deprixa/index.php and change the password immediately.\n";
+fwrite(STDERR, "Admin user created.\n");
+fwrite(STDERR, "Email: {$email}\n");
+fwrite(STDERR, "Temporary password: {$password}  (change it after first login)\n");

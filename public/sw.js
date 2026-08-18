@@ -17,8 +17,8 @@ self.addEventListener("push", (event) => {
   const title = data.title || "Voltra shipment update";
   const options = {
     body: data.body || "",
-    icon: "/favicon.ico",
-    badge: "/favicon.ico",
+    icon: "/favicon.png",
+    badge: "/favicon.png",
     tag: data.tag || "voltra-shipment",
     data: { url: data.url || "/" },
   };

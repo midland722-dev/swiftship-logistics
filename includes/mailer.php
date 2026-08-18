@@ -32,8 +32,8 @@ function sendMail($to, $subject, $body, $opts = []) {
         return false;
     }
 
-    $from = $opts['from'] ?? MAIL_FROM;
-    $fromName = $opts['from_name'] ?? MAIL_FROM_NAME;
+    $from = str_replace(["\r", "\n"], '', $opts['from'] ?? MAIL_FROM);
+    $fromName = str_replace(["\r", "\n"], '', $opts['from_name'] ?? MAIL_FROM_NAME);
     $attachment = $opts['attachment_path'] ?? null;
     $attachmentName = $opts['attachment_name'] ?? basename($attachment ?? 'receipt.pdf');
 

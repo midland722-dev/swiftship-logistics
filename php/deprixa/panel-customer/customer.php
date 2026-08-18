@@ -105,7 +105,7 @@ isUser();
                             <span class="label label-danger">
 							<?php
 								$result = mysql_query("SELECT status, concat(round(count( * ) *100 /(SELECT count( * ) FROM online_booking)) , \"%\") AS percent
-								FROM online_booking WHERE  status = 'Pending' AND email='".$_SESSION["user_name"]."' GROUP BY status");
+								FROM online_booking WHERE  status = 'Pending' AND email='".mysql_real_escape_string($_SESSION["user_name"])."' GROUP BY status");
 								while ($row = mysql_fetch_array($result))
 
 								for ($i=0; $i<mysql_num_fields($result); $i++)
@@ -121,7 +121,7 @@ isUser();
                             <i class="icon-paypal pull-xs-right text-muted"></i>
                             <h6 class="text-muted text-uppercase m-b-20">Total Invoice</h6>
                             <h2 class="m-b-20">$<span data-plugin="counterup"><?php
-											$result = mysql_query("SELECT SUM(shipping_subtotal) as total FROM courier_online WHERE  office='".$_SESSION["user_name"]."' AND payment='Pending'");   
+											$result = mysql_query("SELECT SUM(shipping_subtotal) as total FROM courier_online WHERE  office='".mysql_real_escape_string($_SESSION["user_name"])."' AND payment='Pending'");   
 											$row = mysql_fetch_array($result, MYSQL_ASSOC);
 											echo $row["total"];	
 											
@@ -145,7 +145,7 @@ isUser();
                             <div>
                                 <img src="assets/images/users/avatar-2.jpg" class="img-responsive img-circle" alt="user">
 								<?php  					
-										$result3 = mysql_query("SELECT * FROM tbl_clients WHERE  email='".$_SESSION["user_name"]."' ");
+										$result3 = mysql_query("SELECT * FROM tbl_clients WHERE  email='".mysql_real_escape_string($_SESSION["user_name"])."' ");
 										while($row = mysql_fetch_array($result3)) {					
 									?> 
                                 <div class="wid-u-info">
@@ -191,7 +191,7 @@ isUser();
 									  </tr>
 									</thead>					 
 										<?php  					
-										   $result3 = mysql_query("SELECT * FROM online_booking  where email='$qname'");
+										   $result3 = mysql_query("SELECT * FROM online_booking  where email='".mysql_real_escape_string($qname)."'");
 											while($row = mysql_fetch_array($result3)) {							
 										?>  
 										<tr>

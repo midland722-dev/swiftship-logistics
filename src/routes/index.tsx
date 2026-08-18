@@ -83,7 +83,7 @@ function Hero() {
         srcSet={`${heroCourier} 1600w`}
         className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-70 mix-blend-multiply"
       />
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-brand via-brand/85 to-brand/30" />
+      <div className="pointer-events-none absolute inset-0 bg-linear-to-r from-brand via-brand/85 to-brand/30" />
       <div className="pointer-events-none absolute inset-0 grid-lines opacity-30" />
       <div className="container-x relative grid gap-10 pb-14 pt-14 md:pt-20 lg:grid-cols-[1.2fr_1fr] lg:gap-12 lg:pb-20">
         <div className="flex flex-col justify-center text-brand-foreground">

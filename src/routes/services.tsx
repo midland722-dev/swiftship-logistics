@@ -52,7 +52,7 @@ function ServicesPage() {
           srcSet={`${servicesHero} 1600w`}
           className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-40 mix-blend-multiply"
         />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-brand via-brand/85 to-brand/40" />
+        <div className="pointer-events-none absolute inset-0 bg-linear-to-r from-brand via-brand/85 to-brand/40" />
         <div className="container-x relative pb-16 pt-16 text-brand-foreground md:pt-24">
           <p className="font-mono text-xs uppercase tracking-widest">Services</p>
           <h1 className="mt-2 max-w-3xl font-display text-5xl font-bold md:text-6xl">

@@ -147,7 +147,7 @@ require_once('../database.php');
 										</div>
 	 
 											<?php  					
-											   $result5 = mysql_query("SELECT * FROM tbl_clients where email='$qname'");
+											   $result5 = mysql_query("SELECT * FROM tbl_clients where email='".mysql_real_escape_string($qname)."'");
 												while($row = mysql_fetch_array($result5)) {							
 											?>	
 											<div class="col-xs-6">
@@ -162,7 +162,7 @@ require_once('../database.php');
 											<?php } ?>
 									
 										<?php  					
-										   $result3 = mysql_query("SELECT * FROM courier_online  where status='In-Transit' and cid='$cid'");
+										   $result3 = mysql_query("SELECT * FROM courier_online  where status='In-Transit' and cid='".(int)$cid."'");
 											while($row = mysql_fetch_array($result3)) {							
 										?>
 										<p class="m-t m-b">
@@ -171,7 +171,7 @@ require_once('../database.php');
 										</p>
 										<?php } ?>
 										<?php  					
-										   $result4 = mysql_query("SELECT * FROM courier_online  where cid='$cid'");
+										   $result4 = mysql_query("SELECT * FROM courier_online  where cid='".(int)$cid."'");
 											while($row = mysql_fetch_array($result4)) {							
 										?>  
 										<p class="m-t m-b">
@@ -195,7 +195,7 @@ require_once('../database.php');
 											  <?php
 												require_once('../database.php');
 												$company=mysql_fetch_array(mysql_query("SELECT * FROM company"));
-												$result1 =  mysql_query("SELECT * FROM courier_online where s_add='$qname' AND payment='Pending' AND cid = '$cid'");
+												$result1 =  mysql_query("SELECT * FROM courier_online where s_add='".mysql_real_escape_string($qname)."' AND payment='Pending' AND cid = '".(int)$cid."'");
 												while($row = mysql_fetch_array($result1)) {		
 
 												?>

@@ -66,7 +66,7 @@ $pdf->Ln(8);
 $pdf->SetFont('Arial', '', 8);
 
 //CONSULTA
-$result = mysql_query("SELECT *  FROM courier WHERE book_mode='ToPay' and status_credit='Pending' AND book_date  BETWEEN '$desde' AND '$hasta' ");
+$result = mysql_query("SELECT *  FROM courier WHERE book_mode='ToPay' and status_credit='Pending' AND book_date  BETWEEN '".mysql_real_escape_string($desde)."' AND '".mysql_real_escape_string($hasta)."' ");
 while($row = mysql_fetch_array($result)){
 	
 

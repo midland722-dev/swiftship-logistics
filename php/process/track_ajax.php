@@ -34,5 +34,9 @@ try {
     TrackingController::track();
 } catch (Throwable $e) {
     http_response_code(500);
-    echo json_encode(['found' => false, 'message' => 'Server error.', 'debug' => $e->getMessage()]);
+    $response = ['found' => false, 'message' => 'Tracking lookup failed. Please try again.'];
+    if (getenv('APP_ENV') === 'development' || getenv('APP_DEBUG')) {
+        $response['debug'] = $e->getMessage();
+    }
+    echo json_encode($response);
 }

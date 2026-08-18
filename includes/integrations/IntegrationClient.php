@@ -73,9 +73,11 @@ class IntegrationClient {
         if ($this->key === null) {
             $env = getenv('SHP_INTEGRATION_KEY');
             if (!$env) {
-                $msg = 'SHP_INTEGRATION_KEY is not set. Integration secrets are encrypted with a deterministic fallback key. Set the env var in production.';
-                trigger_error($msg, E_USER_WARNING);
-                $env = hash('sha256', ($GLOBALS['db_user'] ?? 'shp') . ':' . ($GLOBALS['db_name'] ?? 'shipping_db') . ':ascl-integration');
+                // Fail closed: never derive a guessable key from database identifiers.
+                throw new RuntimeException(
+                    'SHP_INTEGRATION_KEY is not set. Integration secrets cannot be encrypted or decrypted. ' .
+                    'Set a strong random SHP_INTEGRATION_KEY in the environment before using integrations.'
+                );
             }
             $this->key = $env;
         }
@@ -145,6 +147,17 @@ class IntegrationClient {
         $url = (stripos($path, 'http') === 0) ? $path : ($base . '/' . ltrim($path, '/'));
         if (!empty($query)) {
             $url .= (strpos($url, '?') === false ? '?' : '&') . http_build_query($query);
+        }
+
+        // SSRF guard: only allow http/https and reject loopback / private hosts.
+        $vu = parse_url($url);
+        $vscheme = strtolower($vu['scheme'] ?? '');
+        $vhost = strtolower($vu['host'] ?? '');
+        $visLocal = $vhost === 'localhost' || $vhost === '127.0.0.1'
+            || preg_match('/^(10\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.)/', $vhost);
+        if (($vscheme !== 'http' && $vscheme !== 'https') || $visLocal) {
+            $this->markFailure('Disallowed target URL: ' . $url);
+            return ['status' => 0, 'headers' => [], 'body' => null, 'raw' => null, 'error' => 'Disallowed target URL'];
         }
 
         $format = $this->integration['request_format'] ?? 'json';

@@ -70,7 +70,7 @@ $pdf->Ln(8);
 $pdf->SetFont('Arial', '', 8);
 
 //CONSULTA
-$result = mysql_query("SELECT * FROM courier WHERE  book_mode = 'Cash-on-Delivery'  AND officename='".$_SESSION["user_type"]."' AND book_date   BETWEEN '$desde' AND '$hasta' ");
+$result = mysql_query("SELECT * FROM courier WHERE  book_mode = 'Cash-on-Delivery'  AND officename='".mysql_real_escape_string($_SESSION["user_type"])."' AND book_date   BETWEEN '".mysql_real_escape_string($desde)."' AND '".mysql_real_escape_string($hasta)."' ");
 while($row = mysql_fetch_array($result)){
 	
 	$pdf->Cell(23, 8, $row['cons_no'], 0);

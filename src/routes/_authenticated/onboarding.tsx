@@ -67,9 +67,12 @@ function Onboarding() {
         small_parcel: { name: "Small parcel", weight_kg: 2, length_cm: 30, width_cm: 20, height_cm: 15, service_speed: "express" },
         pallet: { name: "Pallet freight", weight_kg: 250, length_cm: 120, width_cm: 100, height_cm: 120, service_speed: "standard" },
       };
+      const tpl = templates[template];
+      // Avoid duplicate starter templates on re-run: clear any existing one with the same name first.
+      await supabase.from("shipment_templates").delete().eq("owner_id", user.id).eq("name", tpl.name);
       await supabase.from("shipment_templates").insert({
         owner_id: user.id,
-        ...templates[template],
+        ...tpl,
       });
       toast.success("You're all set");
       navigate({ to: "/dashboard" });

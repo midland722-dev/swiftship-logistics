@@ -70,3 +70,56 @@ function send_security_headers(): void {
         }
     }
 }
+
+/**
+ * Stateless CSRF defense for state-changing requests.
+ *
+ * Browsers send an `Origin` header on cross-site requests. If an Origin is
+ * present it MUST match the server host or a configured trusted origin
+ * (APP_URL host or comma-separated TRUSTED_ORIGINS). Requests without an
+ * Origin (server-to-server / proxy / same-origin form posts) are allowed.
+ *
+ * Note: this must be paired with SameSite cookies (already set) and, for the
+ * proxied frontend, APP_URL / TRUSTED_ORIGINS must include the proxy host.
+ */
+function csrf_same_origin_guard(): void {
+    if (!in_array($_SERVER['REQUEST_METHOD'] ?? 'GET', ['POST', 'PUT', 'DELETE', 'PATCH'], true)) {
+        return;
+    }
+
+    $allowedHosts = [];
+    if (!empty($_SERVER['SERVER_NAME'])) {
+        $allowedHosts[] = strtolower($_SERVER['SERVER_NAME']);
+    }
+    if (!empty($_SERVER['HTTP_HOST'])) {
+        $allowedHosts[] = strtolower($_SERVER['HTTP_HOST']);
+    }
+    $appUrl = getenv('APP_URL') ?: '';
+    if ($appUrl && ($parsed = parse_url($appUrl)) && !empty($parsed['host'])) {
+        $allowedHosts[] = strtolower($parsed['host']);
+    }
+    $trusted = getenv('TRUSTED_ORIGINS') ?: '';
+    if ($trusted !== '') {
+        foreach (explode(',', $trusted) as $t) {
+            $t = trim($t);
+            if ($t !== '') {
+                $allowedHosts[] = strtolower(parse_url($t, PHP_URL_HOST) ?: $t);
+            }
+        }
+    }
+    $allowedHosts = array_unique(array_filter($allowedHosts));
+
+    $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+    if ($origin === '') {
+        // No Origin header: allow (same-origin navigation, server-to-server, proxy).
+        return;
+    }
+
+    $originHost = strtolower(parse_url($origin, PHP_URL_HOST) ?? '');
+    if ($originHost === '' || !in_array($originHost, $allowedHosts, true)) {
+        http_response_code(403);
+        header('Content-Type: application/json');
+        echo json_encode(['success' => false, 'message' => 'Cross-origin request blocked.']);
+        exit;
+    }
+}

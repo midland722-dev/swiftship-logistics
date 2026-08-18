@@ -1,6 +1,6 @@
 import { MessageCircle } from "lucide-react";
 
-const WHATSAPP_NUMBER = "12158159791";
+const WHATSAPP_NUMBER = "12025947566";
 const WHATSAPP_MESSAGE = "Hello! I'd like to inquire about your shipping services.";
 const WHATSAPP_LABEL = "Chat with us on WhatsApp";
 

@@ -63,7 +63,7 @@ function PricingPage() {
             key={t.name}
             className={`relative flex flex-col rounded-2xl border p-8 ${
               t.highlight
-                ? "border-brand bg-gradient-to-b from-brand/10 to-surface"
+                ? "border-brand bg-linear-to-b from-brand/10 to-surface"
                 : "border-border bg-surface/60"
             }`}
           >

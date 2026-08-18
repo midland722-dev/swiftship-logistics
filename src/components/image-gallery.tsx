@@ -91,7 +91,7 @@ export function ImageGallery({ eyebrow, title, description, images }: Props) {
           aria-modal="true"
           aria-label={active.alt}
           onClick={close}
-          className="fixed inset-0 z-100 flex items-center justify-center bg-foreground/90 p-4 backdrop-blur-sm"
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-foreground/90 p-4 backdrop-blur-sm"
         >
           <button
             type="button"

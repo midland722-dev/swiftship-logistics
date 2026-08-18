@@ -9,6 +9,8 @@
 
 require_once __DIR__ . '/../includes/cors.php';
 require_once __DIR__ . '/../includes/response.php';
+require_once __DIR__ . '/../includes/security.php';
+require_once __DIR__ . '/../includes/rate-limit.php';
 require_once __DIR__ . '/../config/db.php';
 
 if (session_status() === PHP_SESSION_NONE) {
@@ -44,6 +46,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $action === 'logout') {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    csrf_same_origin_guard();
+
+    // Throttle login attempts (brute-force / enumeration protection).
+    if (!rate_limit('auth_login', 10, 60)) {
+        json_error('Too many attempts. Please try again later.', 429, 'RATE_LIMITED');
+    }
+
     $input = json_decode(file_get_contents('php://input'), true) ?? $_POST;
 
     $email = trim((string)($input['email'] ?? ''));

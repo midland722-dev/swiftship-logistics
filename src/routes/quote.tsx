@@ -205,7 +205,7 @@ function QuotePage() {
         </div>
 
         <aside className="lg:sticky lg:top-24 lg:self-start">
-          <div className="rounded-2xl border border-brand/40 bg-gradient-to-b from-brand/15 to-surface p-6 md:p-8">
+          <div className="rounded-2xl border border-brand/40 bg-linear-to-b from-brand/15 to-surface p-6 md:p-8">
             <div className="text-xs font-mono uppercase tracking-widest text-brand">Estimated price</div>
             <div className="mt-2 font-display text-5xl font-bold">${breakdown.total.toFixed(2)}</div>
             <div className="mt-1 text-sm text-muted-foreground">{speedConfig[speed].days}</div>
