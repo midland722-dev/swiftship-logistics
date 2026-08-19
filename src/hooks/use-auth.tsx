@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from "react";
 import type { Session, User } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -21,6 +21,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
   const [role, setRole] = useState<AuthRole>(null);
   const [loading, setLoading] = useState(true);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
 
   const loadRole = async (uid: string | undefined) => {
     if (!uid) {
@@ -38,14 +39,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   useEffect(() => {
-    // If Supabase isn't configured (missing env vars), degrade gracefully
-    // instead of crashing the whole React tree with the root error boundary.
     let sub: { subscription: { unsubscribe: () => void } } | undefined;
     try {
       const { data } = supabase.auth.onAuthStateChange((_e, s) => {
         setSession(s);
-        // Defer role fetch to avoid deadlocks
-        setTimeout(() => loadRole(s?.user?.id), 0);
+        if (timeoutRef.current) clearTimeout(timeoutRef.current);
+        timeoutRef.current = setTimeout(() => loadRole(s?.user?.id), 0);
       });
       sub = data;
       supabase.auth
@@ -59,7 +58,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     } catch {
       setLoading(false);
     }
-    return () => sub?.subscription.unsubscribe();
+    return () => {
+      sub?.subscription.unsubscribe();
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
   }, []);
 
   const signOut = async () => {

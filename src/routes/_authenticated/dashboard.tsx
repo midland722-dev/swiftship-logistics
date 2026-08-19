@@ -56,38 +56,43 @@ function Dashboard() {
   useEffect(() => {
     if (!user) return;
     (async () => {
-      const { data: profile } = await supabase
-        .from("profiles")
-        .select("onboarded_at")
-        .eq("id", user.id)
-        .maybeSingle();
-      if (profile && !profile.onboarded_at && !onboardingRedirected) {
-        setOnboardingRedirected(true);
-        navigate({ to: "/onboarding" });
-        return;
+      try {
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("onboarded_at")
+          .eq("id", user.id)
+          .maybeSingle();
+        if (profile && !profile.onboarded_at && !onboardingRedirected) {
+          setOnboardingRedirected(true);
+          navigate({ to: "/onboarding" });
+          return;
+        }
+        const [{ data: s }, { data: q }, { data: p }] = await Promise.all([
+          supabase
+            .from("shipments")
+            .select("*")
+            .eq("owner_id", user.id)
+            .order("created_at", { ascending: false })
+            .limit(50),
+          supabase
+            .from("quotes")
+            .select("*")
+            .eq("owner_id", user.id)
+            .order("created_at", { ascending: false })
+            .limit(20),
+          supabase
+            .from("shipment_alert_prefs")
+            .select("*")
+            .eq("user_id", user.id)
+            .maybeSingle(),
+        ]);
+        setShipments((s ?? []) as Shipment[]);
+        setQuotes((q ?? []) as Quote[]);
+        if (p) setPrefs(p as Prefs);
+      } catch (err) {
+        console.error("Failed to load dashboard data:", err);
+        toast.error("Could not load dashboard data.");
       }
-      const [{ data: s }, { data: q }, { data: p }] = await Promise.all([
-        supabase
-          .from("shipments")
-          .select("*")
-          .eq("owner_id", user.id)
-          .order("created_at", { ascending: false })
-          .limit(50),
-        supabase
-          .from("quotes")
-          .select("*")
-          .eq("owner_id", user.id)
-          .order("created_at", { ascending: false })
-          .limit(20),
-        supabase
-          .from("shipment_alert_prefs")
-          .select("*")
-          .eq("user_id", user.id)
-          .maybeSingle(),
-      ]);
-      setShipments((s ?? []) as Shipment[]);
-      setQuotes((q ?? []) as Quote[]);
-      if (p) setPrefs(p as Prefs);
     })();
   }, [user, navigate, onboardingRedirected]);
 
@@ -113,13 +118,18 @@ function Dashboard() {
   const savePrefs = async () => {
     if (!user) return;
     setSavingPrefs(true);
-    const { error } = await supabase.from("shipment_alert_prefs").upsert({
-      user_id: user.id,
-      ...prefs,
-    });
-    setSavingPrefs(false);
-    if (error) toast.error(error.message);
-    else toast.success("Alert preferences saved");
+    try {
+      const { error } = await supabase.from("shipment_alert_prefs").upsert({
+        user_id: user.id,
+        ...prefs,
+      });
+      setSavingPrefs(false);
+      if (error) toast.error(error.message);
+      else toast.success("Alert preferences saved");
+    } catch (err: any) {
+      setSavingPrefs(false);
+      toast.error(err.message ?? "Something went wrong");
+    }
   };
 
 

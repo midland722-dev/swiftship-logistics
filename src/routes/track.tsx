@@ -36,26 +36,32 @@ function TrackPage() {
     setInput(id);
     setLoading(true);
     (async () => {
-      const { data: s } = await supabase
-        .from("shipments")
-        .select("*")
-        .eq("tracking_code", id)
-        .maybeSingle();
-      if (!s) {
-        setShipment(null);
+      try {
+        const { data: s } = await supabase
+          .from("shipments")
+          .select("*")
+          .eq("tracking_code", id)
+          .maybeSingle();
+        if (!s) {
+          setShipment(null);
+          setNotFound(true);
+          setLoading(false);
+          return;
+        }
+        setShipment(s);
+        setNotFound(false);
+        const { data: ev } = await supabase
+          .from("shipment_events")
+          .select("*")
+          .eq("shipment_id", (s as any).id)
+          .order("occurred_at", { ascending: true });
+        setEvents(ev ?? []);
+      } catch (err) {
+        console.error("Tracking lookup failed:", err);
         setNotFound(true);
+      } finally {
         setLoading(false);
-        return;
       }
-      setShipment(s);
-      setNotFound(false);
-      const { data: ev } = await supabase
-        .from("shipment_events")
-        .select("*")
-        .eq("shipment_id", (s as any).id)
-        .order("occurred_at", { ascending: true });
-      setEvents(ev ?? []);
-      setLoading(false);
     })();
   }, [id]);
 

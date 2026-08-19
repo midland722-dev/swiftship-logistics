@@ -40,6 +40,9 @@ function Onboarding() {
           setPhone(data.phone ?? "");
           setAccountType((data.account_type as "individual" | "business" | "enterprise") ?? "individual");
         }
+      })
+      .catch((err) => {
+        console.error("Failed to load profile:", err);
       });
   }, [user]);
 

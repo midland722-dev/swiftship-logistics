@@ -140,12 +140,17 @@ function ShipmentsAdmin() {
   const updateStatusFn = useServerFn(updateShipmentStatus);
 
   const load = async () => {
-    const { data } = await supabase
-      .from("shipments")
-      .select("*")
-      .order("created_at", { ascending: false })
-      .limit(200);
-    setItems(data ?? []);
+    try {
+      const { data } = await supabase
+        .from("shipments")
+        .select("*")
+        .order("created_at", { ascending: false })
+        .limit(200);
+      setItems(data ?? []);
+    } catch (err) {
+      console.error("Failed to load shipments:", err);
+      toast.error("Could not load shipments.");
+    }
   };
   useEffect(() => {
     load();
@@ -228,7 +233,11 @@ function PricingAdmin() {
       .select("*")
       .eq("is_active", true)
       .maybeSingle()
-      .then(({ data }) => setRules(data));
+      .then(({ data }) => setRules(data))
+      .catch((err) => {
+        console.error("Failed to load pricing rules:", err);
+        toast.error("Could not load pricing rules.");
+      });
   }, []);
   if (!rules) return <div className="text-sm text-muted-foreground">Loading…</div>;
 
@@ -288,11 +297,16 @@ function UsersAdmin() {
   const [busy, setBusy] = useState(false);
 
   const load = async () => {
-    const { data } = await supabase
-      .from("user_roles")
-      .select("id, user_id, role, created_at")
-      .order("created_at", { ascending: false });
-    setRoles(data ?? []);
+    try {
+      const { data } = await supabase
+        .from("user_roles")
+        .select("id, user_id, role, created_at")
+        .order("created_at", { ascending: false });
+      setRoles(data ?? []);
+    } catch (err) {
+      console.error("Failed to load roles:", err);
+      toast.error("Could not load roles.");
+    }
   };
   useEffect(() => {
     load();
@@ -375,8 +389,13 @@ function ContentAdmin() {
   const [body, setBody] = useState("");
   const [severity, setSeverity] = useState<"info" | "warning" | "critical">("info");
   const load = async () => {
-    const { data } = await supabase.from("service_bulletins").select("*").order("created_at", { ascending: false });
-    setBulletins(data ?? []);
+    try {
+      const { data } = await supabase.from("service_bulletins").select("*").order("created_at", { ascending: false });
+      setBulletins(data ?? []);
+    } catch (err) {
+      console.error("Failed to load bulletins:", err);
+      toast.error("Could not load bulletins.");
+    }
   };
   useEffect(() => {
     load();
@@ -393,12 +412,24 @@ function ContentAdmin() {
     }
   };
   const toggle = async (id: string, active: boolean) => {
-    await supabase.from("service_bulletins").update({ active: !active }).eq("id", id);
-    load();
+    try {
+      await supabase.from("service_bulletins").update({ active: !active }).eq("id", id);
+    } catch (err) {
+      console.error("Failed to toggle bulletin:", err);
+      toast.error("Could not update bulletin.");
+    } finally {
+      load();
+    }
   };
   const remove = async (id: string) => {
-    await supabase.from("service_bulletins").delete().eq("id", id);
-    load();
+    try {
+      await supabase.from("service_bulletins").delete().eq("id", id);
+    } catch (err) {
+      console.error("Failed to delete bulletin:", err);
+      toast.error("Could not delete bulletin.");
+    } finally {
+      load();
+    }
   };
 
   return (

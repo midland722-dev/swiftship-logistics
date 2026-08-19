@@ -73,7 +73,14 @@ export const updateShipmentStatus = createServerFn({ method: "POST" })
       const publicKey = process.env.VAPID_PUBLIC_KEY;
       const privateKey = process.env.VAPID_PRIVATE_KEY;
       const subject = process.env.VAPID_SUBJECT ?? "mailto:alerts@example.com";
-      if (publicKey && privateKey) {
+
+      const isValidVapidKey = (key: string | undefined) =>
+        typeof key === "string" && key.trim().length >= 20;
+
+      if (!isValidVapidKey(publicKey) || !isValidVapidKey(privateKey)) {
+        console.warn("[push] VAPID keys are missing or invalid. Set VAPID_PUBLIC_KEY and VAPID_PRIVATE_KEY.");
+        result.channels.push.skipped = "vapid_keys_missing";
+      } else {
         try {
           const webpush = (await import("web-push")).default;
           webpush.setVapidDetails(subject, publicKey, privateKey);

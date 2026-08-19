@@ -15,9 +15,9 @@ if (!isset($_SESSION['user_name']) || empty($_SESSION['user_name'])) {
     exit;
 }
 
-require_once __DIR__ . '/../includes/db.php';
-require_once __DIR__ . '/../php/validation/TrackingValidator.php';
-require_once __DIR__ . '/../php/services/TrackingService.php';
+require_once __DIR__ . '/../../includes/db.php';
+require_once __DIR__ . '/../../php/validation/TrackingValidator.php';
+require_once __DIR__ . '/../../php/services/TrackingService.php';
 
 $feedback = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'update_status') {

@@ -11,7 +11,7 @@ session_start();
 require_once __DIR__ . '/database.php';
 require_once __DIR__ . '/library.php';
 require_once __DIR__ . '/funciones.php';
-require_once __DIR__ . '/../includes/db.php';
+require_once __DIR__ . '/../../includes/db.php';
 
 // If already logged in, redirect to dashboard
 if (isset($_SESSION['user_name']) && !empty($_SESSION['user_name'])) {

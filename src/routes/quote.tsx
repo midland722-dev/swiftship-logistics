@@ -48,6 +48,9 @@ function QuotePage() {
       .maybeSingle()
       .then(({ data }) => {
         if (data) setRules(data as PricingRules);
+      })
+      .catch((err) => {
+        console.error("Failed to load pricing rules:", err);
       });
   }, []);
 
