@@ -81,11 +81,11 @@ $nav_dropdowns = [
 ];
 
 $deprixa_nav = [
-    'panel-customer' => ['label' => 'Customer Panel', 'file' => 'deprixa/panel-customer.php'],
-    'booking' => ['label' => 'Book Shipment', 'file' => 'deprixa/customer-booking.php'],
-    'my-shipments' => ['label' => 'My Shipments', 'file' => 'deprixa/customer-shipments.php'],
-    'payments' => ['label' => 'Payments', 'file' => 'deprixa/customer-payments.php'],
-    'profile' => ['label' => 'Profile', 'file' => 'deprixa/customer-profile.php'],
+    'panel-customer' => ['label' => 'Customer Panel', 'file' => 'php/deprixa/panel-customer.php'],
+    'booking' => ['label' => 'Book Shipment', 'file' => 'php/deprixa/customer-booking.php'],
+    'my-shipments' => ['label' => 'My Shipments', 'file' => 'php/deprixa/customer-shipments.php'],
+    'payments' => ['label' => 'Payments', 'file' => 'php/deprixa/customer-payments.php'],
+    'profile' => ['label' => 'Profile', 'file' => 'php/deprixa/customer-profile.php'],
 ];
 
 $dropdown_pages = [
@@ -109,8 +109,8 @@ $footer_links = [
     'Contact Us' => 'contact.php',
     'Our Services' => 'service.php',
     'Track Shipment' => 'track.php',
-    'Get a Quote' => 'deprixa/customer-booking.php',
-    'Admin Panel' => 'deprixa/login.php',
+    'Get a Quote' => 'php/deprixa/customer-booking.php',
+    'Admin Panel' => 'php/deprixa/login.php',
     'Terms & Conditions' => '#',
     'Privacy Policy' => '#',
     'Support' => '#'

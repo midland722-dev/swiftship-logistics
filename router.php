@@ -23,4 +23,4 @@ if (is_dir($path)) {
     }
 }
 
-header('Location: /deprixa/login.php');
+header('Location: /php/deprixa/login.php');
