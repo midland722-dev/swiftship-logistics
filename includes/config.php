@@ -54,7 +54,7 @@ $google_translate_api_key = getenv('GOOGLE_TRANSLATE_API_KEY') ?: '';
 $nav_pages = [
     'index' => ['label' => 'nav.home', 'file' => 'index.php'],
     'about' => ['label' => 'nav.about', 'file' => 'about.php'],
-    'services' => ['label' => 'nav.services', 'file' => 'service.php'],
+    'services' => ['label' => 'nav.services', 'file' => 'services.php'],
     'contact' => ['label' => 'nav.contact', 'file' => 'contact.php'],
 ];
 
@@ -62,19 +62,19 @@ $nav_dropdowns = [
     'solutions' => [
         'label' => 'Solutions',
         'pages' => [
-            ['label' => 'Air Freight', 'file' => 'service.php'],
-            ['label' => 'Ocean Freight', 'file' => 'service.php'],
-            ['label' => 'Road Transport', 'file' => 'service.php'],
-            ['label' => 'Warehousing', 'file' => 'service.php'],
-            ['label' => 'Customs Clearance', 'file' => 'service.php'],
+            ['label' => 'Air Freight', 'file' => 'services.php'],
+            ['label' => 'Ocean Freight', 'file' => 'services.php'],
+            ['label' => 'Road Transport', 'file' => 'services.php'],
+            ['label' => 'Warehousing', 'file' => 'services.php'],
+            ['label' => 'Customs Clearance', 'file' => 'services.php'],
         ]
     ],
     'resources' => [
         'label' => 'Resources',
         'pages' => [
             ['label' => 'About Us', 'file' => 'about.php'],
-            ['label' => 'Our Team', 'file' => 'team.php'],
-            ['label' => 'Testimonials', 'file' => 'testimonial.php'],
+            ['label' => 'Our Team', 'file' => 'about.php'],
+            ['label' => 'Testimonials', 'file' => 'about.php'],
             ['label' => 'FAQ', 'file' => 'contact.php' ],
         ]
     ]
@@ -89,25 +89,25 @@ $deprixa_nav = [
 ];
 
 $dropdown_pages = [
-    ['key' => 'team', 'label' => 'Our Team', 'file' => 'team.php'],
-    ['key' => 'testimonial', 'label' => 'Testimonials', 'file' => 'testimonial.php']
+    ['key' => 'team', 'label' => 'Our Team', 'file' => 'about.php'],
+    ['key' => 'testimonial', 'label' => 'Testimonials', 'file' => 'about.php']
 ];
 
 $footer_services = [
-    'Express Delivery' => 'service.php',
-    'International Shipping' => 'service.php',
-    'Air Freight' => 'service.php',
-    'Sea Freight' => 'service.php',
-    'Road Transport' => 'service.php',
-    'Warehousing' => 'service.php',
-    'Customs Clearance' => 'service.php',
-    'E-commerce Fulfillment' => 'service.php'
+    'Express Delivery' => 'services.php',
+    'International Shipping' => 'services.php',
+    'Air Freight' => 'services.php',
+    'Sea Freight' => 'services.php',
+    'Road Transport' => 'services.php',
+    'Warehousing' => 'services.php',
+    'Customs Clearance' => 'services.php',
+    'E-commerce Fulfillment' => 'services.php'
 ];
 
 $footer_links = [
     'About Us' => 'about.php',
     'Contact Us' => 'contact.php',
-    'Our Services' => 'service.php',
+    'Our Services' => 'services.php',
     'Track Shipment' => 'track.php',
     'Get a Quote' => 'deprixa/customer-booking.php',
     'Admin Panel' => 'deprixa/login.php',
