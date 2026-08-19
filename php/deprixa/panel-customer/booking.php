@@ -51,7 +51,7 @@ $sql = "INSERT INTO online_booking (scountry,sstate,dcountry,dstate,type,service
 dbQuery($sql);
 	
 	
-	$result1 =  mysql_query("SELECT * FROM company");
+    $result1 = dbQuery("SELECT * FROM company");
 	while($row = mysql_fetch_array($result1)) {
 	
 	$to  = $row["bemail"];

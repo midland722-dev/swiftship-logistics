@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require_once __DIR__ . '/../includes/db.php';
+require_once __DIR__ . '/../../includes/db.php';
 $db = getDB();
 
 $ip_address = $_SERVER['REMOTE_ADDR'] ?? 'unknown';

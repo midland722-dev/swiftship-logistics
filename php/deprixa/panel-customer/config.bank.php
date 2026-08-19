@@ -4,8 +4,8 @@ function execute($query) {
         $this->q_id = mysqli_query($this->db_connect_id,$query);        
         if(!$this->q_id ) {
             $error1 = mysqli_error($this->db_connect_id);
-            die ("ERROR: error DB.<br> No Se Puede Ejecutar La Consulta:<br> $query <br>MySql Tipo De Error: $error1");
-            exit;
+            error_log('DB ERROR: ' . $error1 . ' | SQL: ' . $query);
+            die("ERROR: error DB.<br> No Se Puede Ejecutar La Consulta.");
         }         
 	$this->query_count++; 
 	return $this->q_id;    

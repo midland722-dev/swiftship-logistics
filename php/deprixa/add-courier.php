@@ -10,7 +10,7 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
 session_start();
 require_once __DIR__ . '/database.php';
 require_once __DIR__ . '/library.php';
-require_once __DIR__ . '/../includes/db.php';
+require_once __DIR__ . '/../../includes/db.php';
 
 if (!isset($_SESSION['user_name']) || empty($_SESSION['user_name'])) {
     header('Location: index.php');

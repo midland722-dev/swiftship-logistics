@@ -46,7 +46,7 @@ function require_login(): void {
         exit;
     }
 
-    header('Location: /deprixa/index.php');
+    header('Location: /php/deprixa/index.php');
     exit;
 }
 
@@ -71,7 +71,7 @@ function require_role(string|array $allowedRoles): void {
             exit;
         }
 
-        header('Location: /deprixa/index.php?error=' . urlencode('You do not have permission to access that page.'));
+        header('Location: /php/deprixa/index.php?error=' . urlencode('You do not have permission to access that page.'));
         exit;
     }
 }
