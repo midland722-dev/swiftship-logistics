@@ -6,9 +6,21 @@
       "NITRO_PRESET": "vercel"
     }
   },
-  "rewrites": [
-    { "source": "/deprixa/:path*", "destination": "https://php-app-production-7ce0.up.railway.app/deprixa/:path*" },
-    { "source": "/php/:path*", "destination": "https://php-app-production-7ce0.up.railway.app/php/:path*" },
-    { "source": "/api/:path*", "destination": "https://php-app-production-7ce0.up.railway.app/php/api/:path*" }
+  "routes": [
+    {
+      "src": "/deprixa(?:/(.*))?",
+      "dest": "https://${RAILWAY_BACKEND_URL}/deprixa/$1",
+      "env": ["RAILWAY_BACKEND_URL"]
+    },
+    {
+      "src": "/php(?:/(.*))?",
+      "dest": "https://${RAILWAY_BACKEND_URL}/php/$1",
+      "env": ["RAILWAY_BACKEND_URL"]
+    },
+    {
+      "src": "/api(?:/(.*))?",
+      "dest": "https://${RAILWAY_BACKEND_URL}/php/api/$1",
+      "env": ["RAILWAY_BACKEND_URL"]
+    }
   ]
 }
