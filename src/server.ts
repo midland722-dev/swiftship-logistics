@@ -64,17 +64,53 @@ function isH3SwallowedErrorBody(body: string): boolean {
 }
 
 
+// Paths handled by vercel.json redirects to the external PHP panel. If one of
+// these ever reaches the app, the redirect rule did not fire and the request
+// fell through to SSR — that is the exact point where a 502 usually appears.
+const PANEL_PREFIXES = ["/deprixa", "/php"];
+
+function logRequest(
+  request: Request,
+  status: number,
+  startedAt: number,
+  note?: string,
+) {
+  const url = new URL(request.url);
+  const isPanel = PANEL_PREFIXES.some(
+    (p) => url.pathname === p || url.pathname.startsWith(`${p}/`),
+  );
+  const parts = [
+    "[req]",
+    request.method,
+    url.pathname + url.search,
+    `status=${status}`,
+    `dur=${Math.round(performance.now() - startedAt)}ms`,
+    `host=${url.host}`,
+    `ref=${request.headers.get("referer") ?? "-"}`,
+    isPanel ? "route=panel-fallthrough(redirect-miss)" : "route=app",
+  ];
+  if (note) parts.push(`note=${note}`);
+  const line = parts.join(" ");
+  if (status >= 500 || isPanel) console.error(line);
+  else console.log(line);
+}
+
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
+    const startedAt = performance.now();
     try {
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
-      return await normalizeCatastrophicSsrResponse(response);
+      const normalized = await normalizeCatastrophicSsrResponse(response);
+      logRequest(request, normalized.status, startedAt);
+      return normalized;
     } catch (error) {
       if (isClientAbort(error) || request.signal?.aborted) {
+        logRequest(request, 499, startedAt, "client-abort");
         return new Response(null, { status: 499 });
       }
       console.error(error);
+      logRequest(request, 500, startedAt, "ssr-throw");
 
       return new Response(renderErrorPage(), {
         status: 500,
