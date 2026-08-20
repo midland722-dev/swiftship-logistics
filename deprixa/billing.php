@@ -3,7 +3,9 @@
  * Payment & Billing — cost breakdown, payment method, transaction/invoice,
  * receipt, refund history, and downloadable invoice PDF.
  */
-require_once __DIR__ . '/includes/header.php';
+require_once __DIR__ . '/../includes/config.php';
+require_once __DIR__ . '/../includes/db.php';
+require_once __DIR__ . '/includes/permissions.php';
 require_once __DIR__ . '/includes/shipment_helpers.php';
 
 requirePermission('manage_billing');
@@ -17,8 +19,59 @@ $id = intval($_GET['id'] ?? 0);
 $stmt = $db->prepare("SELECT * FROM shipments WHERE id = :id LIMIT 1");
 $stmt->execute([':id' => $id]);
 $shipment = $stmt->fetch(PDO::FETCH_ASSOC);
-if (!$shipment) { echo '<div class="alert alert-danger m-4">Shipment not found.</div>'; require_once __DIR__.'/includes/footer.php'; exit; }
+if (!$shipment) {
+    require_once __DIR__ . '/includes/header.php';
+    echo '<div class="alert alert-danger m-4">Shipment not found.</div>';
+    require_once __DIR__ . '/includes/footer.php';
+    exit;
+}
 $GLOBALS['shipment'] = $shipment;
+
+// Invoice PDF export — generated with the bundled FPDF before any HTML is sent.
+if (isset($_GET['invoice']) && $_GET['invoice'] === '1') {
+    require_once __DIR__ . '/../deprixa/fpdf/fpdf.php';
+    $tn = preg_replace('/[^A-Za-z0-9_-]/', '', (string)($shipment['tracking_number'] ?? 'shipment'));
+    $cur = $shipment['currency'] ?? 'USD';
+    $row = function (string $label, $amount) use ($cur): array {
+        return [$label, $cur . ' ' . number_format((float)$amount, 2)];
+    };
+    $pdf = new FPDF('P', 'mm', 'A4');
+    $pdf->AddPage();
+    $pdf->SetFont('Arial', 'B', 16);
+    $pdf->Cell(0, 10, 'Invoice', 0, 1);
+    $pdf->SetFont('Arial', '', 10);
+    $pdf->Cell(0, 6, 'Tracking: ' . $shipment['tracking_number'], 0, 1);
+    $pdf->Cell(0, 6, 'Invoice #: ' . ($shipment['invoice_number'] ?? '—'), 0, 1);
+    $pdf->Cell(0, 6, 'Date: ' . date('Y-m-d'), 0, 1);
+    $pdf->Ln(2);
+    $w = [110, 70];
+    $pdf->SetFont('Arial', 'B', 10);
+    $pdf->Cell($w[0], 8, 'Description', 1);
+    $pdf->Cell($w[1], 8, 'Amount', 1, 1, 'R');
+    $pdf->SetFont('Arial', '', 10);
+    foreach ([
+        $row('Shipping Cost', $shipment['shipping_cost'] ?? 0),
+        $row('Additional Charges', $shipment['additional_charges'] ?? 0),
+        $row('Insurance', $shipment['insurance_amount'] ?? 0),
+        $row('Discount', '-' . number_format((float)($shipment['discount'] ?? 0), 2)),
+        $row('Tax', $shipment['tax'] ?? 0),
+    ] as [$label, $amt]) {
+        $pdf->Cell($w[0], 8, $label, 1);
+        $pdf->Cell($w[1], 8, $amt, 1, 1, 'R');
+    }
+    $pdf->SetFont('Arial', 'B', 10);
+    $pdf->Cell($w[0], 8, 'Total', 1);
+    $pdf->Cell($w[1], 8, $cur . ' ' . number_format((float)($shipment['total_amount'] ?? 0), 2), 1, 1, 'R');
+    $pdf->Ln(4);
+    $pdf->SetFont('Arial', '', 10);
+    $pdf->Cell(0, 6, 'Payment Method: ' . ($shipment['payment_method'] ?? '—'), 0, 1);
+    $pdf->Cell(0, 6, 'Transaction ID: ' . ($shipment['transaction_id'] ?? '—'), 0, 1);
+    $pdf->Cell(0, 6, 'Payment Status: ' . ($shipment['payment_status'] ?? '—'), 0, 1);
+    $pdf->Output('invoice_' . $tn . '.pdf', 'D');
+    exit;
+}
+
+require_once __DIR__ . '/includes/header.php';
 
 $msg = ''; $msgType = '';
 
@@ -47,34 +100,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['act'] ?? '') === 'refund')
     }
 }
 
-// Invoice PDF.
-if (isset($_GET['invoice']) && $_GET['invoice'] === '1') {
-    if (file_exists(__DIR__ . '/../lib/TCPDF-main/tcpdf.php')) {
-        require_once __DIR__ . '/../lib/TCPDF-main/tcpdf.php';
-        $pdf = new TCPDF('P','mm','A4',true,'UTF-8');
-        $pdf->AddPage(); $pdf->SetFont('helvetica','',10);
-        $cur = $shipment['currency'] ?? 'USD';
-        $line = fn($l,$v) => "<tr><td>$l</td><td align='right'>$v</td></tr>";
-        $html = '<h2>Invoice</h2>
-            <p>Tracking: <b>'.$shipment['tracking_number'].'</b><br>
-            Invoice #: '.htmlspecialchars($shipment['invoice_number'] ?? '—').'<br>
-            Date: '.date('Y-m-d').'</p>
-            <table border="1" cellpadding="4">
-            '.$line('Shipping Cost', number_format($shipment['shipping_cost'] ?? 0,2)).'
-            '.$line('Additional Charges', number_format($shipment['additional_charges'] ?? 0,2)).'
-            '.$line('Insurance', number_format($shipment['insurance_amount'] ?? 0,2)).'
-            '.$line('Discount', '-'.number_format($shipment['discount'] ?? 0,2)).'
-            '.$line('Tax', number_format($shipment['tax'] ?? 0,2)).'
-            '.$line('Total', '<b>'.number_format($shipment['total_amount'] ?? 0,2).' '.$cur.'</b>').'
-            </table>
-            <p>Payment Method: '.htmlspecialchars($shipment['payment_method'] ?? '—').'<br>
-            Transaction ID: '.htmlspecialchars($shipment['transaction_id'] ?? '—').'<br>
-            Payment Status: '.htmlspecialchars($shipment['payment_status'] ?? '—').'</p>';
-        $pdf->writeHTML($html);
-        $pdf->Output('invoice_'.$shipment['tracking_number'].'.pdf','D');
-        exit;
-    }
-}
 
 $stmt = $db->prepare("SELECT * FROM refunds WHERE shipment_id=:id ORDER BY created_at DESC, id DESC");
 $stmt->execute([':id' => $id]);

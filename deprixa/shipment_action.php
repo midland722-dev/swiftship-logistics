@@ -11,6 +11,24 @@ require_once __DIR__ . '/includes/shipment_helpers.php';
 require_once __DIR__ . '/../includes/tracking.php';
 require_once __DIR__ . '/includes/permissions.php';
 
+/**
+ * Only allow relative, same-origin redirects. Rejects absolute URLs,
+ * scheme-based URLs (http:, javascript:, etc.) and protocol-relative (//)
+ * URLs to prevent open-redirect phishing via the `redirect` POST param.
+ */
+function isSafeInternalRedirect(string $url): bool {
+    if ($url === '') {
+        return false;
+    }
+    if (preg_match('#^[a-z][a-z0-9+.\-]*:#i', $url)) {
+        return false; // has a URI scheme
+    }
+    if (str_starts_with($url, '//')) {
+        return false; // protocol-relative
+    }
+    return true;
+}
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -19,7 +37,9 @@ $db = getDB();
 ensureShipmentStatusEnum($db);
 ensureTrackingHistory($db);
 
-$redirect = $_POST['redirect'] ?? ('shipment_details.php?id=' . intval($_POST['id'] ?? 0));
+$redirect = isSafeInternalRedirect($_POST['redirect'] ?? '')
+    ? $_POST['redirect']
+    : ('shipment_details.php?id=' . intval($_POST['id'] ?? 0));
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: shipments.php'); exit;

@@ -698,30 +698,41 @@ if ($export === 'excel' || $export === 'pdf') {
         fclose($out);
         exit;
     }
-    if (file_exists(__DIR__ . '/../lib/TCPDF-main/tcpdf.php') && class_exists('\Com\Tecnick\Pdf\Tcpdf')) {
-        require_once __DIR__ . '/../lib/TCPDF-main/tcpdf.php';
-        try {
-            $pdf = new TCPDF('L', 'mm', 'A4', true, 'UTF-8');
-            $pdf->SetAutoPageBreak(true, 12);
-            $pdf->AddPage();
-            $pdf->SetFont('helvetica', 'B', 14);
-            $pdf->Cell(0, 8, 'Tracking History' . ($id ? ' - #' . $id : ''), 0, 1);
-            $pdf->SetFont('helvetica', '', 9);
-            $html = '<table border="1" cellpadding="3"><tr><th>Date/Time</th><th>Status</th><th>Location</th><th>Customs Procedure</th><th>Remarks</th><th>Event Notes</th><th>By</th><th>Notified</th></tr>';
-            foreach ($erows as $r) {
-                $html .= '<tr><td>' . date('Y-m-d H:i', strtotime($r['occurred_at'])) . '</td><td>'
-                    . htmlspecialchars(statusLabel($r['status_code'])) . '</td><td>' . htmlspecialchars($r['location'] ?? '')
-                    . '</td><td>' . htmlspecialchars(canonicalStepLabel($r['customs_procedure'] ?? '')) . '</td><td>' . htmlspecialchars($r['remarks'] ?? '')
-                    . '</td><td>' . htmlspecialchars($r['event_notes'] ?? '') . '</td><td>' . htmlspecialchars($r['updated_by_name'] ?? '')
-                    . '</td><td>' . (!empty($r['notify']) ? 'Yes' : 'No') . '</td></tr>';
-            }
-            $html .= '</table>';
-            $pdf->writeHTML($html);
-            $pdf->Output('tracking_history_' . date('Ymd') . '.pdf', 'D');
-            exit;
-        } catch (Exception $e) {
-            error_log('TCPDF export failed: ' . $e->getMessage());
+    require_once __DIR__ . '/../deprixa/fpdf/fpdf.php';
+    try {
+        $pdf = new FPDF('L', 'mm', 'A4');
+        $pdf->SetAutoPageBreak(true, 12);
+        $pdf->AddPage();
+        $pdf->SetFont('Arial', 'B', 14);
+        $pdf->Cell(0, 8, 'Tracking History' . ($id ? ' - #' . $id : ''), 0, 1);
+        $headers = ['Date/Time', 'Status', 'Location', 'Customs Procedure', 'Remarks', 'Event Notes', 'By', 'Notified'];
+        $widths  = [32, 26, 40, 34, 48, 48, 28, 18];
+        $trunc = function (string $s, int $n): string {
+            $s = (string)$s;
+            return mb_strlen($s) > $n ? mb_substr($s, 0, $n - 1) . '…' : $s;
+        };
+        $pdf->SetFont('Arial', 'B', 8);
+        foreach ($headers as $i => $h) { $pdf->Cell($widths[$i], 7, $h, 1); }
+        $pdf->Ln();
+        $pdf->SetFont('Arial', '', 8);
+        foreach ($erows as $r) {
+            $cells = [
+                date('Y-m-d H:i', strtotime($r['occurred_at'])),
+                $trunc(statusLabel($r['status_code']), 18),
+                $trunc($r['location'] ?? '', 26),
+                $trunc(canonicalStepLabel($r['customs_procedure'] ?? ''), 22),
+                $trunc($r['remarks'] ?? '', 32),
+                $trunc($r['event_notes'] ?? '', 32),
+                $trunc($r['updated_by_name'] ?? '', 18),
+                !empty($r['notify']) ? 'Yes' : 'No',
+            ];
+            foreach ($cells as $i => $c) { $pdf->Cell($widths[$i], 7, $c, 1); }
+            $pdf->Ln();
         }
+        $pdf->Output('tracking_history_' . date('Ymd') . '.pdf', 'D');
+        exit;
+    } catch (Exception $e) {
+        error_log('Tracking history PDF export failed: ' . $e->getMessage());
     }
 }
 
