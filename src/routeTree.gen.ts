@@ -23,6 +23,7 @@ import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as QuoteRouteImport } from './routes/quote'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as StatusRouteImport } from './routes/status'
 import { Route as SustainabilityRouteImport } from './routes/sustainability'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as TrackRouteImport } from './routes/track'
@@ -99,6 +100,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
+const StatusRoute = StatusRouteImport.update({
+  id: '/status',
+  path: '/status',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SustainabilityRoute = SustainabilityRouteImport.update({
   id: '/sustainability',
   path: '/sustainability',
@@ -144,6 +150,7 @@ export interface FileRoutesByFullPath {
   '/quote': typeof QuoteRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/status': typeof StatusRoute
   '/sustainability': typeof SustainabilityRoute
   '/terms': typeof TermsRoute
   '/track': typeof TrackRoute
@@ -165,6 +172,7 @@ export interface FileRoutesByTo {
   '/quote': typeof QuoteRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/status': typeof StatusRoute
   '/sustainability': typeof SustainabilityRoute
   '/terms': typeof TermsRoute
   '/track': typeof TrackRoute
@@ -188,6 +196,7 @@ export interface FileRoutesById {
   '/quote': typeof QuoteRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/status': typeof StatusRoute
   '/sustainability': typeof SustainabilityRoute
   '/terms': typeof TermsRoute
   '/track': typeof TrackRoute
@@ -211,6 +220,7 @@ export interface FileRouteTypes {
     | '/quote'
     | '/services'
     | '/sitemap.xml'
+    | '/status'
     | '/sustainability'
     | '/terms'
     | '/track'
@@ -232,6 +242,7 @@ export interface FileRouteTypes {
     | '/quote'
     | '/services'
     | '/sitemap.xml'
+    | '/status'
     | '/sustainability'
     | '/terms'
     | '/track'
@@ -254,6 +265,7 @@ export interface FileRouteTypes {
     | '/quote'
     | '/services'
     | '/sitemap.xml'
+    | '/status'
     | '/sustainability'
     | '/terms'
     | '/track'
@@ -277,6 +289,7 @@ export interface RootRouteChildren {
   QuoteRoute: typeof QuoteRoute
   ServicesRoute: typeof ServicesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  StatusRoute: typeof StatusRoute
   SustainabilityRoute: typeof SustainabilityRoute
   TermsRoute: typeof TermsRoute
   TrackRoute: typeof TrackRoute
@@ -383,6 +396,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/status': {
+      id: '/status'
+      path: '/status'
+      fullPath: '/status'
+      preLoaderRoute: typeof StatusRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sustainability': {
       id: '/sustainability'
       path: '/sustainability'
@@ -456,6 +476,7 @@ const rootRouteChildren: RootRouteChildren = {
   QuoteRoute: QuoteRoute,
   ServicesRoute: ServicesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  StatusRoute: StatusRoute,
   SustainabilityRoute: SustainabilityRoute,
   TermsRoute: TermsRoute,
   TrackRoute: TrackRoute,
