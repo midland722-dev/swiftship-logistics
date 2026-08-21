@@ -15,7 +15,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader } from "../components/site-header";
 import { SiteFooter } from "../components/site-footer";
 import { WhatsAppFloat } from "../components/whatsapp-float";
-import { PanelStatusBanner } from "../components/panel-status-banner";
+
 import { AuthProvider } from "@/hooks/use-auth";
 
 function NotFoundComponent() {
@@ -165,7 +165,7 @@ function RootComponent() {
       <AuthProvider>
         <div className="flex min-h-screen flex-col">
           <SiteHeader />
-          <PanelStatusBanner />
+          
           <main className="flex-1">
             <Outlet />
           </main>
