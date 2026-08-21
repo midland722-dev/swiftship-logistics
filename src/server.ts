@@ -105,7 +105,7 @@ export default {
     try {
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
-      const normalized = await normalizeCatastrophicSsrResponse(response);
+      const normalized = await normalizeCatastrophicSsrResponse(response, request);
       logRequest(request, normalized.status, startedAt);
       return normalized;
     } catch (error) {
