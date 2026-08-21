@@ -7,6 +7,7 @@ export type PanelCheck = {
   status: number;
   location: string | null;
   error?: string;
+  attempts?: number;
   ms: number;
 };
 
