@@ -33,7 +33,10 @@ function isClientAbort(error: unknown): boolean {
 
 // h3 swallows in-handler throws into a normal 500 Response with body
 // {"unhandled":true,"message":"HTTPError"} — try/catch alone never fires for those.
-async function normalizeCatastrophicSsrResponse(response: Response): Promise<Response> {
+async function normalizeCatastrophicSsrResponse(
+  response: Response,
+  request: Request,
+): Promise<Response> {
   if (response.status < 500) return response;
   const contentType = response.headers.get("content-type") ?? "";
   if (!contentType.includes("application/json")) return response;
@@ -42,8 +45,8 @@ async function normalizeCatastrophicSsrResponse(response: Response): Promise<Res
   if (!isH3SwallowedErrorBody(body)) return response;
 
   const captured = consumeLastCapturedError();
-  if (isClientAbort(captured)) {
-    // Client went away; nothing to render for.
+  if (isClientAbort(captured) || request.signal?.aborted) {
+    // Client went away mid-render; nothing to render for.
     return new Response(null, { status: 499 });
   }
 
@@ -53,6 +56,7 @@ async function normalizeCatastrophicSsrResponse(response: Response): Promise<Res
     headers: { "content-type": "text/html; charset=utf-8" },
   });
 }
+
 
 function isH3SwallowedErrorBody(body: string): boolean {
   try {
@@ -101,7 +105,7 @@ export default {
     try {
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
-      const normalized = await normalizeCatastrophicSsrResponse(response);
+      const normalized = await normalizeCatastrophicSsrResponse(response, request);
       logRequest(request, normalized.status, startedAt);
       return normalized;
     } catch (error) {
