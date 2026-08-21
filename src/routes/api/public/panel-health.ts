@@ -12,34 +12,67 @@ const CHECKS: { path: string; label: string }[] = [
   { path: "/php/api/tracking.php", label: "Legacy tracking API" },
 ];
 
+// Transient Railway/proxy failures (502/503/504/522/524) and network errors are
+// retried with exponential backoff + jitter before a check is marked down.
+const MAX_ATTEMPTS = 3;
+const BASE_DELAY_MS = 400;
+const TRANSIENT_STATUSES = new Set([408, 425, 429, 500, 502, 503, 504, 520, 521, 522, 523, 524]);
+
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+function backoffDelay(attempt: number) {
+  const exponential = BASE_DELAY_MS * 2 ** (attempt - 1);
+  return Math.round(exponential + Math.random() * BASE_DELAY_MS);
+}
+
 async function probe(path: string, label: string) {
   const startedAt = Date.now();
-  try {
-    const res = await fetch(`${PANEL_ORIGIN}${path}`, {
-      method: "GET",
-      redirect: "manual",
-      headers: { "user-agent": "ascl-panel-healthcheck" },
-      signal: AbortSignal.timeout(8000),
-    });
-    return {
-      path,
-      label,
-      ok: res.status < 500,
-      status: res.status,
-      location: res.headers.get("location"),
-      ms: Date.now() - startedAt,
-    };
-  } catch (error) {
-    return {
-      path,
-      label,
-      ok: false,
-      status: 0,
-      location: null,
-      error: error instanceof Error ? error.message : String(error),
-      ms: Date.now() - startedAt,
-    };
+  let lastError: string | undefined;
+  let lastStatus = 0;
+  let lastLocation: string | null = null;
+
+  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+    try {
+      const res = await fetch(`${PANEL_ORIGIN}${path}`, {
+        method: "GET",
+        redirect: "manual",
+        headers: { "user-agent": "ascl-panel-healthcheck" },
+        signal: AbortSignal.timeout(8000),
+      });
+      lastStatus = res.status;
+      lastLocation = res.headers.get("location");
+      lastError = undefined;
+
+      const transient = TRANSIENT_STATUSES.has(res.status);
+      if (!transient) {
+        return {
+          path,
+          label,
+          ok: res.status < 500,
+          status: res.status,
+          location: lastLocation,
+          attempts: attempt,
+          ms: Date.now() - startedAt,
+        };
+      }
+    } catch (error) {
+      lastStatus = 0;
+      lastError = error instanceof Error ? error.message : String(error);
+    }
+
+    if (attempt < MAX_ATTEMPTS) await sleep(backoffDelay(attempt));
   }
+
+  return {
+    path,
+    label,
+    ok: lastStatus > 0 && lastStatus < 500,
+    status: lastStatus,
+    location: lastLocation,
+    ...(lastError ? { error: lastError } : {}),
+    attempts: MAX_ATTEMPTS,
+    ms: Date.now() - startedAt,
+  };
 }
 
 export const Route = createFileRoute("/api/public/panel-health")({
