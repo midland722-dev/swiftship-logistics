@@ -4,10 +4,11 @@
 $uri  = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';
 $path = __DIR__ . $uri;
 
-if ($uri === '/healthz') {
+if ($uri === '/healthz' || $uri === '/healthz/') {
+    http_response_code(200);
     header('Content-Type: text/plain');
     echo 'ok';
-    return true;
+    exit;
 }
 
 if ($uri !== '/' && file_exists($path) && !is_dir($path)) {

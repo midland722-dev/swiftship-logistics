@@ -18,4 +18,4 @@ ENV PORT=8080
 EXPOSE 8080
 
 # Must bind to Railway's injected $PORT, otherwise the proxy returns 502.
-CMD ["sh", "-c", "php -S 0.0.0.0:${PORT:-8080} -t /app /app/router.php"]
+CMD ["sh", "-c", "exec php -S 0.0.0.0:${PORT:-8080} -t /app /app/router.php"]
